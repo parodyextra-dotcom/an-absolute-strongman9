@@ -1,0 +1,2650 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>절대강자 메모장</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+
+        .header-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 28px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover .icon-box {
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+        }
+
+        /* 일반 메모 - 보라색 */
+        .memo-general {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* 할일 목록 - 핑크 */
+        .todo-list {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        /* 일정 관리 - 시안 */
+        .schedule {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        /* 여행 관리 - 오렌지/코랄 */
+        .travel {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        /* 맛집 관리 - 노랑/골드 */
+        .restaurant {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+        }
+
+        /* 아이디어 노트 - 민트 */
+        .idea {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        /* 쇼핑 리스트 - 퍼플 */
+        .shopping {
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+        }
+
+        /* 목표 관리 - 그린 */
+        .goal {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        /* 독서 기록 - 인디고 */
+        .reading {
+            background: linear-gradient(135deg, #667db6 0%, #0082c8 50%, #667db6 100%);
+        }
+
+        /* 운동 기록 - 레드/오렌지 */
+        .exercise {
+            background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%);
+        }
+
+        /* 가계부 - 블루 */
+        .finance {
+            background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
+        }
+
+        /* 일기장 - 소프트 핑크 */
+        .diary {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .grid-item span {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-header h2 i {
+            font-size: 24px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            padding: 5px;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 20px;
+            max-height: calc(90vh - 140px);
+            overflow-y: auto;
+        }
+
+        .add-form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .item-list {
+            margin-top: 20px;
+        }
+
+        .item-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .item-card:hover {
+            background: #f0f1f3;
+        }
+
+        .item-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            padding-right: 60px;
+        }
+
+        .item-card p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+
+        .item-card .meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .item-card .tag {
+            background: #e0e0e0;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #555;
+        }
+
+        .item-card .date-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .item-card .rating {
+            color: #ffc107;
+        }
+
+        .item-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .item-actions button {
+            background: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .item-actions .edit-btn {
+            color: #667eea;
+        }
+
+        .item-actions .delete-btn {
+            color: #ff5f6d;
+        }
+
+        .item-actions button:hover {
+            transform: scale(1.1);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* Travel specific styles */
+        .travel-header .modal-header {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        .travel-header .modal-close {
+            color: white;
+        }
+
+        .travel-header .add-btn {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        /* Restaurant specific styles */
+        .restaurant-header .modal-header {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            color: white;
+        }
+
+        .restaurant-header .modal-close {
+            color: white;
+        }
+
+        .restaurant-header .add-btn {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+        }
+
+        /* Star rating input */
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            cursor: pointer;
+            font-size: 24px;
+            color: #ddd;
+            transition: color 0.2s;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #ffc107;
+        }
+
+        /* Responsive */
+        @media (max-width: 400px) {
+            .grid-container {
+                gap: 15px;
+            }
+
+            .icon-box {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+            }
+
+            .grid-item span {
+                font-size: 12px;
+            }
+        }
+
+        /* Image preview */
+        .image-preview {
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .item-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* ========== 일반 메모 전체화면 모달 스타일 ========== */
+        .memo-fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            z-index: 2000;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .memo-fullscreen-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .memo-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .memo-modal-header h2 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .memo-modal-header h2 i {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .memo-back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .memo-back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .memo-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            padding-bottom: 100px;
+        }
+
+        /* 날짜 그룹 헤더 */
+        .date-group {
+            margin-bottom: 24px;
+        }
+
+        .date-group-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .date-group-header .date-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .date-group-header .date-info {
+            flex: 1;
+        }
+
+        .date-group-header .date-text {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .date-group-header .date-count {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        /* 메모 카드 리스트 아이템 */
+        .memo-list-item {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memo-list-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .memo-list-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(4px);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .memo-list-item:hover::before {
+            opacity: 1;
+        }
+
+        .memo-list-item:active {
+            transform: translateX(4px) scale(0.98);
+        }
+
+        .memo-list-item h4 {
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .memo-list-item .memo-preview {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .memo-list-item .memo-time {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 플로팅 추가 버튼 */
+        .memo-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+            transition: all 0.3s ease;
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .memo-fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .memo-fab:active {
+            transform: scale(1.05) rotate(90deg);
+        }
+
+        /* 빈 상태 */
+        .memo-empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        .memo-empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .memo-empty-state p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* 상세보기 모달 */
+        .memo-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            z-index: 2002;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .memo-detail-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .memo-detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .memo-detail-header .left-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .memo-detail-header .right-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .memo-detail-header button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .memo-detail-header button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .memo-detail-header .delete-action {
+            color: #ff6b6b;
+        }
+
+        .memo-detail-header .delete-action:hover {
+            background: rgba(255, 107, 107, 0.2);
+        }
+
+        .memo-detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px 24px;
+        }
+
+        .memo-detail-content .memo-date {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .memo-detail-content h3 {
+            color: #fff;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .memo-detail-content .memo-body {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 16px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        /* 메모 추가/수정 모달 */
+        .memo-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            z-index: 2003;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .memo-form-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .memo-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .memo-form-header h2 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .memo-form-header .header-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .memo-cancel-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .memo-cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .memo-save-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .memo-save-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .memo-form-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .memo-form-body .form-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 16px 18px;
+            color: #fff;
+            font-size: 18px;
+            font-family: inherit;
+            font-weight: 600;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+
+        .memo-form-body .form-input:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.5);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .memo-form-body .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .memo-form-body .form-textarea {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 18px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            line-height: 1.7;
+            resize: none;
+            transition: all 0.2s;
+        }
+
+        .memo-form-body .form-textarea:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.5);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .memo-form-body .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* 메모 이미지 업로드 스타일 */
+        .memo-image-upload-section {
+            margin-top: 16px;
+        }
+
+        .memo-image-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 14px;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .memo-image-upload-label:hover {
+            border-color: rgba(102, 126, 234, 0.5);
+            background: rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .memo-image-upload-label i {
+            font-size: 24px;
+        }
+
+        .memo-image-upload-label span {
+            font-size: 14px;
+        }
+
+        .memo-image-preview-container {
+            margin-top: 12px;
+            display: none;
+            position: relative;
+        }
+
+        .memo-image-preview-container.active {
+            display: block;
+        }
+
+        .memo-image-preview {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .memo-image-remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .memo-image-remove-btn:hover {
+            background: rgba(255, 107, 107, 0.8);
+            transform: scale(1.1);
+        }
+
+        /* 메모 리스트 아이템의 이미지 썸네일 */
+        .memo-list-item-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        /* 메모 상세보기 이미지 */
+        .memo-detail-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .memo-detail-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* 이미지 전체화면 보기 */
+        .image-fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .image-fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .image-fullscreen-overlay img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+        }
+
+        .image-fullscreen-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .image-fullscreen-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ========== 카테고리 추가 버튼 스타일 ========== */
+        .add-category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .add-category-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .add-category-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 32px;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.15);
+            border: 3px dashed rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .add-category-item:hover .add-category-box {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            color: white;
+        }
+
+        .add-category-item span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* ========== 카테고리 추가 모달 스타일 ========== */
+        .category-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .category-modal-overlay.active {
+            display: flex;
+        }
+
+        .category-modal {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 85vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .category-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .category-modal-header h2 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .category-modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .category-modal-body {
+            padding: 24px;
+            max-height: calc(85vh - 80px);
+            overflow-y: auto;
+        }
+
+        .category-form-group {
+            margin-bottom: 20px;
+        }
+
+        .category-form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .category-form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .category-form-group input:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.6);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .category-form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* 아이콘 선택 그리드 */
+        .icon-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .icon-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 22px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .icon-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        .icon-option.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* 색상 선택 그리드 */
+        .color-selector-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .color-option {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 14px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .color-option:hover {
+            transform: scale(1.05);
+        }
+
+        .color-option.selected {
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .color-option.selected::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 18px;
+        }
+
+        /* 미리보기 */
+        .category-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+
+        .category-preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .category-preview-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            margin-bottom: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-preview-name {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .category-add-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .category-add-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 커스텀 카테고리 삭제 버튼 */
+        .custom-category-wrapper {
+            position: relative;
+        }
+
+        .custom-category-delete {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: #ff5f6d;
+            border: 2px solid white;
+            border-radius: 50%;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.2s;
+        }
+
+        .custom-category-wrapper:hover .custom-category-delete {
+            display: flex;
+        }
+
+        .custom-category-delete:hover {
+            transform: scale(1.1);
+            background: #ff4757;
+        }
+
+        /* 커스텀 카테고리 색상 클래스 */
+        .custom-gradient-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .custom-gradient-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .custom-gradient-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .custom-gradient-4 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .custom-gradient-5 { background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%); }
+        .custom-gradient-6 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .custom-gradient-7 { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .custom-gradient-8 { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .custom-gradient-9 { background: linear-gradient(135deg, #667db6 0%, #0082c8 100%); }
+        .custom-gradient-10 { background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%); }
+
+        /* 스크롤바 스타일 */
+        .memo-list-container::-webkit-scrollbar,
+        .memo-detail-content::-webkit-scrollbar,
+        .memo-form-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .memo-list-container::-webkit-scrollbar-track,
+        .memo-detail-content::-webkit-scrollbar-track,
+        .memo-form-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .memo-list-container::-webkit-scrollbar-thumb,
+        .memo-detail-content::-webkit-scrollbar-thumb,
+        .memo-form-body::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .memo-list-container::-webkit-scrollbar-thumb:hover,
+        .memo-detail-content::-webkit-scrollbar-thumb:hover,
+        .memo-form-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h1>절대강자 메모장</h1>
+            <p>모든 기록을 한 곳에서 간편하게</p>
+        </header>
+
+        <div class="grid-container">
+            <div class="grid-item" onclick="openModal('memo')">
+                <div class="icon-box memo-general">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <span>일반<br>메모</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('todo')">
+                <div class="icon-box todo-list">
+                    <i class="fas fa-check-square"></i>
+                </div>
+                <span>할일<br>목록</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('schedule')">
+                <div class="icon-box schedule">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <span>일정<br>관리</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('travel')">
+                <div class="icon-box travel">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <span>여행<br>관리</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('restaurant')">
+                <div class="icon-box restaurant">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <span>맛집<br>관리</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('idea')">
+                <div class="icon-box idea">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <span>아이디어<br>노트</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('shopping')">
+                <div class="icon-box shopping">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <span>쇼핑<br>리스트</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('goal')">
+                <div class="icon-box goal">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <span>목표<br>관리</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('reading')">
+                <div class="icon-box reading">
+                    <i class="fas fa-book"></i>
+                </div>
+                <span>독서<br>기록</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('exercise')">
+                <div class="icon-box exercise">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <span>운동<br>기록</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('finance')">
+                <div class="icon-box finance">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <span>가계부</span>
+            </div>
+
+            <div class="grid-item" onclick="openModal('diary')">
+                <div class="icon-box diary">
+                    <i class="fas fa-feather-alt"></i>
+                </div>
+                <span>일기장</span>
+            </div>
+
+            <!-- 커스텀 카테고리가 여기에 추가됨 -->
+            <div id="customCategoriesContainer"></div>
+
+            <!-- 카테고리 추가 버튼 -->
+            <div class="add-category-item" onclick="openCategoryModal()">
+                <div class="add-category-box">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <span>카테고리<br>추가</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카테고리 추가 모달 -->
+    <div class="category-modal-overlay" id="categoryModal">
+        <div class="category-modal">
+            <div class="category-modal-header">
+                <h2>카테고리 추가</h2>
+                <button class="category-modal-close" onclick="closeCategoryModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="category-modal-body">
+                <!-- 미리보기 -->
+                <div class="category-preview">
+                    <div class="category-preview-box">
+                        <div class="category-preview-icon custom-gradient-1" id="categoryPreviewIcon">
+                            <i class="fas fa-star" id="categoryPreviewIconEl"></i>
+                        </div>
+                        <div class="category-preview-name" id="categoryPreviewName">새 카테고리</div>
+                    </div>
+                </div>
+
+                <!-- 카테고리 이름 -->
+                <div class="category-form-group">
+                    <label><i class="fas fa-pencil-alt"></i> 카테고리 이름</label>
+                    <input type="text" id="categoryNameInput" placeholder="카테고리 이름을 입력하세요" maxlength="10" oninput="updateCategoryPreview()">
+                </div>
+
+                <!-- 아이콘 선택 -->
+                <div class="category-form-group">
+                    <label><i class="fas fa-icons"></i> 아이콘 선택</label>
+                    <div class="icon-selector-grid" id="iconSelectorGrid">
+                        <!-- 아이콘들이 여기에 동적으로 추가됨 -->
+                    </div>
+                </div>
+
+                <!-- 색상 선택 -->
+                <div class="category-form-group">
+                    <label><i class="fas fa-palette"></i> 색상 선택</label>
+                    <div class="color-selector-grid" id="colorSelectorGrid">
+                        <!-- 색상들이 여기에 동적으로 추가됨 -->
+                    </div>
+                </div>
+
+                <!-- 추가 버튼 -->
+                <button class="category-add-btn" onclick="addCustomCategory()" id="categoryAddBtn">
+                    <i class="fas fa-plus"></i> 카테고리 추가하기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 여행 관리 모달 -->
+    <div class="modal-overlay" id="travelModal">
+        <div class="modal travel-header">
+            <div class="modal-header">
+                <h2><i class="fas fa-plane"></i> 여행 관리</h2>
+                <button class="modal-close" onclick="closeModal('travelModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="add-form" id="travelForm" onsubmit="addTravel(event)">
+                    <div class="form-group">
+                        <label>여행지</label>
+                        <input type="text" id="travelDestination" placeholder="여행지를 입력하세요" required>
+                    </div>
+                    <div class="form-group">
+                        <label>여행 기간</label>
+                        <input type="text" id="travelPeriod" placeholder="예: 2026.02.10 ~ 2026.02.15">
+                    </div>
+                    <div class="form-group">
+                        <label>예산</label>
+                        <input type="text" id="travelBudget" placeholder="예: 500,000원">
+                    </div>
+                    <div class="form-group">
+                        <label>메모</label>
+                        <textarea id="travelMemo" placeholder="여행 계획이나 메모를 적어주세요"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>상태</label>
+                        <select id="travelStatus">
+                            <option value="계획중">계획중</option>
+                            <option value="예약완료">예약완료</option>
+                            <option value="여행중">여행중</option>
+                            <option value="완료">완료</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="add-btn">여행 추가하기</button>
+                </form>
+                <div class="item-list" id="travelList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 맛집 관리 모달 -->
+    <div class="modal-overlay" id="restaurantModal">
+        <div class="modal restaurant-header">
+            <div class="modal-header">
+                <h2><i class="fas fa-utensils"></i> 맛집 관리</h2>
+                <button class="modal-close" onclick="closeModal('restaurantModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="add-form" id="restaurantForm" onsubmit="addRestaurant(event)">
+                    <div class="form-group">
+                        <label>맛집 이름</label>
+                        <input type="text" id="restaurantName" placeholder="맛집 이름을 입력하세요" required>
+                    </div>
+                    <div class="form-group">
+                        <label>위치</label>
+                        <input type="text" id="restaurantLocation" placeholder="주소 또는 위치를 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label>카테고리</label>
+                        <select id="restaurantCategory">
+                            <option value="한식">한식</option>
+                            <option value="중식">중식</option>
+                            <option value="일식">일식</option>
+                            <option value="양식">양식</option>
+                            <option value="분식">분식</option>
+                            <option value="카페">카페</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>평점</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star3" name="rating" value="3" checked>
+                            <label for="star3"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>추천 메뉴</label>
+                        <input type="text" id="restaurantMenu" placeholder="추천 메뉴를 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label>메모</label>
+                        <textarea id="restaurantMemo" placeholder="맛집에 대한 메모를 적어주세요"></textarea>
+                    </div>
+                    <button type="submit" class="add-btn">맛집 추가하기</button>
+                </form>
+                <div class="item-list" id="restaurantList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 일반 메모 전체화면 리스트 모달 -->
+    <div class="memo-fullscreen-modal" id="memoFullscreenModal">
+        <div class="memo-modal-header">
+            <h2><i class="fas fa-sticky-note"></i> 일반 메모</h2>
+            <button class="memo-back-btn" onclick="closeMemoFullscreen()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="memo-list-container" id="memoListContainer">
+            <!-- 날짜별 그룹화된 메모 리스트가 여기에 렌더링됨 -->
+        </div>
+        <button class="memo-fab" onclick="openMemoForm()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- 메모 상세보기 모달 -->
+    <div class="memo-detail-modal" id="memoDetailModal">
+        <div class="memo-detail-header">
+            <div class="left-actions">
+                <button onclick="closeMemoDetail()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="right-actions">
+                <button onclick="editCurrentMemo()">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-action" onclick="deleteCurrentMemo()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="memo-detail-content">
+            <div class="memo-date" id="memoDetailDate">
+                <i class="fas fa-clock"></i>
+                <span></span>
+            </div>
+            <h3 id="memoDetailTitle"></h3>
+            <div class="memo-body" id="memoDetailBody"></div>
+        </div>
+    </div>
+
+    <!-- 메모 추가/수정 폼 모달 -->
+    <div class="memo-form-modal" id="memoFormModal">
+        <div class="memo-form-header">
+            <h2 id="memoFormTitle">새 메모</h2>
+            <div class="header-btns">
+                <button class="memo-cancel-btn" onclick="closeMemoForm()">취소</button>
+                <button class="memo-save-btn" onclick="saveMemoForm()">저장</button>
+            </div>
+        </div>
+        <div class="memo-form-body">
+            <input type="text" class="form-input" id="memoFormTitleInput" placeholder="제목을 입력하세요">
+            <textarea class="form-textarea" id="memoFormContentInput" placeholder="내용을 입력하세요..."></textarea>
+            <div class="memo-image-upload-section">
+                <input type="file" id="memoImageInput" accept="image/*" style="display: none;" onchange="handleMemoImageSelect(event)">
+                <label for="memoImageInput" class="memo-image-upload-label">
+                    <i class="fas fa-camera"></i>
+                    <span>사진 추가하기</span>
+                </label>
+                <div class="memo-image-preview-container" id="memoImagePreviewContainer">
+                    <img src="" alt="미리보기" class="memo-image-preview" id="memoImagePreview">
+                    <button type="button" class="memo-image-remove-btn" onclick="removeMemoImage()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 알림 메시지용 토스트 -->
+    <div id="toast" style="display:none; position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:12px 24px; border-radius:25px; z-index:2000; font-size:14px;"></div>
+
+    <!-- 이미지 전체화면 보기 오버레이 -->
+    <div class="image-fullscreen-overlay" id="imageFullscreenOverlay" onclick="closeImageFullscreen()">
+        <button class="image-fullscreen-close" onclick="closeImageFullscreen()">
+            <i class="fas fa-times"></i>
+        </button>
+        <img src="" alt="전체화면" id="imageFullscreenImg">
+    </div>
+
+    <script>
+        // 데이터 저장소
+        let data = {
+            travels: JSON.parse(localStorage.getItem('travels')) || [],
+            restaurants: JSON.parse(localStorage.getItem('restaurants')) || [],
+            memos: JSON.parse(localStorage.getItem('memos')) || [],
+            customCategories: JSON.parse(localStorage.getItem('customCategories')) || [],
+            customCategoryMemos: JSON.parse(localStorage.getItem('customCategoryMemos')) || {}
+        };
+
+        // 현재 보고 있는 메모 ID
+        let currentMemoId = null;
+        let isEditMode = false;
+        let currentMemoImage = null; // 현재 선택된 이미지 (Base64)
+
+        // 카테고리 관련 변수
+        let selectedIcon = 'fa-star';
+        let selectedColor = 1;
+        let currentCustomCategoryId = null; // 현재 열려있는 커스텀 카테고리
+
+        // 아이콘 목록 (20개)
+        const availableIcons = [
+            'fa-star', 'fa-heart', 'fa-music', 'fa-camera', 'fa-film',
+            'fa-gamepad', 'fa-gift', 'fa-coffee', 'fa-car', 'fa-home',
+            'fa-briefcase', 'fa-graduation-cap', 'fa-paint-brush', 'fa-paw', 'fa-baby',
+            'fa-bicycle', 'fa-umbrella', 'fa-cloud', 'fa-gem', 'fa-crown'
+        ];
+
+        // 그라디언트 색상 목록 (10개)
+        const availableColors = [
+            { id: 1, gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
+            { id: 2, gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
+            { id: 3, gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
+            { id: 4, gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
+            { id: 5, gradient: 'linear-gradient(135deg, #f9d423 0%, #ff4e50 100%)' },
+            { id: 6, gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
+            { id: 7, gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)' },
+            { id: 8, gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' },
+            { id: 9, gradient: 'linear-gradient(135deg, #667db6 0%, #0082c8 100%)' },
+            { id: 10, gradient: 'linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%)' }
+        ];
+
+        // 모달 열기/닫기
+        function openModal(type) {
+            const modalMap = {
+                'travel': 'travelModal',
+                'restaurant': 'restaurantModal'
+            };
+            
+            // 일반 메모는 새로운 전체화면 모달로
+            if (type === 'memo') {
+                openMemoFullscreen();
+                return;
+            }
+            
+            const modalId = modalMap[type];
+            if (modalId) {
+                document.getElementById(modalId).classList.add('active');
+                renderList(type);
+            } else {
+                showToast('준비 중인 기능입니다!');
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // ========== 일반 메모 전체화면 관련 함수들 ==========
+
+        // 전체화면 메모 리스트 열기
+        function openMemoFullscreen() {
+            // 일반 메모 모드로 초기화
+            currentCustomCategoryId = null;
+            const modalHeader = document.querySelector('#memoFullscreenModal .memo-modal-header h2');
+            modalHeader.innerHTML = `<i class="fas fa-sticky-note"></i> 일반 메모`;
+            
+            document.getElementById('memoFullscreenModal').classList.add('active');
+            renderMemoListByDate();
+        }
+
+        // 전체화면 메모 리스트 닫기
+        function closeMemoFullscreen() {
+            document.getElementById('memoFullscreenModal').classList.remove('active');
+            currentCustomCategoryId = null;
+        }
+
+        // 메모 추가 폼 열기
+        function openMemoForm(memo = null) {
+            const modal = document.getElementById('memoFormModal');
+            const titleEl = document.getElementById('memoFormTitle');
+            const titleInput = document.getElementById('memoFormTitleInput');
+            const contentInput = document.getElementById('memoFormContentInput');
+            const imagePreviewContainer = document.getElementById('memoImagePreviewContainer');
+            const imagePreview = document.getElementById('memoImagePreview');
+
+            if (memo) {
+                // 수정 모드
+                isEditMode = true;
+                currentMemoId = memo.id;
+                titleEl.textContent = '메모 수정';
+                titleInput.value = memo.title;
+                contentInput.value = memo.content || '';
+                
+                // 기존 이미지가 있으면 표시
+                if (memo.image) {
+                    currentMemoImage = memo.image;
+                    imagePreview.src = memo.image;
+                    imagePreviewContainer.classList.add('active');
+                } else {
+                    currentMemoImage = null;
+                    imagePreviewContainer.classList.remove('active');
+                }
+            } else {
+                // 추가 모드
+                isEditMode = false;
+                currentMemoId = null;
+                titleEl.textContent = '새 메모';
+                titleInput.value = '';
+                contentInput.value = '';
+                currentMemoImage = null;
+                imagePreviewContainer.classList.remove('active');
+            }
+
+            // 파일 input 초기화
+            document.getElementById('memoImageInput').value = '';
+
+            modal.classList.add('active');
+            titleInput.focus();
+        }
+
+        // 이미지 선택 핸들러
+        function handleMemoImageSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // 파일 크기 체크 (5MB 제한)
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast('이미지 크기는 5MB 이하로 선택해주세요.');
+                    event.target.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // 이미지 리사이징 (너무 크면 성능 이슈)
+                    resizeImage(e.target.result, 800, 800, function(resizedImage) {
+                        currentMemoImage = resizedImage;
+                        document.getElementById('memoImagePreview').src = resizedImage;
+                        document.getElementById('memoImagePreviewContainer').classList.add('active');
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 이미지 리사이징 함수
+        function resizeImage(dataUrl, maxWidth, maxHeight, callback) {
+            const img = new Image();
+            img.onload = function() {
+                let width = img.width;
+                let height = img.height;
+
+                if (width > maxWidth || height > maxHeight) {
+                    const ratio = Math.min(maxWidth / width, maxHeight / height);
+                    width = width * ratio;
+                    height = height * ratio;
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                callback(canvas.toDataURL('image/jpeg', 0.8));
+            };
+            img.src = dataUrl;
+        }
+
+        // 이미지 제거
+        function removeMemoImage() {
+            currentMemoImage = null;
+            document.getElementById('memoImagePreview').src = '';
+            document.getElementById('memoImagePreviewContainer').classList.remove('active');
+            document.getElementById('memoImageInput').value = '';
+        }
+
+        // 메모 폼 닫기
+        function closeMemoForm() {
+            document.getElementById('memoFormModal').classList.remove('active');
+            isEditMode = false;
+            currentMemoId = null;
+            currentMemoImage = null;
+            document.getElementById('memoImagePreviewContainer').classList.remove('active');
+        }
+
+        // 메모 저장
+        function saveMemoForm() {
+            const title = document.getElementById('memoFormTitleInput').value.trim();
+            const content = document.getElementById('memoFormContentInput').value.trim();
+
+            if (!title) {
+                showToast('제목을 입력해주세요');
+                return;
+            }
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ko-KR');
+            const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+
+            // 커스텀 카테고리 메모인지 확인
+            const isCustomCategory = currentCustomCategoryId !== null;
+            const targetMemos = isCustomCategory ? data.customCategoryMemos[currentCustomCategoryId] : data.memos;
+
+            if (isEditMode && currentMemoId) {
+                // 수정
+                const index = targetMemos.findIndex(m => m.id === currentMemoId);
+                if (index !== -1) {
+                    targetMemos[index].title = title;
+                    targetMemos[index].content = content;
+                    targetMemos[index].image = currentMemoImage;
+                    targetMemos[index].updatedAt = dateStr;
+                    targetMemos[index].updatedTime = timeStr;
+                    showToast('메모가 수정되었습니다!');
+                }
+            } else {
+                // 추가
+                const memo = {
+                    id: Date.now(),
+                    title: title,
+                    content: content,
+                    image: currentMemoImage,
+                    createdAt: dateStr,
+                    createdTime: timeStr
+                };
+                targetMemos.unshift(memo);
+                showToast('메모가 추가되었습니다!');
+            }
+
+            // 저장
+            if (isCustomCategory) {
+                localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+                renderCustomCategoryMemoList();
+            } else {
+                saveData('memos');
+                renderMemoListByDate();
+            }
+            
+            closeMemoForm();
+
+            // 상세보기가 열려있으면 갱신
+            if (document.getElementById('memoDetailModal').classList.contains('active') && currentMemoId) {
+                const memo = targetMemos.find(m => m.id === currentMemoId);
+                if (memo) showMemoDetail(memo);
+            }
+        }
+
+        // 메모 상세보기 열기
+        function showMemoDetail(memoRef) {
+            // memoRef가 id만 가지고 있으면 data에서 찾아옴
+            let memo;
+            if (typeof memoRef.title !== 'undefined') {
+                memo = memoRef;
+            } else {
+                // 커스텀 카테고리인지 확인
+                if (currentCustomCategoryId !== null) {
+                    memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === memoRef.id);
+                } else {
+                    memo = data.memos.find(m => m.id === memoRef.id);
+                }
+            }
+            if (!memo) return;
+            
+            currentMemoId = memo.id;
+            const dateText = memo.updatedAt 
+                ? `${memo.createdAt} 작성 · ${memo.updatedAt} 수정` 
+                : memo.createdAt + (memo.createdTime ? ` ${memo.createdTime}` : '');
+            
+            document.querySelector('#memoDetailDate span').textContent = dateText;
+            document.getElementById('memoDetailTitle').textContent = memo.title;
+            
+            // 이미지 표시
+            const detailContent = document.getElementById('memoDetailModal').querySelector('.memo-detail-content');
+            const existingImg = detailContent.querySelector('.memo-detail-image');
+            if (existingImg) {
+                existingImg.remove();
+            }
+            
+            if (memo.image) {
+                const imgEl = document.createElement('img');
+                imgEl.src = memo.image;
+                imgEl.alt = '메모 이미지';
+                imgEl.className = 'memo-detail-image';
+                imgEl.onclick = function() {
+                    openImageFullscreen(memo.image);
+                };
+                // 제목 앞에 삽입
+                const titleEl = document.getElementById('memoDetailTitle');
+                titleEl.parentNode.insertBefore(imgEl, titleEl);
+            }
+            
+            document.getElementById('memoDetailBody').textContent = memo.content || '(내용 없음)';
+            document.getElementById('memoDetailModal').classList.add('active');
+        }
+
+        // 이미지 전체화면 열기
+        function openImageFullscreen(imageSrc) {
+            document.getElementById('imageFullscreenImg').src = imageSrc;
+            document.getElementById('imageFullscreenOverlay').classList.add('active');
+        }
+
+        // 이미지 전체화면 닫기
+        function closeImageFullscreen() {
+            document.getElementById('imageFullscreenOverlay').classList.remove('active');
+        }
+
+        // 메모 상세보기 닫기
+        function closeMemoDetail() {
+            document.getElementById('memoDetailModal').classList.remove('active');
+            currentMemoId = null;
+        }
+
+        // 현재 메모 수정
+        function editCurrentMemo() {
+            if (!currentMemoId) return;
+            let memo;
+            if (currentCustomCategoryId !== null) {
+                memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === currentMemoId);
+            } else {
+                memo = data.memos.find(m => m.id === currentMemoId);
+            }
+            if (memo) {
+                closeMemoDetail();
+                openMemoForm(memo);
+            }
+        }
+
+        // 현재 메모 삭제
+        function deleteCurrentMemo() {
+            if (!currentMemoId) return;
+            if (confirm('정말 삭제하시겠습니까?')) {
+                if (currentCustomCategoryId !== null) {
+                    data.customCategoryMemos[currentCustomCategoryId] = (data.customCategoryMemos[currentCustomCategoryId] || []).filter(m => m.id !== currentMemoId);
+                    localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+                } else {
+                    data.memos = data.memos.filter(m => m.id !== currentMemoId);
+                    saveData('memos');
+                }
+                closeMemoDetail();
+                if (currentCustomCategoryId !== null) {
+                    renderCustomCategoryMemoList();
+                } else {
+                    renderMemoListByDate();
+                }
+                showToast('삭제되었습니다.');
+            }
+        }
+
+        // 날짜별로 그룹화하여 메모 리스트 렌더링
+        function renderMemoListByDate() {
+            const container = document.getElementById('memoListContainer');
+
+            if (data.memos.length === 0) {
+                container.innerHTML = `
+                    <div class="memo-empty-state">
+                        <i class="fas fa-sticky-note"></i>
+                        <p>아직 등록된 메모가 없습니다.<br>+ 버튼을 눌러 새 메모를 추가해보세요!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 날짜별 그룹화
+            const groupedMemos = {};
+            data.memos.forEach(memo => {
+                const date = memo.createdAt || '날짜 없음';
+                if (!groupedMemos[date]) {
+                    groupedMemos[date] = [];
+                }
+                groupedMemos[date].push(memo);
+            });
+
+            // 날짜 정렬 (최신순)
+            const sortedDates = Object.keys(groupedMemos).sort((a, b) => {
+                if (a === '날짜 없음') return 1;
+                if (b === '날짜 없음') return -1;
+                return new Date(b.replace(/\./g, '/')) - new Date(a.replace(/\./g, '/'));
+            });
+
+            let html = '';
+            sortedDates.forEach(date => {
+                const memos = groupedMemos[date];
+                const count = memos.length;
+                const isToday = date === new Date().toLocaleDateString('ko-KR');
+                const displayDate = isToday ? '오늘' : date;
+
+                html += `
+                    <div class="date-group">
+                        <div class="date-group-header">
+                            <div class="date-icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div class="date-info">
+                                <div class="date-text">${displayDate}</div>
+                                <div class="date-count">${count}개의 메모</div>
+                            </div>
+                        </div>
+                `;
+
+                memos.forEach(memo => {
+                    const preview = memo.content ? memo.content.substring(0, 100) : '(내용 없음)';
+                    const time = memo.createdTime || '';
+                    const hasImage = memo.image ? true : false;
+                    html += `
+                        <div class="memo-list-item" onclick="showMemoDetail(${JSON.stringify({id: memo.id}).replace(/"/g, '&quot;')})">
+                            ${hasImage ? `<img src="${memo.image}" alt="메모 이미지" class="memo-list-item-image">` : ''}
+                            <h4>${escapeHtml(memo.title)}</h4>
+                            <div class="memo-preview">${escapeHtml(preview)}</div>
+                            ${time ? `<div class="memo-time"><i class="fas fa-clock"></i> ${time}${hasImage ? ' · <i class="fas fa-image"></i>' : ''}</div>` : ''}
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+            });
+
+            container.innerHTML = html;
+        }
+
+        // HTML 이스케이프
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 모달 외부 클릭시 닫기
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // 토스트 메시지
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }
+
+        // 여행 추가
+        function addTravel(e) {
+            e.preventDefault();
+            const travel = {
+                id: Date.now(),
+                destination: document.getElementById('travelDestination').value,
+                period: document.getElementById('travelPeriod').value,
+                budget: document.getElementById('travelBudget').value,
+                memo: document.getElementById('travelMemo').value,
+                status: document.getElementById('travelStatus').value,
+                createdAt: new Date().toLocaleDateString('ko-KR')
+            };
+            
+            data.travels.unshift(travel);
+            saveData('travels');
+            renderList('travel');
+            document.getElementById('travelForm').reset();
+            showToast('여행이 추가되었습니다!');
+        }
+
+        // 맛집 추가
+        function addRestaurant(e) {
+            e.preventDefault();
+            const rating = document.querySelector('input[name="rating"]:checked')?.value || 3;
+            const restaurant = {
+                id: Date.now(),
+                name: document.getElementById('restaurantName').value,
+                location: document.getElementById('restaurantLocation').value,
+                category: document.getElementById('restaurantCategory').value,
+                rating: parseInt(rating),
+                menu: document.getElementById('restaurantMenu').value,
+                memo: document.getElementById('restaurantMemo').value,
+                createdAt: new Date().toLocaleDateString('ko-KR')
+            };
+            
+            data.restaurants.unshift(restaurant);
+            saveData('restaurants');
+            renderList('restaurant');
+            document.getElementById('restaurantForm').reset();
+            showToast('맛집이 추가되었습니다!');
+        }
+
+        // 메모 추가 (이전 호환성 유지 - 사용하지 않음)
+        function addMemo(e) {
+            e.preventDefault();
+        }
+
+        // 데이터 저장
+        function saveData(key) {
+            localStorage.setItem(key, JSON.stringify(data[key]));
+        }
+
+        // 삭제 함수들
+        function deleteTravel(id) {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                data.travels = data.travels.filter(item => item.id !== id);
+                saveData('travels');
+                renderList('travel');
+                showToast('삭제되었습니다.');
+            }
+        }
+
+        function deleteRestaurant(id) {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                data.restaurants = data.restaurants.filter(item => item.id !== id);
+                saveData('restaurants');
+                renderList('restaurant');
+                showToast('삭제되었습니다.');
+            }
+        }
+
+        function deleteMemo(id) {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                data.memos = data.memos.filter(item => item.id !== id);
+                saveData('memos');
+                renderMemoListByDate();
+                showToast('삭제되었습니다.');
+            }
+        }
+
+        // 별점 표시
+        function getStars(rating) {
+            return '<span class="rating">' + '★'.repeat(rating) + '☆'.repeat(5 - rating) + '</span>';
+        }
+
+        // 리스트 렌더링
+        function renderList(type) {
+            if (type === 'travel') {
+                const listEl = document.getElementById('travelList');
+                if (data.travels.length === 0) {
+                    listEl.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-plane"></i>
+                            <p>아직 등록된 여행이 없습니다.<br>새로운 여행을 추가해보세요!</p>
+                        </div>
+                    `;
+                } else {
+                    listEl.innerHTML = data.travels.map(travel => `
+                        <div class="item-card">
+                            <div class="item-actions">
+                                <button class="delete-btn" onclick="deleteTravel(${travel.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <h3><i class="fas fa-map-marker-alt" style="color: #fa709a;"></i> ${travel.destination}</h3>
+                            ${travel.period ? `<p><i class="fas fa-calendar"></i> ${travel.period}</p>` : ''}
+                            ${travel.budget ? `<p><i class="fas fa-wallet"></i> ${travel.budget}</p>` : ''}
+                            ${travel.memo ? `<p>${travel.memo}</p>` : ''}
+                            <div class="meta">
+                                <span class="tag date-tag">${travel.status}</span>
+                                <span class="tag">${travel.createdAt}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } else if (type === 'restaurant') {
+                const listEl = document.getElementById('restaurantList');
+                if (data.restaurants.length === 0) {
+                    listEl.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-utensils"></i>
+                            <p>아직 등록된 맛집이 없습니다.<br>좋아하는 맛집을 추가해보세요!</p>
+                        </div>
+                    `;
+                } else {
+                    listEl.innerHTML = data.restaurants.map(restaurant => `
+                        <div class="item-card">
+                            <div class="item-actions">
+                                <button class="delete-btn" onclick="deleteRestaurant(${restaurant.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <h3><i class="fas fa-store" style="color: #ff4e50;"></i> ${restaurant.name}</h3>
+                            ${restaurant.location ? `<p><i class="fas fa-map-marker-alt"></i> ${restaurant.location}</p>` : ''}
+                            <p>${getStars(restaurant.rating)}</p>
+                            ${restaurant.menu ? `<p><i class="fas fa-utensils"></i> 추천: ${restaurant.menu}</p>` : ''}
+                            ${restaurant.memo ? `<p>${restaurant.memo}</p>` : ''}
+                            <div class="meta">
+                                <span class="tag" style="background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%); color: white;">${restaurant.category}</span>
+                                <span class="tag">${restaurant.createdAt}</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } else if (type === 'memo') {
+                // 메모는 전체화면 모달에서 처리
+                renderMemoListByDate();
+            }
+        }
+
+        // ========== 카테고리 추가 관련 함수들 ==========
+
+        // 카테고리 모달 열기
+        function openCategoryModal() {
+            document.getElementById('categoryModal').classList.add('active');
+            renderIconSelector();
+            renderColorSelector();
+            resetCategoryForm();
+        }
+
+        // 카테고리 모달 닫기
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+        }
+
+        // 카테고리 폼 초기화
+        function resetCategoryForm() {
+            document.getElementById('categoryNameInput').value = '';
+            selectedIcon = 'fa-star';
+            selectedColor = 1;
+            updateCategoryPreview();
+            updateIconSelection();
+            updateColorSelection();
+        }
+
+        // 아이콘 선택기 렌더링
+        function renderIconSelector() {
+            const grid = document.getElementById('iconSelectorGrid');
+            grid.innerHTML = availableIcons.map(icon => `
+                <div class="icon-option ${icon === selectedIcon ? 'selected' : ''}" 
+                     onclick="selectIcon('${icon}')" data-icon="${icon}">
+                    <i class="fas ${icon}"></i>
+                </div>
+            `).join('');
+        }
+
+        // 색상 선택기 렌더링
+        function renderColorSelector() {
+            const grid = document.getElementById('colorSelectorGrid');
+            grid.innerHTML = availableColors.map(color => `
+                <div class="color-option ${color.id === selectedColor ? 'selected' : ''}" 
+                     style="background: ${color.gradient}" 
+                     onclick="selectColor(${color.id})" data-color="${color.id}">
+                </div>
+            `).join('');
+        }
+
+        // 아이콘 선택
+        function selectIcon(icon) {
+            selectedIcon = icon;
+            updateIconSelection();
+            updateCategoryPreview();
+        }
+
+        // 색상 선택
+        function selectColor(colorId) {
+            selectedColor = colorId;
+            updateColorSelection();
+            updateCategoryPreview();
+        }
+
+        // 아이콘 선택 상태 업데이트
+        function updateIconSelection() {
+            document.querySelectorAll('.icon-option').forEach(el => {
+                el.classList.toggle('selected', el.dataset.icon === selectedIcon);
+            });
+        }
+
+        // 색상 선택 상태 업데이트
+        function updateColorSelection() {
+            document.querySelectorAll('.color-option').forEach(el => {
+                el.classList.toggle('selected', parseInt(el.dataset.color) === selectedColor);
+            });
+        }
+
+        // 미리보기 업데이트
+        function updateCategoryPreview() {
+            const name = document.getElementById('categoryNameInput').value.trim() || '새 카테고리';
+            const previewIcon = document.getElementById('categoryPreviewIcon');
+            const previewIconEl = document.getElementById('categoryPreviewIconEl');
+            const previewName = document.getElementById('categoryPreviewName');
+
+            // 색상 클래스 업데이트
+            previewIcon.className = 'category-preview-icon custom-gradient-' + selectedColor;
+            
+            // 아이콘 업데이트
+            previewIconEl.className = 'fas ' + selectedIcon;
+            
+            // 이름 업데이트
+            previewName.textContent = name;
+        }
+
+        // 커스텀 카테고리 추가
+        function addCustomCategory() {
+            const name = document.getElementById('categoryNameInput').value.trim();
+            
+            if (!name) {
+                showToast('카테고리 이름을 입력해주세요');
+                return;
+            }
+
+            if (name.length > 10) {
+                showToast('이름은 10자 이하로 입력해주세요');
+                return;
+            }
+
+            const category = {
+                id: Date.now(),
+                name: name,
+                icon: selectedIcon,
+                colorId: selectedColor,
+                createdAt: new Date().toLocaleDateString('ko-KR')
+            };
+
+            data.customCategories.push(category);
+            data.customCategoryMemos[category.id] = [];
+            
+            localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
+            localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+
+            renderCustomCategories();
+            closeCategoryModal();
+            showToast(`'${name}' 카테고리가 추가되었습니다!`);
+        }
+
+        // 커스텀 카테고리 렌더링
+        function renderCustomCategories() {
+            const container = document.getElementById('customCategoriesContainer');
+            
+            if (data.customCategories.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = data.customCategories.map(cat => `
+                <div class="grid-item custom-category-wrapper" data-category-id="${cat.id}">
+                    <button class="custom-category-delete" onclick="event.stopPropagation(); deleteCustomCategory(${cat.id})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="icon-box custom-gradient-${cat.colorId}" onclick="openCustomCategoryMemos(${cat.id})">
+                        <i class="fas ${cat.icon}"></i>
+                    </div>
+                    <span onclick="openCustomCategoryMemos(${cat.id})">${escapeHtml(cat.name)}</span>
+                </div>
+            `).join('');
+        }
+
+        // 커스텀 카테고리 삭제
+        function deleteCustomCategory(id) {
+            const category = data.customCategories.find(c => c.id === id);
+            if (!category) return;
+
+            if (confirm(`'${category.name}' 카테고리를 삭제하시겠습니까?\n(해당 카테고리의 메모도 모두 삭제됩니다)`)) {
+                data.customCategories = data.customCategories.filter(c => c.id !== id);
+                delete data.customCategoryMemos[id];
+                
+                localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
+                localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+
+                renderCustomCategories();
+                showToast('카테고리가 삭제되었습니다.');
+            }
+        }
+
+        // 커스텀 카테고리 메모 열기
+        function openCustomCategoryMemos(categoryId) {
+            const category = data.customCategories.find(c => c.id === categoryId);
+            if (!category) return;
+
+            currentCustomCategoryId = categoryId;
+            
+            // 모달 헤더 업데이트
+            const modalHeader = document.querySelector('#memoFullscreenModal .memo-modal-header h2');
+            modalHeader.innerHTML = `<i class="fas ${category.icon}"></i> ${escapeHtml(category.name)}`;
+            
+            // 모달 열기
+            document.getElementById('memoFullscreenModal').classList.add('active');
+            
+            // 해당 카테고리 메모 렌더링
+            renderCustomCategoryMemoList();
+        }
+
+        // 커스텀 카테고리 메모 리스트 렌더링
+        function renderCustomCategoryMemoList() {
+            const container = document.getElementById('memoListContainer');
+            const memos = data.customCategoryMemos[currentCustomCategoryId] || [];
+
+            if (memos.length === 0) {
+                container.innerHTML = `
+                    <div class="memo-empty-state">
+                        <i class="fas fa-sticky-note"></i>
+                        <p>아직 등록된 메모가 없습니다.<br>+ 버튼을 눌러 새 메모를 추가해보세요!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 날짜별 그룹화
+            const groupedMemos = {};
+            memos.forEach(memo => {
+                const date = memo.createdAt || '날짜 없음';
+                if (!groupedMemos[date]) {
+                    groupedMemos[date] = [];
+                }
+                groupedMemos[date].push(memo);
+            });
+
+            // 날짜 정렬 (최신순)
+            const sortedDates = Object.keys(groupedMemos).sort((a, b) => {
+                if (a === '날짜 없음') return 1;
+                if (b === '날짜 없음') return -1;
+                return new Date(b.replace(/\./g, '/')) - new Date(a.replace(/\./g, '/'));
+            });
+
+            let html = '';
+            sortedDates.forEach(date => {
+                const memoList = groupedMemos[date];
+                const count = memoList.length;
+                const isToday = date === new Date().toLocaleDateString('ko-KR');
+                const displayDate = isToday ? '오늘' : date;
+
+                html += `
+                    <div class="date-group">
+                        <div class="date-group-header">
+                            <div class="date-icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div class="date-info">
+                                <div class="date-text">${displayDate}</div>
+                                <div class="date-count">${count}개의 메모</div>
+                            </div>
+                        </div>
+                `;
+
+                memoList.forEach(memo => {
+                    const preview = memo.content ? memo.content.substring(0, 100) : '(내용 없음)';
+                    const time = memo.createdTime || '';
+                    const hasImage = memo.image ? true : false;
+                    html += `
+                        <div class="memo-list-item" onclick="showMemoDetail(${JSON.stringify({id: memo.id}).replace(/"/g, '&quot;')})">
+                            ${hasImage ? `<img src="${memo.image}" alt="메모 이미지" class="memo-list-item-image">` : ''}
+                            <h4>${escapeHtml(memo.title)}</h4>
+                            <div class="memo-preview">${escapeHtml(preview)}</div>
+                            ${time ? `<div class="memo-time"><i class="fas fa-clock"></i> ${time}${hasImage ? ' · <i class="fas fa-image"></i>' : ''}</div>` : ''}
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 초기 로드
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('절대강자 메모장 로드 완료!');
+            renderCustomCategories();
+        });
+    </script>
+</body>
+</html>
