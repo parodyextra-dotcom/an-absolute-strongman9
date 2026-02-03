@@ -3012,12 +3012,32 @@
                 showToast('메모가 추가되었습니다!');
             }
 
-            // 저장
+            // 저장 (Flutter WebView 호환성 강화)
             if (isCustomCategory) {
-                localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+                try {
+                    const jsonData = JSON.stringify(data.customCategoryMemos);
+                    localStorage.setItem('customCategoryMemos', jsonData);
+                    // 저장 확인
+                    const saved = localStorage.getItem('customCategoryMemos');
+                    if (!saved) {
+                        console.warn('customCategoryMemos 저장 실패, 재시도...');
+                        localStorage.setItem('customCategoryMemos', jsonData);
+                    }
+                } catch (e) {
+                    console.error('메모 저장 오류:', e);
+                }
                 renderCustomCategoryMemoList();
             } else {
                 saveData('memos');
+                // 추가 저장 확인 (이중 안전장치)
+                try {
+                    const verify = localStorage.getItem('memos');
+                    if (!verify) {
+                        localStorage.setItem('memos', JSON.stringify(data.memos));
+                    }
+                } catch (e) {
+                    console.error('메모 저장 확인 오류:', e);
+                }
                 renderMemoListByDate();
             }
             
@@ -3116,7 +3136,16 @@
             if (confirm('정말 삭제하시겠습니까?')) {
                 if (currentCustomCategoryId !== null) {
                     data.customCategoryMemos[currentCustomCategoryId] = (data.customCategoryMemos[currentCustomCategoryId] || []).filter(m => m.id !== currentMemoId);
-                    localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+                    try {
+                        const jsonData = JSON.stringify(data.customCategoryMemos);
+                        localStorage.setItem('customCategoryMemos', jsonData);
+                        // 저장 확인
+                        if (!localStorage.getItem('customCategoryMemos')) {
+                            localStorage.setItem('customCategoryMemos', jsonData);
+                        }
+                    } catch (e) {
+                        console.error('삭제 후 저장 오류:', e);
+                    }
                 } else {
                     data.memos = data.memos.filter(m => m.id !== currentMemoId);
                     saveData('memos');
@@ -3398,9 +3427,38 @@
             e.preventDefault();
         }
 
-        // 데이터 저장
+        // 데이터 저장 (Flutter WebView 호환성 강화)
         function saveData(key) {
-            localStorage.setItem(key, JSON.stringify(data[key]));
+            try {
+                const jsonData = JSON.stringify(data[key]);
+                localStorage.setItem(key, jsonData);
+                // 저장 확인 및 재시도
+                const saved = localStorage.getItem(key);
+                if (!saved || saved !== jsonData) {
+                    console.warn('저장 확인 실패, 재시도 중...');
+                    localStorage.setItem(key, jsonData);
+                }
+            } catch (e) {
+                console.error('데이터 저장 오류:', e);
+                showToast('저장 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 모든 데이터 저장 (앱 백그라운드/종료 시)
+        function saveAllData() {
+            try {
+                localStorage.setItem('travels', JSON.stringify(data.travels));
+                localStorage.setItem('restaurants', JSON.stringify(data.restaurants));
+                localStorage.setItem('memos', JSON.stringify(data.memos));
+                localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
+                localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+                localStorage.setItem('todos', JSON.stringify(data.todos));
+                localStorage.setItem('todoHistory', JSON.stringify(data.todoHistory));
+                localStorage.setItem('lastTodoDate', data.lastTodoDate);
+                console.log('모든 데이터 저장 완료');
+            } catch (e) {
+                console.error('전체 데이터 저장 오류:', e);
+            }
         }
 
         // 삭제 함수들
@@ -4321,6 +4379,38 @@
             renderCustomCategories();
             checkAndResetDailyTodos();
         });
+
+        // Flutter WebView 호환성을 위한 이벤트 리스너들
+        // 페이지 가시성 변경 시 저장 (앱이 백그라운드로 갈 때)
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                saveAllData();
+                console.log('visibilitychange: 데이터 저장됨');
+            }
+        });
+
+        // 페이지 언로드 전 저장
+        window.addEventListener('beforeunload', () => {
+            saveAllData();
+            console.log('beforeunload: 데이터 저장됨');
+        });
+
+        // 모바일에서 더 신뢰성 높은 이벤트 (iOS Safari, WebView)
+        window.addEventListener('pagehide', () => {
+            saveAllData();
+            console.log('pagehide: 데이터 저장됨');
+        });
+
+        // 포커스를 잃을 때도 저장 (추가 안전장치)
+        window.addEventListener('blur', () => {
+            saveAllData();
+            console.log('blur: 데이터 저장됨');
+        });
+
+        // 주기적 자동 저장 (30초마다)
+        setInterval(() => {
+            saveAllData();
+        }, 30000);
     </script>
 </body>
 </html>
