@@ -28,20 +28,170 @@
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 15px;
+            padding: 10px 20px;
+            position: relative;
         }
 
-        .header-icon {
-            width: 60px;
-            height: 60px;
+        .backup-btn {
+            position: absolute;
+            top: 10px;
+            right: 0;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 28px;
+        }
+
+        .backup-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* 백업 모달 스타일 */
+        .backup-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .backup-modal-overlay.active {
+            display: flex;
+        }
+
+        .backup-modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .backup-modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .backup-modal-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .backup-modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .backup-modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .backup-modal-body {
+            padding: 25px;
+        }
+
+        .backup-option {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .backup-option:hover {
+            background: #f0f1f3;
+            border-color: #667eea;
+        }
+
+        .backup-option-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .backup-option-icon.download {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .backup-option-icon.upload {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .backup-option h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .backup-option p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .backup-info {
+            background: #fff3cd;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 12px;
+            color: #856404;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .backup-info i {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        /* 파일 입력 숨김 */
+        #backupFileInput {
+            display: none;
         }
 
         .header h1 {
@@ -1443,9 +1593,9 @@
 <body>
     <div class="container">
         <header class="header">
-            <div class="header-icon">
-                <i class="fas fa-book-open"></i>
-            </div>
+            <button class="backup-btn" onclick="openBackupModal()" title="데이터 백업/복원">
+                <i class="fas fa-cloud"></i>
+            </button>
             <h1>절대강자 메모장</h1>
             <p>모든 기록을 한 곳에서 간편하게</p>
         </header>
@@ -1544,6 +1694,42 @@
                     <i class="fas fa-plus"></i>
                 </div>
                 <span>카테고리<br>추가</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 백업/복원 모달 -->
+    <div class="backup-modal-overlay" id="backupModal">
+        <div class="backup-modal">
+            <div class="backup-modal-header">
+                <h2><i class="fas fa-cloud"></i> 데이터 백업/복원</h2>
+                <button class="backup-modal-close" onclick="closeBackupModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="backup-modal-body">
+                <div class="backup-option" onclick="exportBackup()">
+                    <div class="backup-option-icon download">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>데이터 백업하기</h3>
+                    <p>모든 메모와 카테고리를 파일로 저장합니다.</p>
+                </div>
+                
+                <div class="backup-option" onclick="document.getElementById('backupFileInput').click()">
+                    <div class="backup-option-icon upload">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h3>데이터 가져오기</h3>
+                    <p>백업 파일에서 데이터를 복원합니다.</p>
+                </div>
+                
+                <input type="file" id="backupFileInput" accept=".json" onchange="importBackup(event)">
+                
+                <div class="backup-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span>가져오기 시 기존 데이터가 모두 덮어씌워집니다. 중요한 데이터는 먼저 백업해주세요.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -2638,6 +2824,177 @@
             });
 
             container.innerHTML = html;
+        }
+
+        // ========== 백업/복원 기능 ==========
+        
+        // 백업 모달 열기
+        function openBackupModal() {
+            document.getElementById('backupModal').classList.add('active');
+        }
+        
+        // 백업 모달 닫기
+        function closeBackupModal() {
+            document.getElementById('backupModal').classList.remove('active');
+        }
+        
+        // 백업 모달 외부 클릭 시 닫기
+        document.getElementById('backupModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBackupModal();
+            }
+        });
+        
+        // 데이터 백업하기 (내보내기)
+        function exportBackup() {
+            const backupData = {
+                version: '1.0',
+                exportDate: new Date().toISOString(),
+                appName: '절대강자 메모장',
+                data: {
+                    memos: data.memos,
+                    todos: data.todos,
+                    schedules: data.schedules,
+                    travels: data.travels,
+                    restaurants: data.restaurants,
+                    ideas: data.ideas,
+                    shoppings: data.shoppings,
+                    goals: data.goals,
+                    readings: data.readings,
+                    exercises: data.exercises,
+                    finances: data.finances,
+                    diaries: data.diaries,
+                    customCategories: data.customCategories,
+                    customCategoryMemos: data.customCategoryMemos
+                }
+            };
+            
+            const jsonString = JSON.stringify(backupData, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const now = new Date();
+            const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+            const timeStr = now.toTimeString().slice(0, 5).replace(':', '');
+            const filename = `메모장_백업_${dateStr}_${timeStr}.json`;
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            closeBackupModal();
+            showToast('백업 파일이 다운로드되었습니다!');
+        }
+        
+        // 데이터 가져오기 (복원)
+        function importBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const backupData = JSON.parse(e.target.result);
+                    
+                    // 유효성 검사
+                    if (!backupData.appName || backupData.appName !== '절대강자 메모장') {
+                        throw new Error('유효하지 않은 백업 파일입니다.');
+                    }
+                    
+                    if (!backupData.data) {
+                        throw new Error('백업 데이터가 없습니다.');
+                    }
+                    
+                    // 확인 다이얼로그
+                    const exportDate = new Date(backupData.exportDate).toLocaleString('ko-KR');
+                    if (!confirm(`이 백업 파일을 복원하시겠습니까?\n\n백업 일시: ${exportDate}\n\n※ 현재 데이터가 모두 덮어씌워집니다.`)) {
+                        event.target.value = '';
+                        return;
+                    }
+                    
+                    // 데이터 복원
+                    const bd = backupData.data;
+                    
+                    if (bd.memos) {
+                        data.memos = bd.memos;
+                        localStorage.setItem('memos', JSON.stringify(bd.memos));
+                    }
+                    if (bd.todos) {
+                        data.todos = bd.todos;
+                        localStorage.setItem('todos', JSON.stringify(bd.todos));
+                    }
+                    if (bd.schedules) {
+                        data.schedules = bd.schedules;
+                        localStorage.setItem('schedules', JSON.stringify(bd.schedules));
+                    }
+                    if (bd.travels) {
+                        data.travels = bd.travels;
+                        localStorage.setItem('travels', JSON.stringify(bd.travels));
+                    }
+                    if (bd.restaurants) {
+                        data.restaurants = bd.restaurants;
+                        localStorage.setItem('restaurants', JSON.stringify(bd.restaurants));
+                    }
+                    if (bd.ideas) {
+                        data.ideas = bd.ideas;
+                        localStorage.setItem('ideas', JSON.stringify(bd.ideas));
+                    }
+                    if (bd.shoppings) {
+                        data.shoppings = bd.shoppings;
+                        localStorage.setItem('shoppings', JSON.stringify(bd.shoppings));
+                    }
+                    if (bd.goals) {
+                        data.goals = bd.goals;
+                        localStorage.setItem('goals', JSON.stringify(bd.goals));
+                    }
+                    if (bd.readings) {
+                        data.readings = bd.readings;
+                        localStorage.setItem('readings', JSON.stringify(bd.readings));
+                    }
+                    if (bd.exercises) {
+                        data.exercises = bd.exercises;
+                        localStorage.setItem('exercises', JSON.stringify(bd.exercises));
+                    }
+                    if (bd.finances) {
+                        data.finances = bd.finances;
+                        localStorage.setItem('finances', JSON.stringify(bd.finances));
+                    }
+                    if (bd.diaries) {
+                        data.diaries = bd.diaries;
+                        localStorage.setItem('diaries', JSON.stringify(bd.diaries));
+                    }
+                    if (bd.customCategories) {
+                        data.customCategories = bd.customCategories;
+                        localStorage.setItem('customCategories', JSON.stringify(bd.customCategories));
+                    }
+                    if (bd.customCategoryMemos) {
+                        data.customCategoryMemos = bd.customCategoryMemos;
+                        localStorage.setItem('customCategoryMemos', JSON.stringify(bd.customCategoryMemos));
+                    }
+                    
+                    // 화면 갱신
+                    renderCustomCategories();
+                    
+                    closeBackupModal();
+                    showToast('데이터가 성공적으로 복원되었습니다!');
+                    
+                } catch (error) {
+                    alert('백업 파일을 읽는 중 오류가 발생했습니다.\n' + error.message);
+                }
+                
+                event.target.value = '';
+            };
+            
+            reader.onerror = function() {
+                alert('파일을 읽는 중 오류가 발생했습니다.');
+                event.target.value = '';
+            };
+            
+            reader.readAsText(file);
         }
 
         // 초기 로드
