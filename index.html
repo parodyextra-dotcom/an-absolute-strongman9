@@ -640,6 +640,621 @@
             margin-bottom: 10px;
         }
 
+        /* ========== 할일 목록 전체화면 모달 스타일 (밝은 테마) ========== */
+        .todo-fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f8f9ff 0%, #e8eeff 50%, #dde4ff 100%);
+            z-index: 2000;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .todo-fullscreen-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .todo-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+            box-shadow: 0 2px 20px rgba(102, 126, 234, 0.1);
+        }
+
+        .todo-modal-header h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .todo-modal-header h2 i {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .todo-back-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+        }
+
+        .todo-back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .todo-date-display {
+            text-align: center;
+            padding: 15px 20px;
+            background: white;
+            margin: 15px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+        }
+
+        .todo-date-display .date-main {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .todo-date-display .date-sub {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .todo-success-rate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px 20px;
+            margin: 0 20px 15px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+        }
+
+        .todo-success-rate .rate-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: conic-gradient(#10b981 var(--rate), #e5e7eb var(--rate));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .todo-success-rate .rate-circle::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .todo-success-rate .rate-text {
+            position: relative;
+            z-index: 1;
+            font-size: 16px;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .todo-success-rate .rate-info {
+            text-align: left;
+        }
+
+        .todo-success-rate .rate-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .todo-success-rate .rate-info p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .todo-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px 100px;
+        }
+
+        .todo-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 20px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .todo-section-title i {
+            color: #f093fb;
+        }
+
+        .todo-item {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 15px rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .todo-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .todo-item.completed {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+
+        .todo-item.completed .todo-title {
+            text-decoration: line-through;
+            color: #9ca3af;
+        }
+
+        .todo-checkbox {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .todo-checkbox:hover {
+            border-color: #10b981;
+        }
+
+        .todo-checkbox.checked {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-color: transparent;
+        }
+
+        .todo-checkbox.checked i {
+            color: white;
+            font-size: 14px;
+        }
+
+        .todo-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .todo-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+
+        .todo-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .todo-tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .todo-tag.daily {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #1d4ed8;
+        }
+
+        .todo-tag.weekday {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #b45309;
+        }
+
+        .todo-tag.specific {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            color: #7c3aed;
+        }
+
+        .todo-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .todo-action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .todo-action-btn.end-btn {
+            background: #fef2f2;
+            color: #ef4444;
+        }
+
+        .todo-action-btn.end-btn:hover {
+            background: #fee2e2;
+        }
+
+        .todo-action-btn.delete-btn {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .todo-action-btn.delete-btn:hover {
+            background: #e5e7eb;
+            color: #ef4444;
+        }
+
+        /* 할일 추가 버튼 (플로팅) */
+        .todo-add-floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 26px;
+            box-shadow: 0 6px 25px rgba(240, 147, 251, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .todo-add-floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 35px rgba(240, 147, 251, 0.6);
+        }
+
+        /* 할일 추가 모달 */
+        .todo-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 3000;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0;
+        }
+
+        .todo-form-modal.active {
+            display: flex;
+        }
+
+        .todo-form-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 24px 24px 0 0;
+            padding: 25px;
+            animation: slideUpModal 0.3s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideUpModal {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .todo-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .todo-form-header h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .todo-form-close {
+            background: #f3f4f6;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #6b7280;
+            transition: all 0.2s ease;
+        }
+
+        .todo-form-close:hover {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .todo-form-group {
+            margin-bottom: 20px;
+        }
+
+        .todo-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .todo-form-group input[type="text"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .todo-form-group input[type="text"]:focus {
+            outline: none;
+            border-color: #f093fb;
+        }
+
+        .todo-repeat-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .todo-repeat-option {
+            flex: 1;
+            min-width: 80px;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .todo-repeat-option:hover {
+            border-color: #f093fb;
+        }
+
+        .todo-repeat-option.selected {
+            border-color: #f093fb;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+        }
+
+        .todo-repeat-option i {
+            font-size: 22px;
+            margin-bottom: 6px;
+            display: block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .todo-repeat-option span {
+            font-size: 12px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .todo-weekday-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .todo-weekday-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #e5e7eb;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            transition: all 0.2s ease;
+        }
+
+        .todo-weekday-btn:hover {
+            border-color: #f093fb;
+        }
+
+        .todo-weekday-btn.selected {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-color: transparent;
+            color: white;
+        }
+
+        .todo-date-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            font-size: 15px;
+            font-family: inherit;
+            margin-top: 10px;
+        }
+
+        .todo-date-input:focus {
+            outline: none;
+            border-color: #f093fb;
+        }
+
+        .todo-submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .todo-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(240, 147, 251, 0.4);
+        }
+
+        /* 지난 할일 섹션 */
+        .todo-past-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px dashed #e5e7eb;
+        }
+
+        .todo-past-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .todo-past-header h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .todo-past-toggle {
+            font-size: 14px;
+            color: #9ca3af;
+            transition: transform 0.3s ease;
+        }
+
+        .todo-past-toggle.expanded {
+            transform: rotate(180deg);
+        }
+
+        .todo-past-list {
+            display: none;
+        }
+
+        .todo-past-list.expanded {
+            display: block;
+        }
+
+        .todo-past-date-group {
+            margin-bottom: 15px;
+        }
+
+        .todo-past-date-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #9ca3af;
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+
+        .todo-past-item {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+
+        .todo-past-item .todo-title {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .todo-past-item .todo-status {
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .todo-past-item .todo-status.completed {
+            color: #10b981;
+        }
+
+        .todo-past-item .todo-status.incomplete {
+            color: #ef4444;
+        }
+
+        /* 종료된 할일 표시 */
+        .todo-item.ended {
+            opacity: 0.5;
+            background: #f9fafb;
+        }
+
+        .todo-item.ended .todo-title {
+            text-decoration: line-through;
+            color: #9ca3af;
+        }
+
         /* ========== 일반 메모 전체화면 모달 스타일 ========== */
         .memo-fullscreen-modal {
             display: none;
@@ -1983,8 +2598,111 @@
         </div>
     </div>
 
+    <!-- 할일 목록 전체화면 모달 -->
+    <div class="todo-fullscreen-modal" id="todoFullscreenModal">
+        <div class="todo-modal-header">
+            <h2><i class="fas fa-check-square"></i> 할일 목록</h2>
+            <button class="todo-back-btn" onclick="closeTodoFullscreen()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="todo-date-display">
+            <div class="date-main" id="todoDateMain">2024년 1월 15일</div>
+            <div class="date-sub" id="todoDateSub">월요일</div>
+        </div>
+        
+        <div class="todo-success-rate">
+            <div class="rate-circle" id="todoRateCircle" style="--rate: 0%;">
+                <span class="rate-text" id="todoRateText">0%</span>
+            </div>
+            <div class="rate-info">
+                <h3>오늘의 성공률</h3>
+                <p id="todoRateDetail">0/0 완료</p>
+            </div>
+        </div>
+        
+        <div class="todo-list-container" id="todoListContainer">
+            <div class="todo-section-title">
+                <i class="fas fa-sun"></i> 오늘 할일
+            </div>
+            <div id="todayTodoList">
+                <!-- 오늘 할일 목록 -->
+            </div>
+            
+            <div class="todo-past-section" id="todoPastSection" style="display: none;">
+                <div class="todo-past-header" onclick="togglePastTodos()">
+                    <h4><i class="fas fa-history"></i> 지난 기록</h4>
+                    <i class="fas fa-chevron-down todo-past-toggle" id="todoPastToggle"></i>
+                </div>
+                <div class="todo-past-list" id="todoPastList">
+                    <!-- 지난 할일 기록 -->
+                </div>
+            </div>
+        </div>
+        
+        <button class="todo-add-floating-btn" onclick="openTodoForm()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+    
+    <!-- 할일 추가/수정 모달 -->
+    <div class="todo-form-modal" id="todoFormModal">
+        <div class="todo-form-content">
+            <div class="todo-form-header">
+                <h3 id="todoFormTitle">새 할일 추가</h3>
+                <button class="todo-form-close" onclick="closeTodoForm()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="todo-form-group">
+                <label>할일 제목</label>
+                <input type="text" id="todoTitleInput" placeholder="할일을 입력하세요">
+            </div>
+            
+            <div class="todo-form-group">
+                <label>반복 설정</label>
+                <div class="todo-repeat-options">
+                    <div class="todo-repeat-option selected" data-type="daily" onclick="selectRepeatType('daily')">
+                        <i class="fas fa-redo"></i>
+                        <span>매일</span>
+                    </div>
+                    <div class="todo-repeat-option" data-type="weekday" onclick="selectRepeatType('weekday')">
+                        <i class="fas fa-calendar-week"></i>
+                        <span>특정 요일</span>
+                    </div>
+                    <div class="todo-repeat-option" data-type="specific" onclick="selectRepeatType('specific')">
+                        <i class="fas fa-calendar-day"></i>
+                        <span>특정 날짜</span>
+                    </div>
+                </div>
+                
+                <div id="weekdaySelector" style="display: none;">
+                    <div class="todo-weekday-selector">
+                        <button type="button" class="todo-weekday-btn" data-day="0" onclick="toggleWeekday(0)">일</button>
+                        <button type="button" class="todo-weekday-btn" data-day="1" onclick="toggleWeekday(1)">월</button>
+                        <button type="button" class="todo-weekday-btn" data-day="2" onclick="toggleWeekday(2)">화</button>
+                        <button type="button" class="todo-weekday-btn" data-day="3" onclick="toggleWeekday(3)">수</button>
+                        <button type="button" class="todo-weekday-btn" data-day="4" onclick="toggleWeekday(4)">목</button>
+                        <button type="button" class="todo-weekday-btn" data-day="5" onclick="toggleWeekday(5)">금</button>
+                        <button type="button" class="todo-weekday-btn" data-day="6" onclick="toggleWeekday(6)">토</button>
+                    </div>
+                </div>
+                
+                <div id="specificDateSelector" style="display: none;">
+                    <input type="date" class="todo-date-input" id="todoSpecificDate">
+                </div>
+            </div>
+            
+            <button class="todo-submit-btn" onclick="saveTodo()">
+                <i class="fas fa-check"></i> 저장하기
+            </button>
+        </div>
+    </div>
+
     <!-- 알림 메시지용 토스트 -->
-    <div id="toast" style="display:none; position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:12px 24px; border-radius:25px; z-index:2000; font-size:14px;"></div>
+    <div id="toast" style="display:none; position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:12px 24px; border-radius:25px; z-index:4000; font-size:14px;"></div>
 
     <!-- 이미지 전체화면 보기 오버레이 -->
     <div class="image-fullscreen-overlay" id="imageFullscreenOverlay" onclick="closeImageFullscreen()">
@@ -2001,7 +2719,10 @@
             restaurants: JSON.parse(localStorage.getItem('restaurants')) || [],
             memos: JSON.parse(localStorage.getItem('memos')) || [],
             customCategories: JSON.parse(localStorage.getItem('customCategories')) || [],
-            customCategoryMemos: JSON.parse(localStorage.getItem('customCategoryMemos')) || {}
+            customCategoryMemos: JSON.parse(localStorage.getItem('customCategoryMemos')) || {},
+            todos: JSON.parse(localStorage.getItem('todos')) || [],
+            todoHistory: JSON.parse(localStorage.getItem('todoHistory')) || {},
+            lastTodoDate: localStorage.getItem('lastTodoDate') || ''
         };
 
         // 현재 보고 있는 메모 ID
@@ -2013,6 +2734,11 @@
         let selectedIcon = 'fa-star';
         let selectedColor = 1;
         let currentCustomCategoryId = null; // 현재 열려있는 커스텀 카테고리
+
+        // 할일 관련 변수
+        let currentRepeatType = 'daily';
+        let selectedWeekdays = [];
+        let editingTodoId = null;
 
         // 아이콘 목록 (20개)
         const availableIcons = [
@@ -2046,6 +2772,12 @@
             // 일반 메모는 새로운 전체화면 모달로
             if (type === 'memo') {
                 openMemoFullscreen();
+                return;
+            }
+            
+            // 할일 목록은 할일 전체화면 모달로
+            if (type === 'todo') {
+                openTodoFullscreen();
                 return;
             }
             
@@ -3051,6 +3783,8 @@
                 data: {
                     memos: data.memos,
                     todos: data.todos,
+                    todoHistory: data.todoHistory,
+                    lastTodoDate: data.lastTodoDate,
                     schedules: data.schedules,
                     travels: data.travels,
                     restaurants: data.restaurants,
@@ -3124,6 +3858,14 @@
                         data.todos = bd.todos;
                         localStorage.setItem('todos', JSON.stringify(bd.todos));
                     }
+                    if (bd.todoHistory) {
+                        data.todoHistory = bd.todoHistory;
+                        localStorage.setItem('todoHistory', JSON.stringify(bd.todoHistory));
+                    }
+                    if (bd.lastTodoDate) {
+                        data.lastTodoDate = bd.lastTodoDate;
+                        localStorage.setItem('lastTodoDate', bd.lastTodoDate);
+                    }
                     if (bd.schedules) {
                         data.schedules = bd.schedules;
                         localStorage.setItem('schedules', JSON.stringify(bd.schedules));
@@ -3194,10 +3936,390 @@
             reader.readAsText(file);
         }
 
+        // ========== 할일 목록 기능 ==========
+
+        // 오늘 날짜 가져오기 (YYYY-MM-DD)
+        function getTodayString() {
+            const today = new Date();
+            return today.toISOString().split('T')[0];
+        }
+
+        // 날짜 포맷팅 (한국어)
+        function formatDateKorean(date) {
+            const d = new Date(date);
+            const year = d.getFullYear();
+            const month = d.getMonth() + 1;
+            const day = d.getDate();
+            const weekdays = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+            const weekday = weekdays[d.getDay()];
+            return { main: `${year}년 ${month}월 ${day}일`, sub: weekday };
+        }
+
+        // 할일 목록 전체화면 열기
+        function openTodoFullscreen() {
+            checkAndResetDailyTodos();
+            document.getElementById('todoFullscreenModal').classList.add('active');
+            updateTodoDateDisplay();
+            renderTodoList();
+            renderPastTodos();
+        }
+
+        // 할일 목록 전체화면 닫기
+        function closeTodoFullscreen() {
+            document.getElementById('todoFullscreenModal').classList.remove('active');
+        }
+
+        // 날짜 표시 업데이트
+        function updateTodoDateDisplay() {
+            const today = new Date();
+            const formatted = formatDateKorean(today);
+            document.getElementById('todoDateMain').textContent = formatted.main;
+            document.getElementById('todoDateSub').textContent = formatted.sub;
+        }
+
+        // 자정 체크 및 할일 리셋
+        function checkAndResetDailyTodos() {
+            const todayStr = getTodayString();
+            if (data.lastTodoDate !== todayStr) {
+                // 어제 기록 저장
+                if (data.lastTodoDate) {
+                    saveTodoHistory(data.lastTodoDate);
+                }
+                // 오늘 할일 체크 상태 초기화
+                data.todos.forEach(todo => {
+                    if (!todo.ended) {
+                        todo.completedToday = false;
+                    }
+                });
+                data.lastTodoDate = todayStr;
+                localStorage.setItem('lastTodoDate', todayStr);
+                saveTodosToStorage();
+            }
+        }
+
+        // 할일 기록 저장
+        function saveTodoHistory(dateStr) {
+            const todosForDate = data.todos.filter(todo => shouldShowTodoOnDate(todo, dateStr) && !todo.ended);
+            const historyEntry = todosForDate.map(todo => ({
+                id: todo.id,
+                title: todo.title,
+                completed: todo.completedToday || false
+            }));
+            if (historyEntry.length > 0) {
+                data.todoHistory[dateStr] = historyEntry;
+                localStorage.setItem('todoHistory', JSON.stringify(data.todoHistory));
+            }
+        }
+
+        // 특정 날짜에 할일이 표시되어야 하는지 확인
+        function shouldShowTodoOnDate(todo, dateStr) {
+            if (todo.ended) return false;
+            
+            const date = new Date(dateStr);
+            const dayOfWeek = date.getDay();
+
+            if (todo.repeatType === 'daily') {
+                return true;
+            } else if (todo.repeatType === 'weekday') {
+                return todo.weekdays && todo.weekdays.includes(dayOfWeek);
+            } else if (todo.repeatType === 'specific') {
+                return todo.specificDate === dateStr;
+            }
+            return false;
+        }
+
+        // 오늘 표시할 할일 필터링
+        function getTodayTodos() {
+            const todayStr = getTodayString();
+            return data.todos.filter(todo => shouldShowTodoOnDate(todo, todayStr));
+        }
+
+        // 할일 목록 렌더링
+        function renderTodoList() {
+            const container = document.getElementById('todayTodoList');
+            const todayTodos = getTodayTodos();
+
+            if (todayTodos.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; color: #9ca3af;">
+                        <i class="fas fa-clipboard-list" style="font-size: 48px; margin-bottom: 15px; opacity: 0.5;"></i>
+                        <p>오늘 할일이 없습니다.<br>+ 버튼을 눌러 할일을 추가해보세요!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = todayTodos.map(todo => `
+                    <div class="todo-item ${todo.completedToday ? 'completed' : ''}" data-id="${todo.id}">
+                        <div class="todo-checkbox ${todo.completedToday ? 'checked' : ''}" onclick="toggleTodoComplete(${todo.id})">
+                            ${todo.completedToday ? '<i class="fas fa-check"></i>' : ''}
+                        </div>
+                        <div class="todo-content">
+                            <div class="todo-title">${escapeHtml(todo.title)}</div>
+                            <div class="todo-meta">
+                                ${getRepeatTypeTag(todo)}
+                            </div>
+                        </div>
+                        <div class="todo-actions">
+                            <button class="todo-action-btn end-btn" onclick="endTodo(${todo.id})" title="종료">
+                                <i class="fas fa-stop"></i>
+                            </button>
+                            <button class="todo-action-btn delete-btn" onclick="deleteTodo(${todo.id})" title="삭제">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            updateSuccessRate();
+        }
+
+        // 반복 타입 태그 생성
+        function getRepeatTypeTag(todo) {
+            if (todo.repeatType === 'daily') {
+                return '<span class="todo-tag daily"><i class="fas fa-redo"></i> 매일</span>';
+            } else if (todo.repeatType === 'weekday') {
+                const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+                const days = todo.weekdays.map(d => dayNames[d]).join(', ');
+                return `<span class="todo-tag weekday"><i class="fas fa-calendar-week"></i> ${days}</span>`;
+            } else if (todo.repeatType === 'specific') {
+                const date = new Date(todo.specificDate);
+                const formatted = `${date.getMonth() + 1}/${date.getDate()}`;
+                return `<span class="todo-tag specific"><i class="fas fa-calendar-day"></i> ${formatted}</span>`;
+            }
+            return '';
+        }
+
+        // 성공률 업데이트
+        function updateSuccessRate() {
+            const todayTodos = getTodayTodos();
+            const total = todayTodos.length;
+            const completed = todayTodos.filter(t => t.completedToday).length;
+            const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('todoRateCircle').style.setProperty('--rate', `${rate}%`);
+            document.getElementById('todoRateText').textContent = `${rate}%`;
+            document.getElementById('todoRateDetail').textContent = `${completed}/${total} 완료`;
+
+            // 색상 변경 (성공률에 따라)
+            const rateText = document.getElementById('todoRateText');
+            if (rate >= 80) {
+                rateText.style.color = '#10b981';
+            } else if (rate >= 50) {
+                rateText.style.color = '#f59e0b';
+            } else {
+                rateText.style.color = '#ef4444';
+            }
+        }
+
+        // 할일 완료 토글
+        function toggleTodoComplete(id) {
+            const todo = data.todos.find(t => t.id === id);
+            if (todo) {
+                todo.completedToday = !todo.completedToday;
+                saveTodosToStorage();
+                renderTodoList();
+            }
+        }
+
+        // 할일 종료 (더 이상 반복 안함)
+        function endTodo(id) {
+            if (confirm('이 할일을 종료하시겠습니까?\n종료하면 더 이상 목록에 표시되지 않습니다.')) {
+                const todo = data.todos.find(t => t.id === id);
+                if (todo) {
+                    todo.ended = true;
+                    todo.endedAt = getTodayString();
+                    saveTodosToStorage();
+                    renderTodoList();
+                    showToast('할일이 종료되었습니다.');
+                }
+            }
+        }
+
+        // 할일 삭제
+        function deleteTodo(id) {
+            if (confirm('이 할일을 완전히 삭제하시겠습니까?')) {
+                data.todos = data.todos.filter(t => t.id !== id);
+                saveTodosToStorage();
+                renderTodoList();
+                renderPastTodos();
+                showToast('할일이 삭제되었습니다.');
+            }
+        }
+
+        // localStorage에 할일 저장
+        function saveTodosToStorage() {
+            localStorage.setItem('todos', JSON.stringify(data.todos));
+        }
+
+        // 할일 추가 폼 열기
+        function openTodoForm() {
+            editingTodoId = null;
+            document.getElementById('todoFormTitle').textContent = '새 할일 추가';
+            document.getElementById('todoTitleInput').value = '';
+            currentRepeatType = 'daily';
+            selectedWeekdays = [];
+            document.getElementById('todoSpecificDate').value = getTodayString();
+            
+            updateRepeatOptionUI();
+            document.getElementById('todoFormModal').classList.add('active');
+            document.getElementById('todoTitleInput').focus();
+        }
+
+        // 할일 추가 폼 닫기
+        function closeTodoForm() {
+            document.getElementById('todoFormModal').classList.remove('active');
+        }
+
+        // 반복 타입 선택
+        function selectRepeatType(type) {
+            currentRepeatType = type;
+            updateRepeatOptionUI();
+        }
+
+        // 반복 옵션 UI 업데이트
+        function updateRepeatOptionUI() {
+            // 옵션 버튼 선택 상태
+            document.querySelectorAll('.todo-repeat-option').forEach(el => {
+                el.classList.toggle('selected', el.dataset.type === currentRepeatType);
+            });
+
+            // 추가 선택기 표시/숨김
+            document.getElementById('weekdaySelector').style.display = 
+                currentRepeatType === 'weekday' ? 'block' : 'none';
+            document.getElementById('specificDateSelector').style.display = 
+                currentRepeatType === 'specific' ? 'block' : 'none';
+
+            // 요일 버튼 상태 업데이트
+            document.querySelectorAll('.todo-weekday-btn').forEach(btn => {
+                const day = parseInt(btn.dataset.day);
+                btn.classList.toggle('selected', selectedWeekdays.includes(day));
+            });
+        }
+
+        // 요일 토글
+        function toggleWeekday(day) {
+            const index = selectedWeekdays.indexOf(day);
+            if (index > -1) {
+                selectedWeekdays.splice(index, 1);
+            } else {
+                selectedWeekdays.push(day);
+            }
+            updateRepeatOptionUI();
+        }
+
+        // 할일 저장
+        function saveTodo() {
+            const title = document.getElementById('todoTitleInput').value.trim();
+            
+            if (!title) {
+                showToast('할일 제목을 입력해주세요.');
+                return;
+            }
+
+            if (currentRepeatType === 'weekday' && selectedWeekdays.length === 0) {
+                showToast('요일을 선택해주세요.');
+                return;
+            }
+
+            if (currentRepeatType === 'specific') {
+                const specificDate = document.getElementById('todoSpecificDate').value;
+                if (!specificDate) {
+                    showToast('날짜를 선택해주세요.');
+                    return;
+                }
+            }
+
+            const todoData = {
+                id: editingTodoId || Date.now(),
+                title: title,
+                repeatType: currentRepeatType,
+                weekdays: currentRepeatType === 'weekday' ? [...selectedWeekdays] : [],
+                specificDate: currentRepeatType === 'specific' ? 
+                    document.getElementById('todoSpecificDate').value : null,
+                completedToday: false,
+                ended: false,
+                createdAt: getTodayString()
+            };
+
+            if (editingTodoId) {
+                const index = data.todos.findIndex(t => t.id === editingTodoId);
+                if (index > -1) {
+                    todoData.completedToday = data.todos[index].completedToday;
+                    data.todos[index] = todoData;
+                }
+            } else {
+                data.todos.push(todoData);
+            }
+
+            saveTodosToStorage();
+            closeTodoForm();
+            renderTodoList();
+            showToast(editingTodoId ? '할일이 수정되었습니다.' : '할일이 추가되었습니다!');
+        }
+
+        // 지난 할일 토글
+        function togglePastTodos() {
+            const list = document.getElementById('todoPastList');
+            const toggle = document.getElementById('todoPastToggle');
+            list.classList.toggle('expanded');
+            toggle.classList.toggle('expanded');
+        }
+
+        // 지난 할일 렌더링
+        function renderPastTodos() {
+            const section = document.getElementById('todoPastSection');
+            const container = document.getElementById('todoPastList');
+            
+            const historyDates = Object.keys(data.todoHistory).sort().reverse();
+            
+            if (historyDates.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            
+            let html = '';
+            historyDates.slice(0, 7).forEach(dateStr => {
+                const formatted = formatDateKorean(dateStr);
+                const history = data.todoHistory[dateStr];
+                const completed = history.filter(h => h.completed).length;
+                const total = history.length;
+                const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+                html += `
+                    <div class="todo-past-date-group">
+                        <div class="todo-past-date-title">${formatted.main} (${formatted.sub}) - ${rate}% 달성</div>
+                        ${history.map(item => `
+                            <div class="todo-past-item">
+                                <div class="todo-title">${escapeHtml(item.title)}</div>
+                                <div class="todo-status ${item.completed ? 'completed' : 'incomplete'}">
+                                    <i class="fas ${item.completed ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                                    ${item.completed ? '완료' : '미완료'}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 자정 체크 타이머 (매분 확인)
+        setInterval(() => {
+            if (document.getElementById('todoFullscreenModal').classList.contains('active')) {
+                checkAndResetDailyTodos();
+                updateTodoDateDisplay();
+                renderTodoList();
+            }
+        }, 60000);
+
         // 초기 로드
         document.addEventListener('DOMContentLoaded', () => {
             console.log('절대강자 메모장 로드 완료!');
             renderCustomCategories();
+            checkAndResetDailyTodos();
         });
     </script>
 </body>
