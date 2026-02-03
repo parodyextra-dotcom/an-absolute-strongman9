@@ -2579,14 +2579,14 @@
                 <input type="file" id="memoImageInput" accept="image/*" style="display: none;" onchange="handleMemoImageSelect(event, 'gallery')">
                 <input type="file" id="memoCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleMemoImageSelect(event, 'camera')">
                 <div class="memo-image-buttons">
-                    <label for="memoImageInput" class="memo-image-upload-label gallery-btn">
+                    <button type="button" class="memo-image-upload-label gallery-btn" onclick="handleGalleryClick()">
                         <i class="fas fa-images"></i>
                         <span>갤러리</span>
-                    </label>
-                    <label for="memoCameraInput" class="memo-image-upload-label camera-btn">
+                    </button>
+                    <button type="button" class="memo-image-upload-label camera-btn" onclick="handleCameraClick()">
                         <i class="fas fa-camera"></i>
                         <span>카메라</span>
-                    </label>
+                    </button>
                 </div>
                 <div class="memo-image-preview-container" id="memoImagePreviewContainer">
                     <img src="" alt="미리보기" class="memo-image-preview" id="memoImagePreview">
@@ -2891,6 +2891,147 @@
             }
         }
 
+        // ========== Flutter WebView 호환성 브릿지 (카메라/공유) ==========
+        
+        // Flutter WebView 환경 감지
+        function isFlutterWebView() {
+            return !!(window.flutter_inappwebview || window.FlutterChannel || 
+                     window.FlutterCameraChannel || window.FlutterShareChannel ||
+                     (navigator.userAgent && navigator.userAgent.includes('wv')));
+        }
+
+        // Flutter에서 카메라 촬영 요청
+        function requestFlutterCamera() {
+            try {
+                if (window.flutter_inappwebview) {
+                    window.flutter_inappwebview.callHandler('openCamera', JSON.stringify({ 
+                        type: 'camera',
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+                if (window.FlutterCameraChannel) {
+                    window.FlutterCameraChannel.postMessage(JSON.stringify({ 
+                        type: 'camera',
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+                if (window.FlutterChannel) {
+                    window.FlutterChannel.postMessage(JSON.stringify({ 
+                        action: 'openCamera',
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+            } catch (e) {
+                console.log('Flutter 카메라 요청 실패:', e);
+            }
+            return false;
+        }
+
+        // Flutter에서 갤러리 열기 요청
+        function requestFlutterGallery() {
+            try {
+                if (window.flutter_inappwebview) {
+                    window.flutter_inappwebview.callHandler('openGallery', JSON.stringify({ 
+                        type: 'gallery',
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+                if (window.FlutterGalleryChannel) {
+                    window.FlutterGalleryChannel.postMessage(JSON.stringify({ 
+                        type: 'gallery',
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+                if (window.FlutterChannel) {
+                    window.FlutterChannel.postMessage(JSON.stringify({ 
+                        action: 'openGallery',
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+            } catch (e) {
+                console.log('Flutter 갤러리 요청 실패:', e);
+            }
+            return false;
+        }
+
+        // Flutter에서 공유 요청
+        function requestFlutterShare(title, text, imageBase64) {
+            try {
+                const shareData = {
+                    action: 'share',
+                    title: title || '',
+                    text: text || '',
+                    image: imageBase64 || null
+                };
+                
+                if (window.flutter_inappwebview) {
+                    window.flutter_inappwebview.callHandler('share', JSON.stringify(shareData));
+                    return true;
+                }
+                if (window.FlutterShareChannel) {
+                    window.FlutterShareChannel.postMessage(JSON.stringify(shareData));
+                    return true;
+                }
+                if (window.FlutterChannel) {
+                    window.FlutterChannel.postMessage(JSON.stringify(shareData));
+                    return true;
+                }
+            } catch (e) {
+                console.log('Flutter 공유 요청 실패:', e);
+            }
+            return false;
+        }
+
+        // Flutter에서 카메라/갤러리 이미지 수신 (콜백 함수)
+        window.flutterReceiveImage = function(base64ImageData, source) {
+            try {
+                // data:image 형식인지 확인, 아니면 추가
+                let imageData = base64ImageData;
+                if (!imageData.startsWith('data:image')) {
+                    imageData = 'data:image/jpeg;base64,' + imageData;
+                }
+                
+                // 이미지 리사이징 후 저장
+                resizeImage(imageData, 800, 800, function(resizedImage) {
+                    currentMemoImage = resizedImage;
+                    document.getElementById('memoImagePreview').src = resizedImage;
+                    document.getElementById('memoImagePreviewContainer').classList.add('active');
+                    
+                    // 카메라로 찍은 사진이면 앨범에 저장 안내
+                    if (source === 'camera') {
+                        showToast('📸 사진이 추가되었습니다');
+                    } else {
+                        showToast('🖼️ 이미지가 추가되었습니다');
+                    }
+                });
+                
+                return JSON.stringify({ success: true });
+            } catch (e) {
+                console.error('Flutter 이미지 수신 오류:', e);
+                showToast('이미지 처리 중 오류가 발생했습니다');
+                return JSON.stringify({ success: false, error: e.message });
+            }
+        };
+
+        // Flutter에서 공유 완료 콜백
+        window.flutterShareComplete = function(success) {
+            if (success) {
+                showToast('🔗 공유되었습니다');
+            }
+        };
+
         // ========== 데이터 로드 함수 (하이브리드) ==========
         function safeJSONParse(str, defaultValue) {
             try {
@@ -3094,6 +3235,32 @@
 
             modal.classList.add('active');
             titleInput.focus();
+        }
+
+        // 갤러리 버튼 클릭 핸들러
+        function handleGalleryClick() {
+            // Flutter WebView 환경인지 확인
+            if (isFlutterWebView()) {
+                // Flutter 갤러리 요청 시도
+                if (requestFlutterGallery()) {
+                    return; // Flutter에서 처리
+                }
+            }
+            // 일반 웹 또는 Flutter 실패시 기존 방식 사용
+            document.getElementById('memoImageInput').click();
+        }
+
+        // 카메라 버튼 클릭 핸들러
+        function handleCameraClick() {
+            // Flutter WebView 환경인지 확인
+            if (isFlutterWebView()) {
+                // Flutter 카메라 요청 시도
+                if (requestFlutterCamera()) {
+                    return; // Flutter에서 처리
+                }
+            }
+            // 일반 웹 또는 Flutter 실패시 기존 방식 사용
+            document.getElementById('memoCameraInput').click();
         }
 
         // 이미지 선택 핸들러 (갤러리/카메라 구분)
@@ -3456,6 +3623,13 @@
             
             const shareTitle = memo.title;
             const shareText = memo.content || '';
+            
+            // Flutter WebView 환경인지 확인하고 우선 처리
+            if (isFlutterWebView()) {
+                if (requestFlutterShare(shareTitle, shareText, memo.image || null)) {
+                    return; // Flutter에서 처리
+                }
+            }
             
             // Web Share API 지원 확인
             if (navigator.share) {
