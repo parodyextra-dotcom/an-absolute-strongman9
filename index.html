@@ -2713,17 +2713,255 @@
     </div>
 
     <script>
-        // 데이터 저장소
-        let data = {
-            travels: JSON.parse(localStorage.getItem('travels')) || [],
-            restaurants: JSON.parse(localStorage.getItem('restaurants')) || [],
-            memos: JSON.parse(localStorage.getItem('memos')) || [],
-            customCategories: JSON.parse(localStorage.getItem('customCategories')) || [],
-            customCategoryMemos: JSON.parse(localStorage.getItem('customCategoryMemos')) || {},
-            todos: JSON.parse(localStorage.getItem('todos')) || [],
-            todoHistory: JSON.parse(localStorage.getItem('todoHistory')) || {},
-            lastTodoDate: localStorage.getItem('lastTodoDate') || ''
+        // ========== IndexedDB 기반 저장소 (Flutter WebView 호환) ==========
+        const DB_NAME = 'MemoAppDB';
+        const DB_VERSION = 1;
+        const STORE_NAME = 'appData';
+        let db = null;
+        let isDBReady = false;
+
+        // IndexedDB 초기화
+        function initIndexedDB() {
+            return new Promise((resolve, reject) => {
+                if (!window.indexedDB) {
+                    console.warn('IndexedDB 지원 안됨');
+                    resolve(false);
+                    return;
+                }
+
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+                request.onerror = (event) => {
+                    console.error('IndexedDB 열기 실패:', event.target.error);
+                    resolve(false);
+                };
+
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    isDBReady = true;
+                    console.log('IndexedDB 연결 성공');
+                    resolve(true);
+                };
+
+                request.onupgradeneeded = (event) => {
+                    const database = event.target.result;
+                    if (!database.objectStoreNames.contains(STORE_NAME)) {
+                        database.createObjectStore(STORE_NAME, { keyPath: 'key' });
+                        console.log('IndexedDB 스토어 생성됨');
+                    }
+                };
+            });
+        }
+
+        // IndexedDB에 저장
+        function saveToIndexedDB(key, value) {
+            return new Promise((resolve, reject) => {
+                if (!isDBReady || !db) {
+                    resolve(false);
+                    return;
+                }
+
+                try {
+                    const transaction = db.transaction([STORE_NAME], 'readwrite');
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.put({ key: key, value: value, timestamp: Date.now() });
+
+                    request.onsuccess = () => resolve(true);
+                    request.onerror = (e) => {
+                        console.error('IndexedDB 저장 오류:', e.target.error);
+                        resolve(false);
+                    };
+                } catch (e) {
+                    console.error('IndexedDB 저장 예외:', e);
+                    resolve(false);
+                }
+            });
+        }
+
+        // IndexedDB에서 읽기
+        function loadFromIndexedDB(key) {
+            return new Promise((resolve, reject) => {
+                if (!isDBReady || !db) {
+                    resolve(null);
+                    return;
+                }
+
+                try {
+                    const transaction = db.transaction([STORE_NAME], 'readonly');
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.get(key);
+
+                    request.onsuccess = () => {
+                        if (request.result) {
+                            resolve(request.result.value);
+                        } else {
+                            resolve(null);
+                        }
+                    };
+                    request.onerror = (e) => {
+                        console.error('IndexedDB 읽기 오류:', e.target.error);
+                        resolve(null);
+                    };
+                } catch (e) {
+                    console.error('IndexedDB 읽기 예외:', e);
+                    resolve(null);
+                }
+            });
+        }
+
+        // 모든 데이터를 IndexedDB에 저장
+        async function saveAllToIndexedDB() {
+            if (!isDBReady) return;
+            
+            const allData = {
+                travels: data.travels,
+                restaurants: data.restaurants,
+                memos: data.memos,
+                customCategories: data.customCategories,
+                customCategoryMemos: data.customCategoryMemos,
+                todos: data.todos,
+                todoHistory: data.todoHistory,
+                lastTodoDate: data.lastTodoDate
+            };
+
+            await saveToIndexedDB('allData', allData);
+            console.log('IndexedDB에 전체 데이터 저장 완료');
+        }
+
+        // IndexedDB에서 모든 데이터 로드
+        async function loadAllFromIndexedDB() {
+            const allData = await loadFromIndexedDB('allData');
+            return allData;
+        }
+
+        // ========== Flutter 네이티브 브릿지 ==========
+        // Flutter 앱에서 호출할 수 있는 함수들
+
+        // Flutter에서 데이터 저장 요청 시 호출
+        window.flutterSaveData = function(jsonString) {
+            try {
+                const importedData = JSON.parse(jsonString);
+                Object.keys(importedData).forEach(key => {
+                    if (data.hasOwnProperty(key)) {
+                        data[key] = importedData[key];
+                    }
+                });
+                saveAllData();
+                saveAllToIndexedDB();
+                return JSON.stringify({ success: true });
+            } catch (e) {
+                console.error('Flutter 데이터 저장 오류:', e);
+                return JSON.stringify({ success: false, error: e.message });
+            }
         };
+
+        // Flutter에서 데이터 가져오기 요청 시 호출
+        window.flutterGetData = function() {
+            try {
+                const allData = {
+                    travels: data.travels,
+                    restaurants: data.restaurants,
+                    memos: data.memos,
+                    customCategories: data.customCategories,
+                    customCategoryMemos: data.customCategoryMemos,
+                    todos: data.todos,
+                    todoHistory: data.todoHistory,
+                    lastTodoDate: data.lastTodoDate
+                };
+                return JSON.stringify(allData);
+            } catch (e) {
+                console.error('Flutter 데이터 가져오기 오류:', e);
+                return JSON.stringify({});
+            }
+        };
+
+        // Flutter WebView에 메시지 전송 (앱이 수신 가능한 경우)
+        function sendToFlutter(type, data) {
+            try {
+                // Flutter WebView 채널 (가능한 경우)
+                if (window.flutter_inappwebview) {
+                    window.flutter_inappwebview.callHandler('onDataChange', JSON.stringify({ type, data }));
+                }
+                // 대체 방식 - postMessage
+                if (window.FlutterChannel) {
+                    window.FlutterChannel.postMessage(JSON.stringify({ type, data }));
+                }
+            } catch (e) {
+                // Flutter 채널이 없을 수 있음 - 무시
+            }
+        }
+
+        // ========== 데이터 로드 함수 (하이브리드) ==========
+        function safeJSONParse(str, defaultValue) {
+            try {
+                if (!str || str === 'null' || str === 'undefined') return defaultValue;
+                return JSON.parse(str);
+            } catch (e) {
+                console.warn('JSON 파싱 실패:', e);
+                return defaultValue;
+            }
+        }
+
+        // localStorage에서 데이터 로드
+        function loadFromLocalStorage() {
+            return {
+                travels: safeJSONParse(localStorage.getItem('travels'), []),
+                restaurants: safeJSONParse(localStorage.getItem('restaurants'), []),
+                memos: safeJSONParse(localStorage.getItem('memos'), []),
+                customCategories: safeJSONParse(localStorage.getItem('customCategories'), []),
+                customCategoryMemos: safeJSONParse(localStorage.getItem('customCategoryMemos'), {}),
+                todos: safeJSONParse(localStorage.getItem('todos'), []),
+                todoHistory: safeJSONParse(localStorage.getItem('todoHistory'), {}),
+                lastTodoDate: localStorage.getItem('lastTodoDate') || ''
+            };
+        }
+
+        // 데이터 병합 (더 많은 항목이 있는 데이터 선택)
+        function mergeData(localData, idbData) {
+            if (!idbData) return localData;
+            
+            const merged = {};
+            const keys = ['travels', 'restaurants', 'memos', 'customCategories', 'todos'];
+            
+            keys.forEach(key => {
+                const localArr = localData[key] || [];
+                const idbArr = idbData[key] || [];
+                // 더 많은 항목이 있는 것을 선택 (최근 데이터가 더 많을 가능성)
+                merged[key] = localArr.length >= idbArr.length ? localArr : idbArr;
+            });
+
+            // 객체 타입 데이터
+            merged.customCategoryMemos = Object.keys(localData.customCategoryMemos || {}).length >= 
+                                          Object.keys(idbData.customCategoryMemos || {}).length ?
+                                          localData.customCategoryMemos : idbData.customCategoryMemos;
+            
+            merged.todoHistory = Object.keys(localData.todoHistory || {}).length >= 
+                                  Object.keys(idbData.todoHistory || {}).length ?
+                                  localData.todoHistory : idbData.todoHistory;
+            
+            merged.lastTodoDate = localData.lastTodoDate || idbData.lastTodoDate || '';
+            
+            return merged;
+        }
+
+        // 초기 데이터 (나중에 async로 덮어씌움)
+        let data = loadFromLocalStorage();
+
+        // 앱 시작 시 IndexedDB와 병합
+        (async function initData() {
+            const dbReady = await initIndexedDB();
+            if (dbReady) {
+                const idbData = await loadAllFromIndexedDB();
+                if (idbData) {
+                    data = mergeData(data, idbData);
+                    console.log('IndexedDB 데이터와 병합 완료');
+                    // UI 업데이트
+                    if (typeof renderCustomCategories === 'function') {
+                        renderCustomCategories();
+                    }
+                }
+            }
+        })();
 
         // 현재 보고 있는 메모 ID
         let currentMemoId = null;
@@ -3012,7 +3250,7 @@
                 showToast('메모가 추가되었습니다!');
             }
 
-            // 저장 (Flutter WebView 호환성 강화)
+            // 저장 (Flutter WebView 호환성 강화 - 듀얼 스토리지)
             if (isCustomCategory) {
                 try {
                     const jsonData = JSON.stringify(data.customCategoryMemos);
@@ -3023,21 +3261,16 @@
                         console.warn('customCategoryMemos 저장 실패, 재시도...');
                         localStorage.setItem('customCategoryMemos', jsonData);
                     }
+                    // IndexedDB에도 백업 저장
+                    saveAllToIndexedDB();
                 } catch (e) {
                     console.error('메모 저장 오류:', e);
+                    // localStorage 실패 시 IndexedDB라도 저장
+                    saveAllToIndexedDB();
                 }
                 renderCustomCategoryMemoList();
             } else {
                 saveData('memos');
-                // 추가 저장 확인 (이중 안전장치)
-                try {
-                    const verify = localStorage.getItem('memos');
-                    if (!verify) {
-                        localStorage.setItem('memos', JSON.stringify(data.memos));
-                    }
-                } catch (e) {
-                    console.error('메모 저장 확인 오류:', e);
-                }
                 renderMemoListByDate();
             }
             
@@ -3143,8 +3376,11 @@
                         if (!localStorage.getItem('customCategoryMemos')) {
                             localStorage.setItem('customCategoryMemos', jsonData);
                         }
+                        // IndexedDB에도 백업 저장
+                        saveAllToIndexedDB();
                     } catch (e) {
                         console.error('삭제 후 저장 오류:', e);
+                        saveAllToIndexedDB();
                     }
                 } else {
                     data.memos = data.memos.filter(m => m.id !== currentMemoId);
@@ -3427,26 +3663,39 @@
             e.preventDefault();
         }
 
-        // 데이터 저장 (Flutter WebView 호환성 강화)
+        // 데이터 저장 (Flutter WebView 호환성 강화 - 듀얼 스토리지)
         function saveData(key) {
             try {
                 const jsonData = JSON.stringify(data[key]);
+                
+                // 1. localStorage에 저장
                 localStorage.setItem(key, jsonData);
-                // 저장 확인 및 재시도
+                
+                // 2. 저장 확인 및 재시도
                 const saved = localStorage.getItem(key);
                 if (!saved || saved !== jsonData) {
-                    console.warn('저장 확인 실패, 재시도 중...');
+                    console.warn('localStorage 저장 확인 실패, 재시도 중...');
                     localStorage.setItem(key, jsonData);
                 }
+                
+                // 3. IndexedDB에도 백업 저장 (비동기)
+                saveAllToIndexedDB();
+                
+                // 4. Flutter 앱에 알림 (가능한 경우)
+                sendToFlutter('dataChanged', { key: key });
+                
             } catch (e) {
                 console.error('데이터 저장 오류:', e);
+                // localStorage 실패 시 IndexedDB만이라도 저장
+                saveAllToIndexedDB();
                 showToast('저장 중 오류가 발생했습니다.');
             }
         }
 
-        // 모든 데이터 저장 (앱 백그라운드/종료 시)
+        // 모든 데이터 저장 (앱 백그라운드/종료 시 - 듀얼 스토리지)
         function saveAllData() {
             try {
+                // 1. localStorage에 저장
                 localStorage.setItem('travels', JSON.stringify(data.travels));
                 localStorage.setItem('restaurants', JSON.stringify(data.restaurants));
                 localStorage.setItem('memos', JSON.stringify(data.memos));
@@ -3455,10 +3704,20 @@
                 localStorage.setItem('todos', JSON.stringify(data.todos));
                 localStorage.setItem('todoHistory', JSON.stringify(data.todoHistory));
                 localStorage.setItem('lastTodoDate', data.lastTodoDate);
-                console.log('모든 데이터 저장 완료');
+                console.log('localStorage에 모든 데이터 저장 완료');
             } catch (e) {
-                console.error('전체 데이터 저장 오류:', e);
+                console.error('localStorage 저장 오류:', e);
             }
+
+            // 2. IndexedDB에도 백업 저장 (비동기)
+            try {
+                saveAllToIndexedDB();
+            } catch (e) {
+                console.error('IndexedDB 저장 오류:', e);
+            }
+            
+            // 3. Flutter 앱에 알림 (가능한 경우)
+            sendToFlutter('allDataSaved', { timestamp: Date.now() });
         }
 
         // 삭제 함수들
@@ -3678,6 +3937,8 @@
             
             localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
             localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+            // IndexedDB에도 백업 저장
+            saveAllToIndexedDB();
 
             renderCustomCategories();
             closeCategoryModal();
@@ -3717,6 +3978,8 @@
                 
                 localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
                 localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+                // IndexedDB에도 백업 저장
+                saveAllToIndexedDB();
 
                 renderCustomCategories();
                 showToast('카테고리가 삭제되었습니다.');
@@ -3973,6 +4236,9 @@
                         localStorage.setItem('customCategoryMemos', JSON.stringify(bd.customCategoryMemos));
                     }
                     
+                    // IndexedDB에도 전체 백업 저장
+                    saveAllToIndexedDB();
+                    
                     // 화면 갱신
                     renderCustomCategories();
                     
@@ -4066,6 +4332,8 @@
             if (historyEntry.length > 0) {
                 data.todoHistory[dateStr] = historyEntry;
                 localStorage.setItem('todoHistory', JSON.stringify(data.todoHistory));
+                // IndexedDB에도 백업 저장
+                saveAllToIndexedDB();
             }
         }
 
@@ -4204,9 +4472,11 @@
             }
         }
 
-        // localStorage에 할일 저장
+        // localStorage에 할일 저장 (IndexedDB 백업 포함)
         function saveTodosToStorage() {
             localStorage.setItem('todos', JSON.stringify(data.todos));
+            // IndexedDB에도 백업 저장
+            saveAllToIndexedDB();
         }
 
         // 할일 추가 폼 열기
@@ -4374,10 +4644,35 @@
         }, 60000);
 
         // 초기 로드
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             console.log('절대강자 메모장 로드 완료!');
+            
+            // IndexedDB 초기화 대기 (최대 2초)
+            let waitCount = 0;
+            while (!isDBReady && waitCount < 20) {
+                await new Promise(r => setTimeout(r, 100));
+                waitCount++;
+            }
+            
+            // IndexedDB에서 데이터 로드 및 병합 시도
+            if (isDBReady) {
+                try {
+                    const idbData = await loadAllFromIndexedDB();
+                    if (idbData) {
+                        const localData = loadFromLocalStorage();
+                        data = mergeData(localData, idbData);
+                        console.log('IndexedDB 데이터와 병합 완료 (DOMContentLoaded)');
+                    }
+                } catch (e) {
+                    console.warn('IndexedDB 로드 실패:', e);
+                }
+            }
+            
             renderCustomCategories();
             checkAndResetDailyTodos();
+            
+            // 첫 로드 후 데이터 백업 저장
+            saveAllData();
         });
 
         // Flutter WebView 호환성을 위한 이벤트 리스너들
@@ -4386,6 +4681,18 @@
             if (document.visibilityState === 'hidden') {
                 saveAllData();
                 console.log('visibilitychange: 데이터 저장됨');
+            } else if (document.visibilityState === 'visible') {
+                // 앱이 다시 포그라운드로 돌아왔을 때 IndexedDB에서 데이터 확인
+                (async () => {
+                    if (isDBReady) {
+                        const idbData = await loadAllFromIndexedDB();
+                        if (idbData) {
+                            const localData = loadFromLocalStorage();
+                            data = mergeData(localData, idbData);
+                            console.log('visibilitychange visible: 데이터 재동기화');
+                        }
+                    }
+                })();
             }
         });
 
@@ -4407,10 +4714,33 @@
             console.log('blur: 데이터 저장됨');
         });
 
-        // 주기적 자동 저장 (30초마다)
+        // 포커스를 얻을 때 데이터 재동기화 (앱으로 돌아왔을 때)
+        window.addEventListener('focus', async () => {
+            if (isDBReady) {
+                const idbData = await loadAllFromIndexedDB();
+                if (idbData) {
+                    const localData = loadFromLocalStorage();
+                    data = mergeData(localData, idbData);
+                    console.log('focus: 데이터 재동기화');
+                }
+            }
+        });
+
+        // 터치 시작 시 저장 상태 확인 (모바일 추가 안전장치)
+        let lastSaveTime = Date.now();
+        document.addEventListener('touchstart', () => {
+            const now = Date.now();
+            // 마지막 저장 이후 5초가 지났으면 저장
+            if (now - lastSaveTime > 5000) {
+                saveAllData();
+                lastSaveTime = now;
+            }
+        }, { passive: true });
+
+        // 주기적 자동 저장 (10초마다 - Flutter WebView용으로 더 자주)
         setInterval(() => {
             saveAllData();
-        }, 30000);
+        }, 10000);
     </script>
 </body>
 </html>
