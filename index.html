@@ -28,170 +28,20 @@
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 15px;
-            padding: 10px 20px;
-            position: relative;
-        }
-
-        .backup-btn {
-            position: absolute;
-            top: 10px;
-            right: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            cursor: pointer;
-            color: white;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .backup-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        /* 백업 모달 스타일 */
-        .backup-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
+            margin-bottom: 30px;
             padding: 20px;
         }
 
-        .backup-modal-overlay.active {
-            display: flex;
-        }
-
-        .backup-modal {
-            background: white;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 400px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        .backup-modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .backup-modal-header h2 {
-            font-size: 18px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .backup-modal-close {
+        .header-icon {
+            width: 60px;
+            height: 60px;
             background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            cursor: pointer;
-            color: white;
-            font-size: 18px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .backup-modal-close:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .backup-modal-body {
-            padding: 25px;
-        }
-
-        .backup-option {
-            background: #f8f9fa;
             border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-
-        .backup-option:hover {
-            background: #f0f1f3;
-            border-color: #667eea;
-        }
-
-        .backup-option-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            color: white;
-            margin-bottom: 12px;
-        }
-
-        .backup-option-icon.download {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-        }
-
-        .backup-option-icon.upload {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .backup-option h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .backup-option p {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.4;
-        }
-
-        .backup-info {
-            background: #fff3cd;
-            border-radius: 10px;
-            padding: 12px 15px;
-            font-size: 12px;
-            color: #856404;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .backup-info i {
-            font-size: 16px;
-            margin-top: 2px;
-        }
-
-        /* 파일 입력 숨김 */
-        #backupFileInput {
-            display: none;
+            margin: 0 auto 15px;
+            font-size: 28px;
         }
 
         .header h1 {
@@ -640,622 +490,7 @@
             margin-bottom: 10px;
         }
 
-        /* ========== 할일 목록 전체화면 모달 스타일 (밝은 테마) ========== */
-        .todo-fullscreen-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, #f8f9ff 0%, #e8eeff 50%, #dde4ff 100%);
-            z-index: 2000;
-            animation: fadeInUp 0.3s ease;
-        }
-
-        .todo-fullscreen-modal.active {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .todo-modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
-            box-shadow: 0 2px 20px rgba(102, 126, 234, 0.1);
-        }
-
-        .todo-modal-header h2 {
-            color: #333;
-            font-size: 22px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .todo-modal-header h2 i {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .todo-back-btn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            cursor: pointer;
-            color: white;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
-        }
-
-        .todo-back-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .todo-date-display {
-            text-align: center;
-            padding: 15px 20px;
-            background: white;
-            margin: 15px 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
-        }
-
-        .todo-date-display .date-main {
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .todo-date-display .date-sub {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .todo-success-rate {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            padding: 15px 20px;
-            margin: 0 20px 15px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
-        }
-
-        .todo-success-rate .rate-circle {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: conic-gradient(#10b981 var(--rate), #e5e7eb var(--rate));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .todo-success-rate .rate-circle::before {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: white;
-            border-radius: 50%;
-        }
-
-        .todo-success-rate .rate-text {
-            position: relative;
-            z-index: 1;
-            font-size: 16px;
-            font-weight: 700;
-            color: #10b981;
-        }
-
-        .todo-success-rate .rate-info {
-            text-align: left;
-        }
-
-        .todo-success-rate .rate-info h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .todo-success-rate .rate-info p {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .todo-list-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0 20px 100px;
-        }
-
-        .todo-section-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin: 20px 0 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .todo-section-title i {
-            color: #f093fb;
-        }
-
-        .todo-item {
-            background: white;
-            border-radius: 16px;
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 2px 15px rgba(102, 126, 234, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .todo-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.2);
-        }
-
-        .todo-item.completed {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-        }
-
-        .todo-item.completed .todo-title {
-            text-decoration: line-through;
-            color: #9ca3af;
-        }
-
-        .todo-checkbox {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 2px solid #d1d5db;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .todo-checkbox:hover {
-            border-color: #10b981;
-        }
-
-        .todo-checkbox.checked {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            border-color: transparent;
-        }
-
-        .todo-checkbox.checked i {
-            color: white;
-            font-size: 14px;
-        }
-
-        .todo-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .todo-title {
-            font-size: 15px;
-            font-weight: 500;
-            color: #333;
-            margin-bottom: 4px;
-            word-break: break-word;
-        }
-
-        .todo-meta {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .todo-tag {
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 20px;
-            background: #f3f4f6;
-            color: #6b7280;
-        }
-
-        .todo-tag.daily {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            color: #1d4ed8;
-        }
-
-        .todo-tag.weekday {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            color: #b45309;
-        }
-
-        .todo-tag.specific {
-            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
-            color: #7c3aed;
-        }
-
-        .todo-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .todo-action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            transition: all 0.2s ease;
-        }
-
-        .todo-action-btn.end-btn {
-            background: #fef2f2;
-            color: #ef4444;
-        }
-
-        .todo-action-btn.end-btn:hover {
-            background: #fee2e2;
-        }
-
-        .todo-action-btn.delete-btn {
-            background: #f3f4f6;
-            color: #6b7280;
-        }
-
-        .todo-action-btn.delete-btn:hover {
-            background: #e5e7eb;
-            color: #ef4444;
-        }
-
-        /* 할일 추가 버튼 (플로팅) */
-        .todo-add-floating-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border: none;
-            cursor: pointer;
-            color: white;
-            font-size: 26px;
-            box-shadow: 0 6px 25px rgba(240, 147, 251, 0.5);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-        }
-
-        .todo-add-floating-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 35px rgba(240, 147, 251, 0.6);
-        }
-
-        /* 할일 추가 모달 */
-        .todo-form-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 3000;
-            justify-content: center;
-            align-items: flex-end;
-            padding: 0;
-        }
-
-        .todo-form-modal.active {
-            display: flex;
-        }
-
-        .todo-form-content {
-            background: white;
-            width: 100%;
-            max-width: 500px;
-            border-radius: 24px 24px 0 0;
-            padding: 25px;
-            animation: slideUpModal 0.3s ease;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        @keyframes slideUpModal {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .todo-form-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .todo-form-header h3 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .todo-form-close {
-            background: #f3f4f6;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            color: #6b7280;
-            transition: all 0.2s ease;
-        }
-
-        .todo-form-close:hover {
-            background: #e5e7eb;
-            color: #333;
-        }
-
-        .todo-form-group {
-            margin-bottom: 20px;
-        }
-
-        .todo-form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .todo-form-group input[type="text"] {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e5e7eb;
-            border-radius: 14px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: border-color 0.2s ease;
-        }
-
-        .todo-form-group input[type="text"]:focus {
-            outline: none;
-            border-color: #f093fb;
-        }
-
-        .todo-repeat-options {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .todo-repeat-option {
-            flex: 1;
-            min-width: 80px;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s ease;
-            background: white;
-        }
-
-        .todo-repeat-option:hover {
-            border-color: #f093fb;
-        }
-
-        .todo-repeat-option.selected {
-            border-color: #f093fb;
-            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
-        }
-
-        .todo-repeat-option i {
-            font-size: 22px;
-            margin-bottom: 6px;
-            display: block;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .todo-repeat-option span {
-            font-size: 12px;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .todo-weekday-selector {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .todo-weekday-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #e5e7eb;
-            background: white;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            color: #6b7280;
-            transition: all 0.2s ease;
-        }
-
-        .todo-weekday-btn:hover {
-            border-color: #f093fb;
-        }
-
-        .todo-weekday-btn.selected {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-color: transparent;
-            color: white;
-        }
-
-        .todo-date-input {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e5e7eb;
-            border-radius: 14px;
-            font-size: 15px;
-            font-family: inherit;
-            margin-top: 10px;
-        }
-
-        .todo-date-input:focus {
-            outline: none;
-            border-color: #f093fb;
-        }
-
-        .todo-submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-top: 10px;
-        }
-
-        .todo-submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(240, 147, 251, 0.4);
-        }
-
-        /* 지난 할일 섹션 */
-        .todo-past-section {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 2px dashed #e5e7eb;
-        }
-
-        .todo-past-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            cursor: pointer;
-        }
-
-        .todo-past-header h4 {
-            font-size: 15px;
-            font-weight: 600;
-            color: #9ca3af;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .todo-past-toggle {
-            font-size: 14px;
-            color: #9ca3af;
-            transition: transform 0.3s ease;
-        }
-
-        .todo-past-toggle.expanded {
-            transform: rotate(180deg);
-        }
-
-        .todo-past-list {
-            display: none;
-        }
-
-        .todo-past-list.expanded {
-            display: block;
-        }
-
-        .todo-past-date-group {
-            margin-bottom: 15px;
-        }
-
-        .todo-past-date-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #9ca3af;
-            margin-bottom: 10px;
-            padding-left: 5px;
-        }
-
-        .todo-past-item {
-            background: #f9fafb;
-            border-radius: 12px;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            opacity: 0.7;
-        }
-
-        .todo-past-item .todo-title {
-            font-size: 14px;
-            color: #6b7280;
-        }
-
-        .todo-past-item .todo-status {
-            font-size: 11px;
-            margin-top: 4px;
-        }
-
-        .todo-past-item .todo-status.completed {
-            color: #10b981;
-        }
-
-        .todo-past-item .todo-status.incomplete {
-            color: #ef4444;
-        }
-
-        /* 종료된 할일 표시 */
-        .todo-item.ended {
-            opacity: 0.5;
-            background: #f9fafb;
-        }
-
-        .todo-item.ended .todo-title {
-            text-decoration: line-through;
-            color: #9ca3af;
-        }
-
-        /* ========== 일반 메모 전체화면 모달 스타일 ========== */
+        /* ========== 일반 메모 전체화면 모달 스타일 (밝은 톤) ========== */
         .memo-fullscreen-modal {
             display: none;
             position: fixed;
@@ -1263,7 +498,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(180deg, #f8f9ff 0%, #e8ecf8 50%, #f0f4ff 100%);
             z-index: 2000;
             animation: fadeInUp 0.3s ease;
         }
@@ -1289,13 +524,14 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 24px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.08);
         }
 
         .memo-modal-header h2 {
-            color: #fff;
+            color: #333;
             font-size: 22px;
             font-weight: 600;
             display: flex;
@@ -1311,19 +547,19 @@
         }
 
         .memo-back-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(102, 126, 234, 0.1);
             border: none;
             width: 44px;
             height: 44px;
             border-radius: 12px;
-            color: #fff;
+            color: #667eea;
             font-size: 20px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .memo-back-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(102, 126, 234, 0.2);
             transform: scale(1.05);
         }
 
@@ -1345,7 +581,7 @@
             gap: 12px;
             margin-bottom: 16px;
             padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
         }
 
         .date-group-header .date-icon {
@@ -1365,28 +601,29 @@
         }
 
         .date-group-header .date-text {
-            color: #fff;
+            color: #333;
             font-size: 16px;
             font-weight: 600;
         }
 
         .date-group-header .date-count {
-            color: rgba(255, 255, 255, 0.5);
+            color: #888;
             font-size: 13px;
             margin-top: 2px;
         }
 
         /* 메모 카드 리스트 아이템 */
         .memo-list-item {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 16px;
             padding: 18px 20px;
             margin-bottom: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(102, 126, 234, 0.12);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
         }
 
         .memo-list-item::before {
@@ -1402,9 +639,10 @@
         }
 
         .memo-list-item:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: #fff;
             transform: translateX(4px);
             border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
         }
 
         .memo-list-item:hover::before {
@@ -1416,7 +654,7 @@
         }
 
         .memo-list-item h4 {
-            color: #fff;
+            color: #333;
             font-size: 17px;
             font-weight: 600;
             margin-bottom: 8px;
@@ -1427,7 +665,7 @@
         }
 
         .memo-list-item .memo-preview {
-            color: rgba(255, 255, 255, 0.6);
+            color: #666;
             font-size: 14px;
             line-height: 1.5;
             display: -webkit-box;
@@ -1437,12 +675,28 @@
         }
 
         .memo-list-item .memo-time {
-            color: rgba(255, 255, 255, 0.4);
+            color: #999;
             font-size: 12px;
             margin-top: 10px;
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+
+        .memo-list-item .memo-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .memo-list-item.has-image {
+            padding-right: 90px;
         }
 
         /* 플로팅 추가 버튼 */
@@ -1482,14 +736,14 @@
             align-items: center;
             justify-content: center;
             height: 60vh;
-            color: rgba(255, 255, 255, 0.5);
+            color: #999;
             text-align: center;
         }
 
         .memo-empty-state i {
             font-size: 64px;
             margin-bottom: 20px;
-            opacity: 0.3;
+            color: #ccc;
         }
 
         .memo-empty-state p {
@@ -1505,7 +759,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(180deg, #f8f9ff 0%, #e8ecf8 50%, #f0f4ff 100%);
             z-index: 2002;
             animation: fadeInUp 0.3s ease;
         }
@@ -1520,9 +774,10 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 24px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.08);
         }
 
         .memo-detail-header .left-actions {
@@ -1538,28 +793,47 @@
         }
 
         .memo-detail-header button {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(102, 126, 234, 0.1);
             border: none;
             width: 44px;
             height: 44px;
             border-radius: 12px;
-            color: #fff;
+            color: #667eea;
             font-size: 18px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .memo-detail-header button:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(102, 126, 234, 0.2);
             transform: scale(1.05);
         }
 
         .memo-detail-header .delete-action {
             color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
         }
 
         .memo-detail-header .delete-action:hover {
             background: rgba(255, 107, 107, 0.2);
+        }
+
+        .memo-detail-header .copy-action {
+            color: #43a047;
+            background: rgba(67, 160, 71, 0.1);
+        }
+
+        .memo-detail-header .copy-action:hover {
+            background: rgba(67, 160, 71, 0.2);
+        }
+
+        .memo-detail-header .share-action {
+            color: #ffc107;
+            background: rgba(255, 193, 7, 0.15);
+        }
+
+        .memo-detail-header .share-action:hover {
+            background: rgba(255, 193, 7, 0.25);
         }
 
         .memo-detail-content {
@@ -1572,13 +846,13 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: rgba(255, 255, 255, 0.5);
+            color: #888;
             font-size: 13px;
             margin-bottom: 16px;
         }
 
         .memo-detail-content h3 {
-            color: #fff;
+            color: #333;
             font-size: 26px;
             font-weight: 700;
             margin-bottom: 24px;
@@ -1586,10 +860,19 @@
         }
 
         .memo-detail-content .memo-body {
-            color: rgba(255, 255, 255, 0.85);
+            color: #555;
             font-size: 16px;
             line-height: 1.8;
             white-space: pre-wrap;
+        }
+
+        .memo-detail-content .memo-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         /* 메모 추가/수정 모달 */
@@ -1600,7 +883,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(180deg, #f8f9ff 0%, #e8ecf8 50%, #f0f4ff 100%);
             z-index: 2003;
             animation: fadeInUp 0.3s ease;
         }
@@ -1615,13 +898,14 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 24px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.08);
         }
 
         .memo-form-header h2 {
-            color: #fff;
+            color: #333;
             font-size: 20px;
             font-weight: 600;
         }
@@ -1632,18 +916,18 @@
         }
 
         .memo-cancel-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(102, 126, 234, 0.1);
             border: none;
             padding: 12px 20px;
             border-radius: 12px;
-            color: #fff;
+            color: #667eea;
             font-size: 15px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .memo-cancel-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(102, 126, 234, 0.2);
         }
 
         .memo-save-btn {
@@ -1672,11 +956,11 @@
         }
 
         .memo-form-body .form-input {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(102, 126, 234, 0.2);
             border-radius: 14px;
             padding: 16px 18px;
-            color: #fff;
+            color: #333;
             font-size: 18px;
             font-family: inherit;
             font-weight: 600;
@@ -1687,511 +971,111 @@
         .memo-form-body .form-input:focus {
             outline: none;
             border-color: rgba(102, 126, 234, 0.5);
-            background: rgba(255, 255, 255, 0.12);
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
         }
 
         .memo-form-body .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: #aaa;
         }
 
         .memo-form-body .form-textarea {
             flex: 1;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(102, 126, 234, 0.2);
             border-radius: 14px;
             padding: 18px;
-            color: #fff;
+            color: #333;
             font-size: 16px;
             font-family: inherit;
             line-height: 1.7;
             resize: none;
             transition: all 0.2s;
+            min-height: 150px;
         }
 
         .memo-form-body .form-textarea:focus {
             outline: none;
             border-color: rgba(102, 126, 234, 0.5);
-            background: rgba(255, 255, 255, 0.12);
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
         }
 
         .memo-form-body .form-textarea::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: #aaa;
         }
 
-        /* 메모 이미지 업로드 스타일 */
-        .memo-image-upload-section {
+        /* 이미지 첨부 영역 */
+        .image-attach-area {
             margin-top: 16px;
+            margin-bottom: 16px;
         }
 
-        .memo-image-buttons {
+        .image-attach-btn {
             display: flex;
-            gap: 12px;
-        }
-
-        .memo-image-upload-label {
-            display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            flex: 1;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px dashed rgba(255, 255, 255, 0.3);
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px dashed rgba(102, 126, 234, 0.3);
             border-radius: 14px;
-            padding: 18px 12px;
-            color: rgba(255, 255, 255, 0.6);
+            color: #667eea;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .memo-image-upload-label.gallery-btn:hover {
-            border-color: rgba(74, 222, 128, 0.6);
-            background: rgba(74, 222, 128, 0.15);
-            color: #4ade80;
+        .image-attach-btn:hover {
+            background: #fff;
+            border-color: rgba(102, 126, 234, 0.5);
         }
 
-        .memo-image-upload-label.camera-btn:hover {
-            border-color: rgba(102, 126, 234, 0.6);
-            background: rgba(102, 126, 234, 0.15);
-            color: #667eea;
+        .image-attach-btn i {
+            font-size: 20px;
         }
 
-
-
-        .memo-image-upload-label i {
-            font-size: 24px;
-        }
-
-        .memo-image-upload-label span {
-            font-size: 14px;
-        }
-
-        .memo-image-preview-container {
+        .image-preview-container {
+            position: relative;
             margin-top: 12px;
             display: none;
-            position: relative;
         }
 
-        .memo-image-preview-container.active {
+        .image-preview-container.active {
             display: block;
         }
 
-        .memo-image-preview {
+        .image-preview-container img {
             width: 100%;
             max-height: 200px;
-            object-fit: cover;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
         }
 
-        .memo-image-remove-btn {
+        .remove-image-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            width: 36px;
-            height: 36px;
-            background: rgba(0, 0, 0, 0.6);
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 107, 107, 0.9);
             border: none;
             border-radius: 50%;
-            color: white;
+            color: #fff;
             font-size: 16px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s;
         }
 
-        .memo-image-remove-btn:hover {
-            background: rgba(255, 107, 107, 0.8);
+        .remove-image-btn:hover {
+            background: #ff6b6b;
             transform: scale(1.1);
         }
-
-        /* 메모 리스트 아이템의 이미지 썸네일 */
-        .memo-list-item-image {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 12px;
-        }
-
-        /* 메모 상세보기 이미지 */
-        .memo-detail-image {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 14px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .memo-detail-image:hover {
-            transform: scale(1.02);
-        }
-
-        /* 이미지 전체화면 보기 */
-        .image-fullscreen-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .image-fullscreen-overlay.active {
-            display: flex;
-        }
-
-        .image-fullscreen-overlay img {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-        }
-
-        .image-fullscreen-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .image-fullscreen-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* ========== 카테고리 추가 버튼 스타일 ========== */
-        .add-category-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .add-category-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .add-category-box {
-            width: 80px;
-            height: 80px;
-            border-radius: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            font-size: 32px;
-            color: rgba(255, 255, 255, 0.7);
-            background: rgba(255, 255, 255, 0.15);
-            border: 3px dashed rgba(255, 255, 255, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .add-category-item:hover .add-category-box {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.6);
-            color: white;
-        }
-
-        .add-category-item span {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 13px;
-            font-weight: 500;
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        /* ========== 카테고리 추가 모달 스타일 ========== */
-        .category-modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .category-modal-overlay.active {
-            display: flex;
-        }
-
-        .category-modal {
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 400px;
-            max-height: 85vh;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        .category-modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .category-modal-header h2 {
-            color: #fff;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .category-modal-close {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .category-modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .category-modal-body {
-            padding: 24px;
-            max-height: calc(85vh - 80px);
-            overflow-y: auto;
-        }
-
-        .category-form-group {
-            margin-bottom: 20px;
-        }
-
-        .category-form-group label {
-            display: block;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .category-form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            border-radius: 14px;
-            color: #fff;
-            font-size: 16px;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-
-        .category-form-group input:focus {
-            outline: none;
-            border-color: rgba(102, 126, 234, 0.6);
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .category-form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* 아이콘 선택 그리드 */
-        .icon-selector-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
-
-        .icon-option {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            aspect-ratio: 1;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            border-radius: 14px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 22px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .icon-option:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-            color: #fff;
-        }
-
-        .icon-option.selected {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: transparent;
-            color: #fff;
-            transform: scale(1.05);
-        }
-
-        /* 색상 선택 그리드 */
-        .color-selector-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
-
-        .color-option {
-            width: 100%;
-            aspect-ratio: 1;
-            border-radius: 14px;
-            border: 3px solid transparent;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .color-option:hover {
-            transform: scale(1.05);
-        }
-
-        .color-option.selected {
-            border-color: #fff;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-        }
-
-        .color-option.selected::after {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            font-size: 18px;
-        }
-
-        /* 미리보기 */
-        .category-preview {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            margin-bottom: 20px;
-        }
-
-        .category-preview-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .category-preview-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            color: white;
-            margin-bottom: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .category-preview-name {
-            color: #fff;
-            font-size: 14px;
-            font-weight: 500;
-            text-align: center;
-        }
-
-        .category-add-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .category-add-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-        }
-
-        .category-add-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* 커스텀 카테고리 삭제 버튼 */
-        .custom-category-wrapper {
-            position: relative;
-        }
-
-        .custom-category-delete {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 24px;
-            height: 24px;
-            background: #ff5f6d;
-            border: 2px solid white;
-            border-radius: 50%;
-            color: white;
-            font-size: 12px;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            transition: all 0.2s;
-        }
-
-        .custom-category-wrapper:hover .custom-category-delete {
-            display: flex;
-        }
-
-        .custom-category-delete:hover {
-            transform: scale(1.1);
-            background: #ff4757;
-        }
-
-        /* 커스텀 카테고리 색상 클래스 */
-        .custom-gradient-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .custom-gradient-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .custom-gradient-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .custom-gradient-4 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .custom-gradient-5 { background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%); }
-        .custom-gradient-6 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
-        .custom-gradient-7 { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
-        .custom-gradient-8 { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-        .custom-gradient-9 { background: linear-gradient(135deg, #667db6 0%, #0082c8 100%); }
-        .custom-gradient-10 { background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%); }
 
         /* 스크롤바 스타일 */
         .memo-list-container::-webkit-scrollbar,
@@ -2209,23 +1093,132 @@
         .memo-list-container::-webkit-scrollbar-thumb,
         .memo-detail-content::-webkit-scrollbar-thumb,
         .memo-form-body::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(102, 126, 234, 0.2);
             border-radius: 3px;
         }
 
         .memo-list-container::-webkit-scrollbar-thumb:hover,
         .memo-detail-content::-webkit-scrollbar-thumb:hover,
         .memo-form-body::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(102, 126, 234, 0.4);
+        }
+
+        /* 공유 모달 */
+        .share-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 3000;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0;
+        }
+
+        .share-modal-overlay.active {
+            display: flex;
+        }
+
+        .share-modal {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            border-radius: 20px 20px 0 0;
+            padding: 24px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .share-modal h3 {
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 24px;
+        }
+
+        .share-options {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .share-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-option:hover {
+            transform: translateY(-3px);
+        }
+
+        .share-option .icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .share-option.kakao .icon {
+            background: #FEE500;
+            color: #3C1E1E;
+        }
+
+        .share-option.copy .icon {
+            background: #667eea;
+        }
+
+        .share-option.more .icon {
+            background: #888;
+        }
+
+        .share-option span {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .share-modal-close {
+            width: 100%;
+            padding: 16px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-modal-close:hover {
+            background: #eee;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <button class="backup-btn" onclick="openBackupModal()" title="데이터 백업/복원">
-                <i class="fas fa-cloud"></i>
-            </button>
+            <div class="header-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
             <h1>절대강자 메모장</h1>
             <p>모든 기록을 한 곳에서 간편하게</p>
         </header>
@@ -2313,103 +1306,6 @@
                     <i class="fas fa-feather-alt"></i>
                 </div>
                 <span>일기장</span>
-            </div>
-
-            <!-- 커스텀 카테고리가 여기에 추가됨 -->
-            <div id="customCategoriesContainer"></div>
-
-            <!-- 카테고리 추가 버튼 -->
-            <div class="add-category-item" onclick="openCategoryModal()">
-                <div class="add-category-box">
-                    <i class="fas fa-plus"></i>
-                </div>
-                <span>카테고리<br>추가</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- 백업/복원 모달 -->
-    <div class="backup-modal-overlay" id="backupModal">
-        <div class="backup-modal">
-            <div class="backup-modal-header">
-                <h2><i class="fas fa-cloud"></i> 데이터 백업/복원</h2>
-                <button class="backup-modal-close" onclick="closeBackupModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="backup-modal-body">
-                <div class="backup-option" onclick="exportBackup()">
-                    <div class="backup-option-icon download">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <h3>데이터 백업하기</h3>
-                    <p>모든 메모와 카테고리를 파일로 저장합니다.</p>
-                </div>
-                
-                <div class="backup-option" onclick="document.getElementById('backupFileInput').click()">
-                    <div class="backup-option-icon upload">
-                        <i class="fas fa-upload"></i>
-                    </div>
-                    <h3>데이터 가져오기</h3>
-                    <p>백업 파일에서 데이터를 복원합니다.</p>
-                </div>
-                
-                <input type="file" id="backupFileInput" accept=".json" onchange="importBackup(event)">
-                
-                <div class="backup-info">
-                    <i class="fas fa-info-circle"></i>
-                    <span>가져오기 시 기존 데이터가 모두 덮어씌워집니다. 중요한 데이터는 먼저 백업해주세요.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 카테고리 추가 모달 -->
-    <div class="category-modal-overlay" id="categoryModal">
-        <div class="category-modal">
-            <div class="category-modal-header">
-                <h2>카테고리 추가</h2>
-                <button class="category-modal-close" onclick="closeCategoryModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="category-modal-body">
-                <!-- 미리보기 -->
-                <div class="category-preview">
-                    <div class="category-preview-box">
-                        <div class="category-preview-icon custom-gradient-1" id="categoryPreviewIcon">
-                            <i class="fas fa-star" id="categoryPreviewIconEl"></i>
-                        </div>
-                        <div class="category-preview-name" id="categoryPreviewName">새 카테고리</div>
-                    </div>
-                </div>
-
-                <!-- 카테고리 이름 -->
-                <div class="category-form-group">
-                    <label><i class="fas fa-pencil-alt"></i> 카테고리 이름</label>
-                    <input type="text" id="categoryNameInput" placeholder="카테고리 이름을 입력하세요" maxlength="10" oninput="updateCategoryPreview()">
-                </div>
-
-                <!-- 아이콘 선택 -->
-                <div class="category-form-group">
-                    <label><i class="fas fa-icons"></i> 아이콘 선택</label>
-                    <div class="icon-selector-grid" id="iconSelectorGrid">
-                        <!-- 아이콘들이 여기에 동적으로 추가됨 -->
-                    </div>
-                </div>
-
-                <!-- 색상 선택 -->
-                <div class="category-form-group">
-                    <label><i class="fas fa-palette"></i> 색상 선택</label>
-                    <div class="color-selector-grid" id="colorSelectorGrid">
-                        <!-- 색상들이 여기에 동적으로 추가됨 -->
-                    </div>
-                </div>
-
-                <!-- 추가 버튼 -->
-                <button class="category-add-btn" onclick="addCustomCategory()" id="categoryAddBtn">
-                    <i class="fas fa-plus"></i> 카테고리 추가하기
-                </button>
             </div>
         </div>
     </div>
@@ -2539,10 +1435,10 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyCurrentMemo()" title="복사">
+                <button class="copy-action" onclick="copyCurrentMemo()" title="복사">
                     <i class="fas fa-copy"></i>
                 </button>
-                <button onclick="shareCurrentMemo()" title="공유">
+                <button class="share-action" onclick="openShareModal()" title="공유">
                     <i class="fas fa-share-alt"></i>
                 </button>
                 <button onclick="editCurrentMemo()">
@@ -2559,7 +1455,36 @@
                 <span></span>
             </div>
             <h3 id="memoDetailTitle"></h3>
+            <img class="memo-image" id="memoDetailImage" style="display:none;">
             <div class="memo-body" id="memoDetailBody"></div>
+        </div>
+    </div>
+
+    <!-- 공유 모달 -->
+    <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModal(event)">
+        <div class="share-modal" onclick="event.stopPropagation()">
+            <h3>공유하기</h3>
+            <div class="share-options">
+                <div class="share-option kakao" onclick="shareToKakao()">
+                    <div class="icon">
+                        <i class="fas fa-comment"></i>
+                    </div>
+                    <span>카카오톡</span>
+                </div>
+                <div class="share-option copy" onclick="copyMemoForShare()">
+                    <div class="icon">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <span>복사</span>
+                </div>
+                <div class="share-option more" onclick="shareWithWebAPI()">
+                    <div class="icon">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <span>더보기</span>
+                </div>
+            </div>
+            <button class="share-modal-close" onclick="closeShareModal()">닫기</button>
         </div>
     </div>
 
@@ -2575,22 +1500,17 @@
         <div class="memo-form-body">
             <input type="text" class="form-input" id="memoFormTitleInput" placeholder="제목을 입력하세요">
             <textarea class="form-textarea" id="memoFormContentInput" placeholder="내용을 입력하세요..."></textarea>
-            <div class="memo-image-upload-section">
-                <input type="file" id="memoImageInput" accept="image/*" style="display: none;" onchange="handleMemoImageSelect(event, 'gallery')">
-                <input type="file" id="memoCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleMemoImageSelect(event, 'camera')">
-                <div class="memo-image-buttons">
-                    <button type="button" class="memo-image-upload-label gallery-btn" onclick="handleGalleryClick()">
-                        <i class="fas fa-images"></i>
-                        <span>갤러리</span>
-                    </button>
-                    <button type="button" class="memo-image-upload-label camera-btn" onclick="handleCameraClick()">
-                        <i class="fas fa-camera"></i>
-                        <span>카메라</span>
-                    </button>
-                </div>
-                <div class="memo-image-preview-container" id="memoImagePreviewContainer">
-                    <img src="" alt="미리보기" class="memo-image-preview" id="memoImagePreview">
-                    <button type="button" class="memo-image-remove-btn" onclick="removeMemoImage()">
+            
+            <!-- 이미지 첨부 영역 -->
+            <div class="image-attach-area">
+                <input type="file" id="memoImageInput" accept="image/*" style="display:none;" onchange="handleImageSelect(event)">
+                <button type="button" class="image-attach-btn" onclick="document.getElementById('memoImageInput').click()">
+                    <i class="fas fa-camera"></i>
+                    <span>사진 첨부하기</span>
+                </button>
+                <div class="image-preview-container" id="imagePreviewContainer">
+                    <img id="imagePreview" src="" alt="미리보기">
+                    <button type="button" class="remove-image-btn" onclick="removeImage()">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -2598,548 +1518,21 @@
         </div>
     </div>
 
-    <!-- 할일 목록 전체화면 모달 -->
-    <div class="todo-fullscreen-modal" id="todoFullscreenModal">
-        <div class="todo-modal-header">
-            <h2><i class="fas fa-check-square"></i> 할일 목록</h2>
-            <button class="todo-back-btn" onclick="closeTodoFullscreen()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <div class="todo-date-display">
-            <div class="date-main" id="todoDateMain">2024년 1월 15일</div>
-            <div class="date-sub" id="todoDateSub">월요일</div>
-        </div>
-        
-        <div class="todo-success-rate">
-            <div class="rate-circle" id="todoRateCircle" style="--rate: 0%;">
-                <span class="rate-text" id="todoRateText">0%</span>
-            </div>
-            <div class="rate-info">
-                <h3>오늘의 성공률</h3>
-                <p id="todoRateDetail">0/0 완료</p>
-            </div>
-        </div>
-        
-        <div class="todo-list-container" id="todoListContainer">
-            <div class="todo-section-title">
-                <i class="fas fa-sun"></i> 오늘 할일
-            </div>
-            <div id="todayTodoList">
-                <!-- 오늘 할일 목록 -->
-            </div>
-            
-            <div class="todo-past-section" id="todoPastSection" style="display: none;">
-                <div class="todo-past-header" onclick="togglePastTodos()">
-                    <h4><i class="fas fa-history"></i> 지난 기록</h4>
-                    <i class="fas fa-chevron-down todo-past-toggle" id="todoPastToggle"></i>
-                </div>
-                <div class="todo-past-list" id="todoPastList">
-                    <!-- 지난 할일 기록 -->
-                </div>
-            </div>
-        </div>
-        
-        <button class="todo-add-floating-btn" onclick="openTodoForm()">
-            <i class="fas fa-plus"></i>
-        </button>
-    </div>
-    
-    <!-- 할일 추가/수정 모달 -->
-    <div class="todo-form-modal" id="todoFormModal">
-        <div class="todo-form-content">
-            <div class="todo-form-header">
-                <h3 id="todoFormTitle">새 할일 추가</h3>
-                <button class="todo-form-close" onclick="closeTodoForm()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="todo-form-group">
-                <label>할일 제목</label>
-                <input type="text" id="todoTitleInput" placeholder="할일을 입력하세요">
-            </div>
-            
-            <div class="todo-form-group">
-                <label>반복 설정</label>
-                <div class="todo-repeat-options">
-                    <div class="todo-repeat-option selected" data-type="daily" onclick="selectRepeatType('daily')">
-                        <i class="fas fa-redo"></i>
-                        <span>매일</span>
-                    </div>
-                    <div class="todo-repeat-option" data-type="weekday" onclick="selectRepeatType('weekday')">
-                        <i class="fas fa-calendar-week"></i>
-                        <span>특정 요일</span>
-                    </div>
-                    <div class="todo-repeat-option" data-type="specific" onclick="selectRepeatType('specific')">
-                        <i class="fas fa-calendar-day"></i>
-                        <span>특정 날짜</span>
-                    </div>
-                </div>
-                
-                <div id="weekdaySelector" style="display: none;">
-                    <div class="todo-weekday-selector">
-                        <button type="button" class="todo-weekday-btn" data-day="0" onclick="toggleWeekday(0)">일</button>
-                        <button type="button" class="todo-weekday-btn" data-day="1" onclick="toggleWeekday(1)">월</button>
-                        <button type="button" class="todo-weekday-btn" data-day="2" onclick="toggleWeekday(2)">화</button>
-                        <button type="button" class="todo-weekday-btn" data-day="3" onclick="toggleWeekday(3)">수</button>
-                        <button type="button" class="todo-weekday-btn" data-day="4" onclick="toggleWeekday(4)">목</button>
-                        <button type="button" class="todo-weekday-btn" data-day="5" onclick="toggleWeekday(5)">금</button>
-                        <button type="button" class="todo-weekday-btn" data-day="6" onclick="toggleWeekday(6)">토</button>
-                    </div>
-                </div>
-                
-                <div id="specificDateSelector" style="display: none;">
-                    <input type="date" class="todo-date-input" id="todoSpecificDate">
-                </div>
-            </div>
-            
-            <button class="todo-submit-btn" onclick="saveTodo()">
-                <i class="fas fa-check"></i> 저장하기
-            </button>
-        </div>
-    </div>
-
     <!-- 알림 메시지용 토스트 -->
-    <div id="toast" style="display:none; position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:12px 24px; border-radius:25px; z-index:4000; font-size:14px;"></div>
-
-    <!-- 이미지 전체화면 보기 오버레이 -->
-    <div class="image-fullscreen-overlay" id="imageFullscreenOverlay" onclick="closeImageFullscreen()">
-        <button class="image-fullscreen-close" onclick="closeImageFullscreen()">
-            <i class="fas fa-times"></i>
-        </button>
-        <img src="" alt="전체화면" id="imageFullscreenImg">
-    </div>
+    <div id="toast" style="display:none; position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:12px 24px; border-radius:25px; z-index:2000; font-size:14px;"></div>
 
     <script>
-        // ========== IndexedDB 기반 저장소 (Flutter WebView 호환) ==========
-        const DB_NAME = 'MemoAppDB';
-        const DB_VERSION = 1;
-        const STORE_NAME = 'appData';
-        let db = null;
-        let isDBReady = false;
-
-        // IndexedDB 초기화
-        function initIndexedDB() {
-            return new Promise((resolve, reject) => {
-                if (!window.indexedDB) {
-                    console.warn('IndexedDB 지원 안됨');
-                    resolve(false);
-                    return;
-                }
-
-                const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-                request.onerror = (event) => {
-                    console.error('IndexedDB 열기 실패:', event.target.error);
-                    resolve(false);
-                };
-
-                request.onsuccess = (event) => {
-                    db = event.target.result;
-                    isDBReady = true;
-                    console.log('IndexedDB 연결 성공');
-                    resolve(true);
-                };
-
-                request.onupgradeneeded = (event) => {
-                    const database = event.target.result;
-                    if (!database.objectStoreNames.contains(STORE_NAME)) {
-                        database.createObjectStore(STORE_NAME, { keyPath: 'key' });
-                        console.log('IndexedDB 스토어 생성됨');
-                    }
-                };
-            });
-        }
-
-        // IndexedDB에 저장
-        function saveToIndexedDB(key, value) {
-            return new Promise((resolve, reject) => {
-                if (!isDBReady || !db) {
-                    resolve(false);
-                    return;
-                }
-
-                try {
-                    const transaction = db.transaction([STORE_NAME], 'readwrite');
-                    const store = transaction.objectStore(STORE_NAME);
-                    const request = store.put({ key: key, value: value, timestamp: Date.now() });
-
-                    request.onsuccess = () => resolve(true);
-                    request.onerror = (e) => {
-                        console.error('IndexedDB 저장 오류:', e.target.error);
-                        resolve(false);
-                    };
-                } catch (e) {
-                    console.error('IndexedDB 저장 예외:', e);
-                    resolve(false);
-                }
-            });
-        }
-
-        // IndexedDB에서 읽기
-        function loadFromIndexedDB(key) {
-            return new Promise((resolve, reject) => {
-                if (!isDBReady || !db) {
-                    resolve(null);
-                    return;
-                }
-
-                try {
-                    const transaction = db.transaction([STORE_NAME], 'readonly');
-                    const store = transaction.objectStore(STORE_NAME);
-                    const request = store.get(key);
-
-                    request.onsuccess = () => {
-                        if (request.result) {
-                            resolve(request.result.value);
-                        } else {
-                            resolve(null);
-                        }
-                    };
-                    request.onerror = (e) => {
-                        console.error('IndexedDB 읽기 오류:', e.target.error);
-                        resolve(null);
-                    };
-                } catch (e) {
-                    console.error('IndexedDB 읽기 예외:', e);
-                    resolve(null);
-                }
-            });
-        }
-
-        // 모든 데이터를 IndexedDB에 저장
-        async function saveAllToIndexedDB() {
-            if (!isDBReady) return;
-            
-            const allData = {
-                travels: data.travels,
-                restaurants: data.restaurants,
-                memos: data.memos,
-                customCategories: data.customCategories,
-                customCategoryMemos: data.customCategoryMemos,
-                todos: data.todos,
-                todoHistory: data.todoHistory,
-                lastTodoDate: data.lastTodoDate
-            };
-
-            await saveToIndexedDB('allData', allData);
-            console.log('IndexedDB에 전체 데이터 저장 완료');
-        }
-
-        // IndexedDB에서 모든 데이터 로드
-        async function loadAllFromIndexedDB() {
-            const allData = await loadFromIndexedDB('allData');
-            return allData;
-        }
-
-        // ========== Flutter 네이티브 브릿지 ==========
-        // Flutter 앱에서 호출할 수 있는 함수들
-
-        // Flutter에서 데이터 저장 요청 시 호출
-        window.flutterSaveData = function(jsonString) {
-            try {
-                const importedData = JSON.parse(jsonString);
-                Object.keys(importedData).forEach(key => {
-                    if (data.hasOwnProperty(key)) {
-                        data[key] = importedData[key];
-                    }
-                });
-                saveAllData();
-                saveAllToIndexedDB();
-                return JSON.stringify({ success: true });
-            } catch (e) {
-                console.error('Flutter 데이터 저장 오류:', e);
-                return JSON.stringify({ success: false, error: e.message });
-            }
+        // 데이터 저장소
+        let data = {
+            travels: JSON.parse(localStorage.getItem('travels')) || [],
+            restaurants: JSON.parse(localStorage.getItem('restaurants')) || [],
+            memos: JSON.parse(localStorage.getItem('memos')) || []
         };
-
-        // Flutter에서 데이터 가져오기 요청 시 호출
-        window.flutterGetData = function() {
-            try {
-                const allData = {
-                    travels: data.travels,
-                    restaurants: data.restaurants,
-                    memos: data.memos,
-                    customCategories: data.customCategories,
-                    customCategoryMemos: data.customCategoryMemos,
-                    todos: data.todos,
-                    todoHistory: data.todoHistory,
-                    lastTodoDate: data.lastTodoDate
-                };
-                return JSON.stringify(allData);
-            } catch (e) {
-                console.error('Flutter 데이터 가져오기 오류:', e);
-                return JSON.stringify({});
-            }
-        };
-
-        // Flutter WebView에 메시지 전송 (앱이 수신 가능한 경우)
-        function sendToFlutter(type, data) {
-            try {
-                // Flutter WebView 채널 (가능한 경우)
-                if (window.flutter_inappwebview) {
-                    window.flutter_inappwebview.callHandler('onDataChange', JSON.stringify({ type, data }));
-                }
-                // 대체 방식 - postMessage
-                if (window.FlutterChannel) {
-                    window.FlutterChannel.postMessage(JSON.stringify({ type, data }));
-                }
-            } catch (e) {
-                // Flutter 채널이 없을 수 있음 - 무시
-            }
-        }
-
-        // ========== Flutter WebView 호환성 브릿지 (카메라/공유) ==========
-        
-        // Flutter WebView 환경 감지
-        function isFlutterWebView() {
-            return !!(window.flutter_inappwebview || window.FlutterChannel || 
-                     window.FlutterCameraChannel || window.FlutterShareChannel ||
-                     (navigator.userAgent && navigator.userAgent.includes('wv')));
-        }
-
-        // Flutter에서 카메라 촬영 요청
-        function requestFlutterCamera() {
-            try {
-                if (window.flutter_inappwebview) {
-                    window.flutter_inappwebview.callHandler('openCamera', JSON.stringify({ 
-                        type: 'camera',
-                        maxSize: 800,
-                        quality: 80
-                    }));
-                    return true;
-                }
-                if (window.FlutterCameraChannel) {
-                    window.FlutterCameraChannel.postMessage(JSON.stringify({ 
-                        type: 'camera',
-                        maxSize: 800,
-                        quality: 80
-                    }));
-                    return true;
-                }
-                if (window.FlutterChannel) {
-                    window.FlutterChannel.postMessage(JSON.stringify({ 
-                        action: 'openCamera',
-                        maxSize: 800,
-                        quality: 80
-                    }));
-                    return true;
-                }
-            } catch (e) {
-                console.log('Flutter 카메라 요청 실패:', e);
-            }
-            return false;
-        }
-
-        // Flutter에서 갤러리 열기 요청
-        function requestFlutterGallery() {
-            try {
-                if (window.flutter_inappwebview) {
-                    window.flutter_inappwebview.callHandler('openGallery', JSON.stringify({ 
-                        type: 'gallery',
-                        maxSize: 800,
-                        quality: 80
-                    }));
-                    return true;
-                }
-                if (window.FlutterGalleryChannel) {
-                    window.FlutterGalleryChannel.postMessage(JSON.stringify({ 
-                        type: 'gallery',
-                        maxSize: 800,
-                        quality: 80
-                    }));
-                    return true;
-                }
-                if (window.FlutterChannel) {
-                    window.FlutterChannel.postMessage(JSON.stringify({ 
-                        action: 'openGallery',
-                        maxSize: 800,
-                        quality: 80
-                    }));
-                    return true;
-                }
-            } catch (e) {
-                console.log('Flutter 갤러리 요청 실패:', e);
-            }
-            return false;
-        }
-
-        // Flutter에서 공유 요청
-        function requestFlutterShare(title, text, imageBase64) {
-            try {
-                const shareData = {
-                    action: 'share',
-                    title: title || '',
-                    text: text || '',
-                    image: imageBase64 || null
-                };
-                
-                if (window.flutter_inappwebview) {
-                    window.flutter_inappwebview.callHandler('share', JSON.stringify(shareData));
-                    return true;
-                }
-                if (window.FlutterShareChannel) {
-                    window.FlutterShareChannel.postMessage(JSON.stringify(shareData));
-                    return true;
-                }
-                if (window.FlutterChannel) {
-                    window.FlutterChannel.postMessage(JSON.stringify(shareData));
-                    return true;
-                }
-            } catch (e) {
-                console.log('Flutter 공유 요청 실패:', e);
-            }
-            return false;
-        }
-
-        // Flutter에서 카메라/갤러리 이미지 수신 (콜백 함수)
-        window.flutterReceiveImage = function(base64ImageData, source) {
-            try {
-                // data:image 형식인지 확인, 아니면 추가
-                let imageData = base64ImageData;
-                if (!imageData.startsWith('data:image')) {
-                    imageData = 'data:image/jpeg;base64,' + imageData;
-                }
-                
-                // 이미지 리사이징 후 저장
-                resizeImage(imageData, 800, 800, function(resizedImage) {
-                    currentMemoImage = resizedImage;
-                    document.getElementById('memoImagePreview').src = resizedImage;
-                    document.getElementById('memoImagePreviewContainer').classList.add('active');
-                    
-                    // 카메라로 찍은 사진이면 앨범에 저장 안내
-                    if (source === 'camera') {
-                        showToast('📸 사진이 추가되었습니다');
-                    } else {
-                        showToast('🖼️ 이미지가 추가되었습니다');
-                    }
-                });
-                
-                return JSON.stringify({ success: true });
-            } catch (e) {
-                console.error('Flutter 이미지 수신 오류:', e);
-                showToast('이미지 처리 중 오류가 발생했습니다');
-                return JSON.stringify({ success: false, error: e.message });
-            }
-        };
-
-        // Flutter에서 공유 완료 콜백
-        window.flutterShareComplete = function(success) {
-            if (success) {
-                showToast('🔗 공유되었습니다');
-            }
-        };
-
-        // ========== 데이터 로드 함수 (하이브리드) ==========
-        function safeJSONParse(str, defaultValue) {
-            try {
-                if (!str || str === 'null' || str === 'undefined') return defaultValue;
-                return JSON.parse(str);
-            } catch (e) {
-                console.warn('JSON 파싱 실패:', e);
-                return defaultValue;
-            }
-        }
-
-        // localStorage에서 데이터 로드
-        function loadFromLocalStorage() {
-            return {
-                travels: safeJSONParse(localStorage.getItem('travels'), []),
-                restaurants: safeJSONParse(localStorage.getItem('restaurants'), []),
-                memos: safeJSONParse(localStorage.getItem('memos'), []),
-                customCategories: safeJSONParse(localStorage.getItem('customCategories'), []),
-                customCategoryMemos: safeJSONParse(localStorage.getItem('customCategoryMemos'), {}),
-                todos: safeJSONParse(localStorage.getItem('todos'), []),
-                todoHistory: safeJSONParse(localStorage.getItem('todoHistory'), {}),
-                lastTodoDate: localStorage.getItem('lastTodoDate') || ''
-            };
-        }
-
-        // 데이터 병합 (더 많은 항목이 있는 데이터 선택)
-        function mergeData(localData, idbData) {
-            if (!idbData) return localData;
-            
-            const merged = {};
-            const keys = ['travels', 'restaurants', 'memos', 'customCategories', 'todos'];
-            
-            keys.forEach(key => {
-                const localArr = localData[key] || [];
-                const idbArr = idbData[key] || [];
-                // 더 많은 항목이 있는 것을 선택 (최근 데이터가 더 많을 가능성)
-                merged[key] = localArr.length >= idbArr.length ? localArr : idbArr;
-            });
-
-            // 객체 타입 데이터
-            merged.customCategoryMemos = Object.keys(localData.customCategoryMemos || {}).length >= 
-                                          Object.keys(idbData.customCategoryMemos || {}).length ?
-                                          localData.customCategoryMemos : idbData.customCategoryMemos;
-            
-            merged.todoHistory = Object.keys(localData.todoHistory || {}).length >= 
-                                  Object.keys(idbData.todoHistory || {}).length ?
-                                  localData.todoHistory : idbData.todoHistory;
-            
-            merged.lastTodoDate = localData.lastTodoDate || idbData.lastTodoDate || '';
-            
-            return merged;
-        }
-
-        // 초기 데이터 (나중에 async로 덮어씌움)
-        let data = loadFromLocalStorage();
-
-        // 앱 시작 시 IndexedDB와 병합
-        (async function initData() {
-            const dbReady = await initIndexedDB();
-            if (dbReady) {
-                const idbData = await loadAllFromIndexedDB();
-                if (idbData) {
-                    data = mergeData(data, idbData);
-                    console.log('IndexedDB 데이터와 병합 완료');
-                    // UI 업데이트
-                    if (typeof renderCustomCategories === 'function') {
-                        renderCustomCategories();
-                    }
-                }
-            }
-        })();
 
         // 현재 보고 있는 메모 ID
         let currentMemoId = null;
         let isEditMode = false;
-        let currentMemoImage = null; // 현재 선택된 이미지 (Base64)
-
-        // 카테고리 관련 변수
-        let selectedIcon = 'fa-star';
-        let selectedColor = 1;
-        let currentCustomCategoryId = null; // 현재 열려있는 커스텀 카테고리
-
-        // 할일 관련 변수
-        let currentRepeatType = 'daily';
-        let selectedWeekdays = [];
-        let editingTodoId = null;
-
-        // 아이콘 목록 (20개)
-        const availableIcons = [
-            'fa-star', 'fa-heart', 'fa-music', 'fa-camera', 'fa-film',
-            'fa-gamepad', 'fa-gift', 'fa-coffee', 'fa-car', 'fa-home',
-            'fa-briefcase', 'fa-graduation-cap', 'fa-paint-brush', 'fa-paw', 'fa-baby',
-            'fa-bicycle', 'fa-umbrella', 'fa-cloud', 'fa-gem', 'fa-crown'
-        ];
-
-        // 그라디언트 색상 목록 (10개)
-        const availableColors = [
-            { id: 1, gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-            { id: 2, gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
-            { id: 3, gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-            { id: 4, gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-            { id: 5, gradient: 'linear-gradient(135deg, #f9d423 0%, #ff4e50 100%)' },
-            { id: 6, gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
-            { id: 7, gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)' },
-            { id: 8, gradient: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' },
-            { id: 9, gradient: 'linear-gradient(135deg, #667db6 0%, #0082c8 100%)' },
-            { id: 10, gradient: 'linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%)' }
-        ];
+        let currentImageData = null; // 현재 첨부된 이미지 데이터 (base64)
 
         // 모달 열기/닫기
         function openModal(type) {
@@ -3151,12 +1544,6 @@
             // 일반 메모는 새로운 전체화면 모달로
             if (type === 'memo') {
                 openMemoFullscreen();
-                return;
-            }
-            
-            // 할일 목록은 할일 전체화면 모달로
-            if (type === 'todo') {
-                openTodoFullscreen();
                 return;
             }
             
@@ -3177,11 +1564,6 @@
 
         // 전체화면 메모 리스트 열기
         function openMemoFullscreen() {
-            // 일반 메모 모드로 초기화
-            currentCustomCategoryId = null;
-            const modalHeader = document.querySelector('#memoFullscreenModal .memo-modal-header h2');
-            modalHeader.innerHTML = `<i class="fas fa-sticky-note"></i> 일반 메모`;
-            
             document.getElementById('memoFullscreenModal').classList.add('active');
             renderMemoListByDate();
         }
@@ -3189,7 +1571,6 @@
         // 전체화면 메모 리스트 닫기
         function closeMemoFullscreen() {
             document.getElementById('memoFullscreenModal').classList.remove('active');
-            currentCustomCategoryId = null;
         }
 
         // 메모 추가 폼 열기
@@ -3198,8 +1579,12 @@
             const titleEl = document.getElementById('memoFormTitle');
             const titleInput = document.getElementById('memoFormTitleInput');
             const contentInput = document.getElementById('memoFormContentInput');
-            const imagePreviewContainer = document.getElementById('memoImagePreviewContainer');
-            const imagePreview = document.getElementById('memoImagePreview');
+
+            // 이미지 초기화
+            currentImageData = null;
+            document.getElementById('imagePreviewContainer').classList.remove('active');
+            document.getElementById('imagePreview').src = '';
+            document.getElementById('memoImageInput').value = '';
 
             if (memo) {
                 // 수정 모드
@@ -3211,12 +1596,9 @@
                 
                 // 기존 이미지가 있으면 표시
                 if (memo.image) {
-                    currentMemoImage = memo.image;
-                    imagePreview.src = memo.image;
-                    imagePreviewContainer.classList.add('active');
-                } else {
-                    currentMemoImage = null;
-                    imagePreviewContainer.classList.remove('active');
+                    currentImageData = memo.image;
+                    document.getElementById('imagePreview').src = memo.image;
+                    document.getElementById('imagePreviewContainer').classList.add('active');
                 }
             } else {
                 // 추가 모드
@@ -3225,143 +1607,37 @@
                 titleEl.textContent = '새 메모';
                 titleInput.value = '';
                 contentInput.value = '';
-                currentMemoImage = null;
-                imagePreviewContainer.classList.remove('active');
             }
-
-            // 파일 input 초기화
-            document.getElementById('memoImageInput').value = '';
-            document.getElementById('memoCameraInput').value = '';
 
             modal.classList.add('active');
             titleInput.focus();
         }
 
-        // 갤러리 버튼 클릭 핸들러
-        function handleGalleryClick() {
-            // Flutter WebView 환경인지 확인
-            if (isFlutterWebView()) {
-                // Flutter 갤러리 요청 시도
-                if (requestFlutterGallery()) {
-                    return; // Flutter에서 처리
-                }
-            }
-            // 일반 웹 또는 Flutter 실패시 기존 방식 사용
-            document.getElementById('memoImageInput').click();
-        }
-
-        // 카메라 버튼 클릭 핸들러
-        function handleCameraClick() {
-            // Flutter WebView 환경인지 확인
-            if (isFlutterWebView()) {
-                // Flutter 카메라 요청 시도
-                if (requestFlutterCamera()) {
-                    return; // Flutter에서 처리
-                }
-            }
-            // 일반 웹 또는 Flutter 실패시 기존 방식 사용
-            document.getElementById('memoCameraInput').click();
-        }
-
-        // 이미지 선택 핸들러 (갤러리/카메라 구분)
-        let lastImageSource = 'gallery'; // 마지막 이미지 소스 추적
-        
-        function handleMemoImageSelect(event, source = 'gallery') {
+        // 이미지 선택 처리
+        function handleImageSelect(event) {
             const file = event.target.files[0];
-            if (file) {
-                // 파일 크기 체크 (5MB 제한)
-                if (file.size > 5 * 1024 * 1024) {
-                    showToast('이미지 크기는 5MB 이하로 선택해주세요.');
-                    event.target.value = '';
-                    return;
-                }
+            if (!file) return;
 
-                lastImageSource = source;
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    // 이미지 리사이징 (너무 크면 성능 이슈)
-                    resizeImage(e.target.result, 800, 800, function(resizedImage) {
-                        currentMemoImage = resizedImage;
-                        document.getElementById('memoImagePreview').src = resizedImage;
-                        document.getElementById('memoImagePreviewContainer').classList.add('active');
-                        
-                        // 카메라로 찍은 사진이면 앨범에 저장 안내
-                        if (source === 'camera') {
-                            saveImageToAlbum(resizedImage);
-                        }
-                    });
-                };
-                reader.readAsDataURL(file);
+            // 파일 크기 제한 (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('이미지 크기는 5MB 이하여야 합니다.');
+                return;
             }
-        }
 
-        // 카메라 사진을 앨범에 저장하는 함수
-        function saveImageToAlbum(dataUrl) {
-            // 모바일에서 이미지를 다운로드하여 앨범에 저장
-            try {
-                // data URL을 Blob으로 변환
-                const byteString = atob(dataUrl.split(',')[1]);
-                const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
-                const ab = new ArrayBuffer(byteString.length);
-                const ia = new Uint8Array(ab);
-                for (let i = 0; i < byteString.length; i++) {
-                    ia[i] = byteString.charCodeAt(i);
-                }
-                const blob = new Blob([ab], { type: mimeString });
-                
-                // 파일명 생성 (타임스탬프 기반)
-                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-                const filename = `memo_photo_${timestamp}.jpg`;
-                
-                // 다운로드 링크 생성
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = filename;
-                
-                // iOS/Android에서 다운로드 트리거
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(link.href);
-                
-                showToast('📸 사진이 앨범에 저장되었습니다');
-            } catch (error) {
-                console.error('사진 저장 오류:', error);
-                showToast('사진 저장에 실패했습니다. 수동으로 저장해주세요.');
-            }
-        }
-
-        // 이미지 리사이징 함수
-        function resizeImage(dataUrl, maxWidth, maxHeight, callback) {
-            const img = new Image();
-            img.onload = function() {
-                let width = img.width;
-                let height = img.height;
-
-                if (width > maxWidth || height > maxHeight) {
-                    const ratio = Math.min(maxWidth / width, maxHeight / height);
-                    width = width * ratio;
-                    height = height * ratio;
-                }
-
-                const canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
-
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
-
-                callback(canvas.toDataURL('image/jpeg', 0.8));
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentImageData = e.target.result;
+                document.getElementById('imagePreview').src = currentImageData;
+                document.getElementById('imagePreviewContainer').classList.add('active');
             };
-            img.src = dataUrl;
+            reader.readAsDataURL(file);
         }
 
         // 이미지 제거
-        function removeMemoImage() {
-            currentMemoImage = null;
-            document.getElementById('memoImagePreview').src = '';
-            document.getElementById('memoImagePreviewContainer').classList.remove('active');
+        function removeImage() {
+            currentImageData = null;
+            document.getElementById('imagePreview').src = '';
+            document.getElementById('imagePreviewContainer').classList.remove('active');
             document.getElementById('memoImageInput').value = '';
         }
 
@@ -3370,8 +1646,6 @@
             document.getElementById('memoFormModal').classList.remove('active');
             isEditMode = false;
             currentMemoId = null;
-            currentMemoImage = null;
-            document.getElementById('memoImagePreviewContainer').classList.remove('active');
         }
 
         // 메모 저장
@@ -3388,19 +1662,15 @@
             const dateStr = now.toLocaleDateString('ko-KR');
             const timeStr = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
 
-            // 커스텀 카테고리 메모인지 확인
-            const isCustomCategory = currentCustomCategoryId !== null;
-            const targetMemos = isCustomCategory ? data.customCategoryMemos[currentCustomCategoryId] : data.memos;
-
             if (isEditMode && currentMemoId) {
                 // 수정
-                const index = targetMemos.findIndex(m => m.id === currentMemoId);
+                const index = data.memos.findIndex(m => m.id === currentMemoId);
                 if (index !== -1) {
-                    targetMemos[index].title = title;
-                    targetMemos[index].content = content;
-                    targetMemos[index].image = currentMemoImage;
-                    targetMemos[index].updatedAt = dateStr;
-                    targetMemos[index].updatedTime = timeStr;
+                    data.memos[index].title = title;
+                    data.memos[index].content = content;
+                    data.memos[index].image = currentImageData;
+                    data.memos[index].updatedAt = dateStr;
+                    data.memos[index].updatedTime = timeStr;
                     showToast('메모가 수정되었습니다!');
                 }
             } else {
@@ -3409,63 +1679,27 @@
                     id: Date.now(),
                     title: title,
                     content: content,
-                    image: currentMemoImage,
+                    image: currentImageData,
                     createdAt: dateStr,
                     createdTime: timeStr
                 };
-                targetMemos.unshift(memo);
+                data.memos.unshift(memo);
                 showToast('메모가 추가되었습니다!');
             }
 
-            // 저장 (Flutter WebView 호환성 강화 - 듀얼 스토리지)
-            if (isCustomCategory) {
-                try {
-                    const jsonData = JSON.stringify(data.customCategoryMemos);
-                    localStorage.setItem('customCategoryMemos', jsonData);
-                    // 저장 확인
-                    const saved = localStorage.getItem('customCategoryMemos');
-                    if (!saved) {
-                        console.warn('customCategoryMemos 저장 실패, 재시도...');
-                        localStorage.setItem('customCategoryMemos', jsonData);
-                    }
-                    // IndexedDB에도 백업 저장
-                    saveAllToIndexedDB();
-                } catch (e) {
-                    console.error('메모 저장 오류:', e);
-                    // localStorage 실패 시 IndexedDB라도 저장
-                    saveAllToIndexedDB();
-                }
-                renderCustomCategoryMemoList();
-            } else {
-                saveData('memos');
-                renderMemoListByDate();
-            }
-            
+            saveData('memos');
             closeMemoForm();
+            renderMemoListByDate();
 
             // 상세보기가 열려있으면 갱신
             if (document.getElementById('memoDetailModal').classList.contains('active') && currentMemoId) {
-                const memo = targetMemos.find(m => m.id === currentMemoId);
+                const memo = data.memos.find(m => m.id === currentMemoId);
                 if (memo) showMemoDetail(memo);
             }
         }
 
         // 메모 상세보기 열기
-        function showMemoDetail(memoRef) {
-            // memoRef가 id만 가지고 있으면 data에서 찾아옴
-            let memo;
-            if (typeof memoRef.title !== 'undefined') {
-                memo = memoRef;
-            } else {
-                // 커스텀 카테고리인지 확인
-                if (currentCustomCategoryId !== null) {
-                    memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === memoRef.id);
-                } else {
-                    memo = data.memos.find(m => m.id === memoRef.id);
-                }
-            }
-            if (!memo) return;
-            
+        function showMemoDetail(memo) {
             currentMemoId = memo.id;
             const dateText = memo.updatedAt 
                 ? `${memo.createdAt} 작성 · ${memo.updatedAt} 수정` 
@@ -3473,40 +1707,19 @@
             
             document.querySelector('#memoDetailDate span').textContent = dateText;
             document.getElementById('memoDetailTitle').textContent = memo.title;
+            document.getElementById('memoDetailBody').textContent = memo.content || '(내용 없음)';
             
             // 이미지 표시
-            const detailContent = document.getElementById('memoDetailModal').querySelector('.memo-detail-content');
-            const existingImg = detailContent.querySelector('.memo-detail-image');
-            if (existingImg) {
-                existingImg.remove();
-            }
-            
+            const imageEl = document.getElementById('memoDetailImage');
             if (memo.image) {
-                const imgEl = document.createElement('img');
-                imgEl.src = memo.image;
-                imgEl.alt = '메모 이미지';
-                imgEl.className = 'memo-detail-image';
-                imgEl.onclick = function() {
-                    openImageFullscreen(memo.image);
-                };
-                // 제목 앞에 삽입
-                const titleEl = document.getElementById('memoDetailTitle');
-                titleEl.parentNode.insertBefore(imgEl, titleEl);
+                imageEl.src = memo.image;
+                imageEl.style.display = 'block';
+            } else {
+                imageEl.src = '';
+                imageEl.style.display = 'none';
             }
             
-            document.getElementById('memoDetailBody').textContent = memo.content || '(내용 없음)';
             document.getElementById('memoDetailModal').classList.add('active');
-        }
-
-        // 이미지 전체화면 열기
-        function openImageFullscreen(imageSrc) {
-            document.getElementById('imageFullscreenImg').src = imageSrc;
-            document.getElementById('imageFullscreenOverlay').classList.add('active');
-        }
-
-        // 이미지 전체화면 닫기
-        function closeImageFullscreen() {
-            document.getElementById('imageFullscreenOverlay').classList.remove('active');
         }
 
         // 메모 상세보기 닫기
@@ -3518,12 +1731,7 @@
         // 현재 메모 수정
         function editCurrentMemo() {
             if (!currentMemoId) return;
-            let memo;
-            if (currentCustomCategoryId !== null) {
-                memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === currentMemoId);
-            } else {
-                memo = data.memos.find(m => m.id === currentMemoId);
-            }
+            const memo = data.memos.find(m => m.id === currentMemoId);
             if (memo) {
                 closeMemoDetail();
                 openMemoForm(memo);
@@ -3534,163 +1742,210 @@
         function deleteCurrentMemo() {
             if (!currentMemoId) return;
             if (confirm('정말 삭제하시겠습니까?')) {
-                if (currentCustomCategoryId !== null) {
-                    data.customCategoryMemos[currentCustomCategoryId] = (data.customCategoryMemos[currentCustomCategoryId] || []).filter(m => m.id !== currentMemoId);
-                    try {
-                        const jsonData = JSON.stringify(data.customCategoryMemos);
-                        localStorage.setItem('customCategoryMemos', jsonData);
-                        // 저장 확인
-                        if (!localStorage.getItem('customCategoryMemos')) {
-                            localStorage.setItem('customCategoryMemos', jsonData);
-                        }
-                        // IndexedDB에도 백업 저장
-                        saveAllToIndexedDB();
-                    } catch (e) {
-                        console.error('삭제 후 저장 오류:', e);
-                        saveAllToIndexedDB();
-                    }
-                } else {
-                    data.memos = data.memos.filter(m => m.id !== currentMemoId);
-                    saveData('memos');
-                }
+                data.memos = data.memos.filter(m => m.id !== currentMemoId);
+                saveData('memos');
                 closeMemoDetail();
-                if (currentCustomCategoryId !== null) {
-                    renderCustomCategoryMemoList();
-                } else {
-                    renderMemoListByDate();
-                }
+                renderMemoListByDate();
                 showToast('삭제되었습니다.');
             }
         }
 
-        // 현재 메모 복사
+        // ========== 복사 기능 (Flutter 웹뷰 호환) ==========
         function copyCurrentMemo() {
             if (!currentMemoId) return;
-            let memo;
-            if (currentCustomCategoryId !== null) {
-                memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === currentMemoId);
-            } else {
-                memo = data.memos.find(m => m.id === currentMemoId);
-            }
-            
-            if (memo) {
-                const textToCopy = `${memo.title}\n\n${memo.content || ''}`;
-                
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        showToast('📋 클립보드에 복사되었습니다');
-                    }).catch(err => {
-                        fallbackCopyText(textToCopy);
-                    });
-                } else {
-                    fallbackCopyText(textToCopy);
-                }
-            }
-        }
-        
-        // 클립보드 복사 폴백 함수
-        function fallbackCopyText(text) {
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-999999px';
-            textArea.style.top = '-999999px';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            try {
-                document.execCommand('copy');
-                showToast('📋 클립보드에 복사되었습니다');
-            } catch (err) {
-                showToast('복사에 실패했습니다');
-            }
-            
-            document.body.removeChild(textArea);
+            const memo = data.memos.find(m => m.id === currentMemoId);
+            if (!memo) return;
+
+            const textToCopy = `${memo.title}\n\n${memo.content || ''}`;
+            copyToClipboard(textToCopy);
         }
 
-        // 현재 메모 공유
-        async function shareCurrentMemo() {
-            if (!currentMemoId) return;
-            let memo;
-            if (currentCustomCategoryId !== null) {
-                memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === currentMemoId);
-            } else {
-                memo = data.memos.find(m => m.id === currentMemoId);
-            }
-            
-            if (!memo) return;
-            
-            const shareTitle = memo.title;
-            const shareText = memo.content || '';
-            
-            // Flutter WebView 환경인지 확인하고 우선 처리
-            if (isFlutterWebView()) {
-                if (requestFlutterShare(shareTitle, shareText, memo.image || null)) {
-                    return; // Flutter에서 처리
+        // 클립보드에 텍스트 복사 (Flutter 웹뷰 및 모바일 브라우저 호환)
+        async function copyToClipboard(text) {
+            try {
+                // 1. 먼저 navigator.clipboard API 시도
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                    showToast('복사되었습니다!');
+                    return;
                 }
+            } catch (err) {
+                console.log('Clipboard API failed, trying fallback');
             }
-            
-            // Web Share API 지원 확인
-            if (navigator.share) {
-                try {
-                    const shareData = {
-                        title: shareTitle,
-                        text: shareText
-                    };
-                    
-                    // 이미지가 있고 파일 공유를 지원하면 이미지도 포함
-                    if (memo.image && navigator.canShare) {
-                        try {
-                            // Base64를 Blob으로 변환
-                            const response = await fetch(memo.image);
-                            const blob = await response.blob();
-                            const file = new File([blob], 'memo_image.jpg', { type: 'image/jpeg' });
-                            
-                            const shareDataWithFile = {
-                                title: shareTitle,
-                                text: shareText,
-                                files: [file]
-                            };
-                            
-                            if (navigator.canShare(shareDataWithFile)) {
-                                await navigator.share(shareDataWithFile);
-                                showToast('🔗 공유되었습니다');
-                                return;
-                            }
-                        } catch (fileError) {
-                            console.log('파일 공유 실패, 텍스트만 공유합니다:', fileError);
-                        }
-                    }
-                    
-                    // 이미지 없이 공유
-                    await navigator.share(shareData);
-                    showToast('🔗 공유되었습니다');
-                } catch (err) {
-                    if (err.name !== 'AbortError') {
-                        console.error('공유 오류:', err);
-                        showShareFallback(memo);
-                    }
-                }
-            } else {
-                // Web Share API 미지원 시 폴백
-                showShareFallback(memo);
+
+            // 2. Fallback: execCommand 방식 (Flutter 웹뷰 호환)
+            try {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-9999px';
+                textArea.style.top = '0';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                
+                // iOS Safari 지원
+                textArea.contentEditable = true;
+                textArea.readOnly = false;
+                
+                // 선택 범위 설정
+                const range = document.createRange();
+                range.selectNodeContents(textArea);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                textArea.setSelectionRange(0, 999999);
+                
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('복사되었습니다!');
+            } catch (err) {
+                console.error('Copy failed:', err);
+                showToast('복사에 실패했습니다.');
             }
         }
+
+        // ========== 공유 기능 ==========
         
-        // 공유 폴백 (클립보드 복사)
-        function showShareFallback(memo) {
-            const textToShare = `📝 ${memo.title}\n\n${memo.content || ''}`;
+        // 공유 모달 열기
+        function openShareModal() {
+            document.getElementById('shareModalOverlay').classList.add('active');
+        }
+
+        // 공유 모달 닫기
+        function closeShareModal(event) {
+            if (event && event.target !== document.getElementById('shareModalOverlay')) return;
+            document.getElementById('shareModalOverlay').classList.remove('active');
+        }
+
+        // 텍스트 복사 (공유 모달에서)
+        function copyMemoForShare() {
+            copyCurrentMemo();
+            closeShareModal();
+        }
+
+        // Web Share API로 공유 (제목, 내용, 이미지 포함)
+        async function shareWithWebAPI() {
+            if (!currentMemoId) return;
+            const memo = data.memos.find(m => m.id === currentMemoId);
+            if (!memo) return;
+
+            closeShareModal();
+
+            // Web Share API 지원 확인
+            if (!navigator.share) {
+                showToast('이 브라우저에서는 공유 기능을 지원하지 않습니다.');
+                return;
+            }
+
+            try {
+                const shareData = {
+                    title: memo.title,
+                    text: memo.content || ''
+                };
+
+                // 이미지가 있고 파일 공유를 지원하는 경우
+                if (memo.image && navigator.canShare) {
+                    try {
+                        const blob = await dataURLtoBlob(memo.image);
+                        const file = new File([blob], 'memo-image.png', { type: 'image/png' });
+                        
+                        const shareWithFile = {
+                            ...shareData,
+                            files: [file]
+                        };
+
+                        if (navigator.canShare(shareWithFile)) {
+                            await navigator.share(shareWithFile);
+                            showToast('공유 완료!');
+                            return;
+                        }
+                    } catch (e) {
+                        console.log('File share not supported, falling back to text share');
+                    }
+                }
+
+                // 텍스트만 공유
+                await navigator.share(shareData);
+                showToast('공유 완료!');
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error('Share failed:', err);
+                    showToast('공유에 실패했습니다.');
+                }
+            }
+        }
+
+        // 카카오톡 공유 (제목, 내용, 이미지 포함)
+        function shareToKakao() {
+            if (!currentMemoId) return;
+            const memo = data.memos.find(m => m.id === currentMemoId);
+            if (!memo) return;
+
+            closeShareModal();
+
+            // 카카오톡 SDK가 없는 경우 대체 방법 사용
+            // 카카오톡 공유는 일반적으로 카카오 SDK 초기화가 필요함
+            // 여기서는 카카오링크 또는 scheme URL을 사용
+
+            const title = memo.title;
+            const content = memo.content ? memo.content.substring(0, 200) : '';
+            const fullText = `[${title}]\n\n${content}`;
+
+            // 모바일에서 카카오톡 scheme 사용 시도
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
             
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToShare).then(() => {
-                    showToast('📋 공유 내용이 클립보드에 복사되었습니다');
-                }).catch(() => {
-                    fallbackCopyText(textToShare);
+            if (isMobile) {
+                // 카카오톡 공유 - 텍스트 기반
+                const kakaoShareText = encodeURIComponent(fullText);
+                
+                // 먼저 텍스트 복사
+                copyToClipboard(fullText);
+                
+                // 카카오톡 앱으로 이동 시도 (텍스트는 클립보드에 복사됨)
+                const kakaoScheme = `kakaotalk://`;
+                
+                // 타임아웃으로 앱 실행 확인
+                let isAppOpened = false;
+                
+                window.location.href = kakaoScheme;
+                
+                setTimeout(() => {
+                    if (!isAppOpened && document.visibilityState === 'visible') {
+                        showToast('내용이 복사되었습니다. 카카오톡에서 붙여넣기 해주세요!');
+                    }
+                }, 1500);
+                
+                // 페이지 이탈 감지
+                document.addEventListener('visibilitychange', function handler() {
+                    if (document.visibilityState === 'hidden') {
+                        isAppOpened = true;
+                    }
+                    document.removeEventListener('visibilitychange', handler);
                 });
             } else {
-                fallbackCopyText(textToShare);
+                // PC에서는 텍스트만 복사
+                copyToClipboard(fullText);
+                showToast('내용이 복사되었습니다. 카카오톡에서 붙여넣기 해주세요!');
             }
+        }
+
+        // Base64 데이터를 Blob으로 변환
+        function dataURLtoBlob(dataURL) {
+            return new Promise((resolve, reject) => {
+                try {
+                    const arr = dataURL.split(',');
+                    const mime = arr[0].match(/:(.*?);/)[1];
+                    const bstr = atob(arr[1]);
+                    let n = bstr.length;
+                    const u8arr = new Uint8Array(n);
+                    while (n--) {
+                        u8arr[n] = bstr.charCodeAt(n);
+                    }
+                    resolve(new Blob([u8arr], { type: mime }));
+                } catch (err) {
+                    reject(err);
+                }
+            });
         }
 
         // 날짜별로 그룹화하여 메모 리스트 렌더링
@@ -3747,13 +2002,13 @@
                 memos.forEach(memo => {
                     const preview = memo.content ? memo.content.substring(0, 100) : '(내용 없음)';
                     const time = memo.createdTime || '';
-                    const hasImage = memo.image ? true : false;
+                    const hasImage = memo.image ? 'has-image' : '';
                     html += `
-                        <div class="memo-list-item" onclick="showMemoDetail(${JSON.stringify({id: memo.id}).replace(/"/g, '&quot;')})">
-                            ${hasImage ? `<img src="${memo.image}" alt="메모 이미지" class="memo-list-item-image">` : ''}
+                        <div class="memo-list-item ${hasImage}" onclick="showMemoDetail(${JSON.stringify(memo).replace(/"/g, '&quot;')})">
                             <h4>${escapeHtml(memo.title)}</h4>
                             <div class="memo-preview">${escapeHtml(preview)}</div>
-                            ${time ? `<div class="memo-time"><i class="fas fa-clock"></i> ${time}${hasImage ? ' · <i class="fas fa-image"></i>' : ''}</div>` : ''}
+                            ${time ? `<div class="memo-time"><i class="fas fa-clock"></i> ${time}</div>` : ''}
+                            ${memo.image ? `<img class="memo-thumbnail" src="${memo.image}" alt="썸네일">` : ''}
                         </div>
                     `;
                 });
@@ -3837,61 +2092,9 @@
             e.preventDefault();
         }
 
-        // 데이터 저장 (Flutter WebView 호환성 강화 - 듀얼 스토리지)
+        // 데이터 저장
         function saveData(key) {
-            try {
-                const jsonData = JSON.stringify(data[key]);
-                
-                // 1. localStorage에 저장
-                localStorage.setItem(key, jsonData);
-                
-                // 2. 저장 확인 및 재시도
-                const saved = localStorage.getItem(key);
-                if (!saved || saved !== jsonData) {
-                    console.warn('localStorage 저장 확인 실패, 재시도 중...');
-                    localStorage.setItem(key, jsonData);
-                }
-                
-                // 3. IndexedDB에도 백업 저장 (비동기)
-                saveAllToIndexedDB();
-                
-                // 4. Flutter 앱에 알림 (가능한 경우)
-                sendToFlutter('dataChanged', { key: key });
-                
-            } catch (e) {
-                console.error('데이터 저장 오류:', e);
-                // localStorage 실패 시 IndexedDB만이라도 저장
-                saveAllToIndexedDB();
-                showToast('저장 중 오류가 발생했습니다.');
-            }
-        }
-
-        // 모든 데이터 저장 (앱 백그라운드/종료 시 - 듀얼 스토리지)
-        function saveAllData() {
-            try {
-                // 1. localStorage에 저장
-                localStorage.setItem('travels', JSON.stringify(data.travels));
-                localStorage.setItem('restaurants', JSON.stringify(data.restaurants));
-                localStorage.setItem('memos', JSON.stringify(data.memos));
-                localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
-                localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
-                localStorage.setItem('todos', JSON.stringify(data.todos));
-                localStorage.setItem('todoHistory', JSON.stringify(data.todoHistory));
-                localStorage.setItem('lastTodoDate', data.lastTodoDate);
-                console.log('localStorage에 모든 데이터 저장 완료');
-            } catch (e) {
-                console.error('localStorage 저장 오류:', e);
-            }
-
-            // 2. IndexedDB에도 백업 저장 (비동기)
-            try {
-                saveAllToIndexedDB();
-            } catch (e) {
-                console.error('IndexedDB 저장 오류:', e);
-            }
-            
-            // 3. Flutter 앱에 알림 (가능한 경우)
-            sendToFlutter('allDataSaved', { timestamp: Date.now() });
+            localStorage.setItem(key, JSON.stringify(data[key]));
         }
 
         // 삭제 함수들
@@ -3992,929 +2195,10 @@
             }
         }
 
-        // ========== 카테고리 추가 관련 함수들 ==========
-
-        // 카테고리 모달 열기
-        function openCategoryModal() {
-            document.getElementById('categoryModal').classList.add('active');
-            renderIconSelector();
-            renderColorSelector();
-            resetCategoryForm();
-        }
-
-        // 카테고리 모달 닫기
-        function closeCategoryModal() {
-            document.getElementById('categoryModal').classList.remove('active');
-        }
-
-        // 카테고리 폼 초기화
-        function resetCategoryForm() {
-            document.getElementById('categoryNameInput').value = '';
-            selectedIcon = 'fa-star';
-            selectedColor = 1;
-            updateCategoryPreview();
-            updateIconSelection();
-            updateColorSelection();
-        }
-
-        // 아이콘 선택기 렌더링
-        function renderIconSelector() {
-            const grid = document.getElementById('iconSelectorGrid');
-            grid.innerHTML = availableIcons.map(icon => `
-                <div class="icon-option ${icon === selectedIcon ? 'selected' : ''}" 
-                     onclick="selectIcon('${icon}')" data-icon="${icon}">
-                    <i class="fas ${icon}"></i>
-                </div>
-            `).join('');
-        }
-
-        // 색상 선택기 렌더링
-        function renderColorSelector() {
-            const grid = document.getElementById('colorSelectorGrid');
-            grid.innerHTML = availableColors.map(color => `
-                <div class="color-option ${color.id === selectedColor ? 'selected' : ''}" 
-                     style="background: ${color.gradient}" 
-                     onclick="selectColor(${color.id})" data-color="${color.id}">
-                </div>
-            `).join('');
-        }
-
-        // 아이콘 선택
-        function selectIcon(icon) {
-            selectedIcon = icon;
-            updateIconSelection();
-            updateCategoryPreview();
-        }
-
-        // 색상 선택
-        function selectColor(colorId) {
-            selectedColor = colorId;
-            updateColorSelection();
-            updateCategoryPreview();
-        }
-
-        // 아이콘 선택 상태 업데이트
-        function updateIconSelection() {
-            document.querySelectorAll('.icon-option').forEach(el => {
-                el.classList.toggle('selected', el.dataset.icon === selectedIcon);
-            });
-        }
-
-        // 색상 선택 상태 업데이트
-        function updateColorSelection() {
-            document.querySelectorAll('.color-option').forEach(el => {
-                el.classList.toggle('selected', parseInt(el.dataset.color) === selectedColor);
-            });
-        }
-
-        // 미리보기 업데이트
-        function updateCategoryPreview() {
-            const name = document.getElementById('categoryNameInput').value.trim() || '새 카테고리';
-            const previewIcon = document.getElementById('categoryPreviewIcon');
-            const previewIconEl = document.getElementById('categoryPreviewIconEl');
-            const previewName = document.getElementById('categoryPreviewName');
-
-            // 색상 클래스 업데이트
-            previewIcon.className = 'category-preview-icon custom-gradient-' + selectedColor;
-            
-            // 아이콘 업데이트
-            previewIconEl.className = 'fas ' + selectedIcon;
-            
-            // 이름 업데이트
-            previewName.textContent = name;
-        }
-
-        // 커스텀 카테고리 추가
-        function addCustomCategory() {
-            const name = document.getElementById('categoryNameInput').value.trim();
-            
-            if (!name) {
-                showToast('카테고리 이름을 입력해주세요');
-                return;
-            }
-
-            if (name.length > 10) {
-                showToast('이름은 10자 이하로 입력해주세요');
-                return;
-            }
-
-            const category = {
-                id: Date.now(),
-                name: name,
-                icon: selectedIcon,
-                colorId: selectedColor,
-                createdAt: new Date().toLocaleDateString('ko-KR')
-            };
-
-            data.customCategories.push(category);
-            data.customCategoryMemos[category.id] = [];
-            
-            localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
-            localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
-            // IndexedDB에도 백업 저장
-            saveAllToIndexedDB();
-
-            renderCustomCategories();
-            closeCategoryModal();
-            showToast(`'${name}' 카테고리가 추가되었습니다!`);
-        }
-
-        // 커스텀 카테고리 렌더링
-        function renderCustomCategories() {
-            const container = document.getElementById('customCategoriesContainer');
-            
-            if (data.customCategories.length === 0) {
-                container.innerHTML = '';
-                return;
-            }
-
-            container.innerHTML = data.customCategories.map(cat => `
-                <div class="grid-item custom-category-wrapper" data-category-id="${cat.id}">
-                    <button class="custom-category-delete" onclick="event.stopPropagation(); deleteCustomCategory(${cat.id})">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <div class="icon-box custom-gradient-${cat.colorId}" onclick="openCustomCategoryMemos(${cat.id})">
-                        <i class="fas ${cat.icon}"></i>
-                    </div>
-                    <span onclick="openCustomCategoryMemos(${cat.id})">${escapeHtml(cat.name)}</span>
-                </div>
-            `).join('');
-        }
-
-        // 커스텀 카테고리 삭제
-        function deleteCustomCategory(id) {
-            const category = data.customCategories.find(c => c.id === id);
-            if (!category) return;
-
-            if (confirm(`'${category.name}' 카테고리를 삭제하시겠습니까?\n(해당 카테고리의 메모도 모두 삭제됩니다)`)) {
-                data.customCategories = data.customCategories.filter(c => c.id !== id);
-                delete data.customCategoryMemos[id];
-                
-                localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
-                localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
-                // IndexedDB에도 백업 저장
-                saveAllToIndexedDB();
-
-                renderCustomCategories();
-                showToast('카테고리가 삭제되었습니다.');
-            }
-        }
-
-        // 커스텀 카테고리 메모 열기
-        function openCustomCategoryMemos(categoryId) {
-            const category = data.customCategories.find(c => c.id === categoryId);
-            if (!category) return;
-
-            currentCustomCategoryId = categoryId;
-            
-            // 모달 헤더 업데이트
-            const modalHeader = document.querySelector('#memoFullscreenModal .memo-modal-header h2');
-            modalHeader.innerHTML = `<i class="fas ${category.icon}"></i> ${escapeHtml(category.name)}`;
-            
-            // 모달 열기
-            document.getElementById('memoFullscreenModal').classList.add('active');
-            
-            // 해당 카테고리 메모 렌더링
-            renderCustomCategoryMemoList();
-        }
-
-        // 커스텀 카테고리 메모 리스트 렌더링
-        function renderCustomCategoryMemoList() {
-            const container = document.getElementById('memoListContainer');
-            const memos = data.customCategoryMemos[currentCustomCategoryId] || [];
-
-            if (memos.length === 0) {
-                container.innerHTML = `
-                    <div class="memo-empty-state">
-                        <i class="fas fa-sticky-note"></i>
-                        <p>아직 등록된 메모가 없습니다.<br>+ 버튼을 눌러 새 메모를 추가해보세요!</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // 날짜별 그룹화
-            const groupedMemos = {};
-            memos.forEach(memo => {
-                const date = memo.createdAt || '날짜 없음';
-                if (!groupedMemos[date]) {
-                    groupedMemos[date] = [];
-                }
-                groupedMemos[date].push(memo);
-            });
-
-            // 날짜 정렬 (최신순)
-            const sortedDates = Object.keys(groupedMemos).sort((a, b) => {
-                if (a === '날짜 없음') return 1;
-                if (b === '날짜 없음') return -1;
-                return new Date(b.replace(/\./g, '/')) - new Date(a.replace(/\./g, '/'));
-            });
-
-            let html = '';
-            sortedDates.forEach(date => {
-                const memoList = groupedMemos[date];
-                const count = memoList.length;
-                const isToday = date === new Date().toLocaleDateString('ko-KR');
-                const displayDate = isToday ? '오늘' : date;
-
-                html += `
-                    <div class="date-group">
-                        <div class="date-group-header">
-                            <div class="date-icon">
-                                <i class="fas fa-calendar-day"></i>
-                            </div>
-                            <div class="date-info">
-                                <div class="date-text">${displayDate}</div>
-                                <div class="date-count">${count}개의 메모</div>
-                            </div>
-                        </div>
-                `;
-
-                memoList.forEach(memo => {
-                    const preview = memo.content ? memo.content.substring(0, 100) : '(내용 없음)';
-                    const time = memo.createdTime || '';
-                    const hasImage = memo.image ? true : false;
-                    html += `
-                        <div class="memo-list-item" onclick="showMemoDetail(${JSON.stringify({id: memo.id}).replace(/"/g, '&quot;')})">
-                            ${hasImage ? `<img src="${memo.image}" alt="메모 이미지" class="memo-list-item-image">` : ''}
-                            <h4>${escapeHtml(memo.title)}</h4>
-                            <div class="memo-preview">${escapeHtml(preview)}</div>
-                            ${time ? `<div class="memo-time"><i class="fas fa-clock"></i> ${time}${hasImage ? ' · <i class="fas fa-image"></i>' : ''}</div>` : ''}
-                        </div>
-                    `;
-                });
-
-                html += '</div>';
-            });
-
-            container.innerHTML = html;
-        }
-
-        // ========== 백업/복원 기능 ==========
-        
-        // 백업 모달 열기
-        function openBackupModal() {
-            document.getElementById('backupModal').classList.add('active');
-        }
-        
-        // 백업 모달 닫기
-        function closeBackupModal() {
-            document.getElementById('backupModal').classList.remove('active');
-        }
-        
-        // 백업 모달 외부 클릭 시 닫기
-        document.getElementById('backupModal')?.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeBackupModal();
-            }
-        });
-        
-        // 데이터 백업하기 (내보내기)
-        function exportBackup() {
-            const backupData = {
-                version: '1.0',
-                exportDate: new Date().toISOString(),
-                appName: '절대강자 메모장',
-                data: {
-                    memos: data.memos,
-                    todos: data.todos,
-                    todoHistory: data.todoHistory,
-                    lastTodoDate: data.lastTodoDate,
-                    schedules: data.schedules,
-                    travels: data.travels,
-                    restaurants: data.restaurants,
-                    ideas: data.ideas,
-                    shoppings: data.shoppings,
-                    goals: data.goals,
-                    readings: data.readings,
-                    exercises: data.exercises,
-                    finances: data.finances,
-                    diaries: data.diaries,
-                    customCategories: data.customCategories,
-                    customCategoryMemos: data.customCategoryMemos
-                }
-            };
-            
-            const jsonString = JSON.stringify(backupData, null, 2);
-            const blob = new Blob([jsonString], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
-            const now = new Date();
-            const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
-            const timeStr = now.toTimeString().slice(0, 5).replace(':', '');
-            const filename = `메모장_백업_${dateStr}_${timeStr}.json`;
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            closeBackupModal();
-            showToast('백업 파일이 다운로드되었습니다!');
-        }
-        
-        // 데이터 가져오기 (복원)
-        function importBackup(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const backupData = JSON.parse(e.target.result);
-                    
-                    // 유효성 검사
-                    if (!backupData.appName || backupData.appName !== '절대강자 메모장') {
-                        throw new Error('유효하지 않은 백업 파일입니다.');
-                    }
-                    
-                    if (!backupData.data) {
-                        throw new Error('백업 데이터가 없습니다.');
-                    }
-                    
-                    // 확인 다이얼로그
-                    const exportDate = new Date(backupData.exportDate).toLocaleString('ko-KR');
-                    if (!confirm(`이 백업 파일을 복원하시겠습니까?\n\n백업 일시: ${exportDate}\n\n※ 현재 데이터가 모두 덮어씌워집니다.`)) {
-                        event.target.value = '';
-                        return;
-                    }
-                    
-                    // 데이터 복원
-                    const bd = backupData.data;
-                    
-                    if (bd.memos) {
-                        data.memos = bd.memos;
-                        localStorage.setItem('memos', JSON.stringify(bd.memos));
-                    }
-                    if (bd.todos) {
-                        data.todos = bd.todos;
-                        localStorage.setItem('todos', JSON.stringify(bd.todos));
-                    }
-                    if (bd.todoHistory) {
-                        data.todoHistory = bd.todoHistory;
-                        localStorage.setItem('todoHistory', JSON.stringify(bd.todoHistory));
-                    }
-                    if (bd.lastTodoDate) {
-                        data.lastTodoDate = bd.lastTodoDate;
-                        localStorage.setItem('lastTodoDate', bd.lastTodoDate);
-                    }
-                    if (bd.schedules) {
-                        data.schedules = bd.schedules;
-                        localStorage.setItem('schedules', JSON.stringify(bd.schedules));
-                    }
-                    if (bd.travels) {
-                        data.travels = bd.travels;
-                        localStorage.setItem('travels', JSON.stringify(bd.travels));
-                    }
-                    if (bd.restaurants) {
-                        data.restaurants = bd.restaurants;
-                        localStorage.setItem('restaurants', JSON.stringify(bd.restaurants));
-                    }
-                    if (bd.ideas) {
-                        data.ideas = bd.ideas;
-                        localStorage.setItem('ideas', JSON.stringify(bd.ideas));
-                    }
-                    if (bd.shoppings) {
-                        data.shoppings = bd.shoppings;
-                        localStorage.setItem('shoppings', JSON.stringify(bd.shoppings));
-                    }
-                    if (bd.goals) {
-                        data.goals = bd.goals;
-                        localStorage.setItem('goals', JSON.stringify(bd.goals));
-                    }
-                    if (bd.readings) {
-                        data.readings = bd.readings;
-                        localStorage.setItem('readings', JSON.stringify(bd.readings));
-                    }
-                    if (bd.exercises) {
-                        data.exercises = bd.exercises;
-                        localStorage.setItem('exercises', JSON.stringify(bd.exercises));
-                    }
-                    if (bd.finances) {
-                        data.finances = bd.finances;
-                        localStorage.setItem('finances', JSON.stringify(bd.finances));
-                    }
-                    if (bd.diaries) {
-                        data.diaries = bd.diaries;
-                        localStorage.setItem('diaries', JSON.stringify(bd.diaries));
-                    }
-                    if (bd.customCategories) {
-                        data.customCategories = bd.customCategories;
-                        localStorage.setItem('customCategories', JSON.stringify(bd.customCategories));
-                    }
-                    if (bd.customCategoryMemos) {
-                        data.customCategoryMemos = bd.customCategoryMemos;
-                        localStorage.setItem('customCategoryMemos', JSON.stringify(bd.customCategoryMemos));
-                    }
-                    
-                    // IndexedDB에도 전체 백업 저장
-                    saveAllToIndexedDB();
-                    
-                    // 화면 갱신
-                    renderCustomCategories();
-                    
-                    closeBackupModal();
-                    showToast('데이터가 성공적으로 복원되었습니다!');
-                    
-                } catch (error) {
-                    alert('백업 파일을 읽는 중 오류가 발생했습니다.\n' + error.message);
-                }
-                
-                event.target.value = '';
-            };
-            
-            reader.onerror = function() {
-                alert('파일을 읽는 중 오류가 발생했습니다.');
-                event.target.value = '';
-            };
-            
-            reader.readAsText(file);
-        }
-
-        // ========== 할일 목록 기능 ==========
-
-        // 오늘 날짜 가져오기 (YYYY-MM-DD)
-        function getTodayString() {
-            const today = new Date();
-            return today.toISOString().split('T')[0];
-        }
-
-        // 날짜 포맷팅 (한국어)
-        function formatDateKorean(date) {
-            const d = new Date(date);
-            const year = d.getFullYear();
-            const month = d.getMonth() + 1;
-            const day = d.getDate();
-            const weekdays = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-            const weekday = weekdays[d.getDay()];
-            return { main: `${year}년 ${month}월 ${day}일`, sub: weekday };
-        }
-
-        // 할일 목록 전체화면 열기
-        function openTodoFullscreen() {
-            checkAndResetDailyTodos();
-            document.getElementById('todoFullscreenModal').classList.add('active');
-            updateTodoDateDisplay();
-            renderTodoList();
-            renderPastTodos();
-        }
-
-        // 할일 목록 전체화면 닫기
-        function closeTodoFullscreen() {
-            document.getElementById('todoFullscreenModal').classList.remove('active');
-        }
-
-        // 날짜 표시 업데이트
-        function updateTodoDateDisplay() {
-            const today = new Date();
-            const formatted = formatDateKorean(today);
-            document.getElementById('todoDateMain').textContent = formatted.main;
-            document.getElementById('todoDateSub').textContent = formatted.sub;
-        }
-
-        // 자정 체크 및 할일 리셋
-        function checkAndResetDailyTodos() {
-            const todayStr = getTodayString();
-            if (data.lastTodoDate !== todayStr) {
-                // 어제 기록 저장
-                if (data.lastTodoDate) {
-                    saveTodoHistory(data.lastTodoDate);
-                }
-                // 오늘 할일 체크 상태 초기화
-                data.todos.forEach(todo => {
-                    if (!todo.ended) {
-                        todo.completedToday = false;
-                    }
-                });
-                data.lastTodoDate = todayStr;
-                localStorage.setItem('lastTodoDate', todayStr);
-                saveTodosToStorage();
-            }
-        }
-
-        // 할일 기록 저장
-        function saveTodoHistory(dateStr) {
-            const todosForDate = data.todos.filter(todo => shouldShowTodoOnDate(todo, dateStr) && !todo.ended);
-            const historyEntry = todosForDate.map(todo => ({
-                id: todo.id,
-                title: todo.title,
-                completed: todo.completedToday || false
-            }));
-            if (historyEntry.length > 0) {
-                data.todoHistory[dateStr] = historyEntry;
-                localStorage.setItem('todoHistory', JSON.stringify(data.todoHistory));
-                // IndexedDB에도 백업 저장
-                saveAllToIndexedDB();
-            }
-        }
-
-        // 특정 날짜에 할일이 표시되어야 하는지 확인
-        function shouldShowTodoOnDate(todo, dateStr) {
-            if (todo.ended) return false;
-            
-            const date = new Date(dateStr);
-            const dayOfWeek = date.getDay();
-
-            if (todo.repeatType === 'daily') {
-                return true;
-            } else if (todo.repeatType === 'weekday') {
-                return todo.weekdays && todo.weekdays.includes(dayOfWeek);
-            } else if (todo.repeatType === 'specific') {
-                return todo.specificDate === dateStr;
-            }
-            return false;
-        }
-
-        // 오늘 표시할 할일 필터링
-        function getTodayTodos() {
-            const todayStr = getTodayString();
-            return data.todos.filter(todo => shouldShowTodoOnDate(todo, todayStr));
-        }
-
-        // 할일 목록 렌더링
-        function renderTodoList() {
-            const container = document.getElementById('todayTodoList');
-            const todayTodos = getTodayTodos();
-
-            if (todayTodos.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 40px 20px; color: #9ca3af;">
-                        <i class="fas fa-clipboard-list" style="font-size: 48px; margin-bottom: 15px; opacity: 0.5;"></i>
-                        <p>오늘 할일이 없습니다.<br>+ 버튼을 눌러 할일을 추가해보세요!</p>
-                    </div>
-                `;
-            } else {
-                container.innerHTML = todayTodos.map(todo => `
-                    <div class="todo-item ${todo.completedToday ? 'completed' : ''}" data-id="${todo.id}">
-                        <div class="todo-checkbox ${todo.completedToday ? 'checked' : ''}" onclick="toggleTodoComplete(${todo.id})">
-                            ${todo.completedToday ? '<i class="fas fa-check"></i>' : ''}
-                        </div>
-                        <div class="todo-content">
-                            <div class="todo-title">${escapeHtml(todo.title)}</div>
-                            <div class="todo-meta">
-                                ${getRepeatTypeTag(todo)}
-                            </div>
-                        </div>
-                        <div class="todo-actions">
-                            <button class="todo-action-btn end-btn" onclick="endTodo(${todo.id})" title="종료">
-                                <i class="fas fa-stop"></i>
-                            </button>
-                            <button class="todo-action-btn delete-btn" onclick="deleteTodo(${todo.id})" title="삭제">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            updateSuccessRate();
-        }
-
-        // 반복 타입 태그 생성
-        function getRepeatTypeTag(todo) {
-            if (todo.repeatType === 'daily') {
-                return '<span class="todo-tag daily"><i class="fas fa-redo"></i> 매일</span>';
-            } else if (todo.repeatType === 'weekday') {
-                const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-                const days = todo.weekdays.map(d => dayNames[d]).join(', ');
-                return `<span class="todo-tag weekday"><i class="fas fa-calendar-week"></i> ${days}</span>`;
-            } else if (todo.repeatType === 'specific') {
-                const date = new Date(todo.specificDate);
-                const formatted = `${date.getMonth() + 1}/${date.getDate()}`;
-                return `<span class="todo-tag specific"><i class="fas fa-calendar-day"></i> ${formatted}</span>`;
-            }
-            return '';
-        }
-
-        // 성공률 업데이트
-        function updateSuccessRate() {
-            const todayTodos = getTodayTodos();
-            const total = todayTodos.length;
-            const completed = todayTodos.filter(t => t.completedToday).length;
-            const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-            document.getElementById('todoRateCircle').style.setProperty('--rate', `${rate}%`);
-            document.getElementById('todoRateText').textContent = `${rate}%`;
-            document.getElementById('todoRateDetail').textContent = `${completed}/${total} 완료`;
-
-            // 색상 변경 (성공률에 따라)
-            const rateText = document.getElementById('todoRateText');
-            if (rate >= 80) {
-                rateText.style.color = '#10b981';
-            } else if (rate >= 50) {
-                rateText.style.color = '#f59e0b';
-            } else {
-                rateText.style.color = '#ef4444';
-            }
-        }
-
-        // 할일 완료 토글
-        function toggleTodoComplete(id) {
-            const todo = data.todos.find(t => t.id === id);
-            if (todo) {
-                todo.completedToday = !todo.completedToday;
-                saveTodosToStorage();
-                renderTodoList();
-            }
-        }
-
-        // 할일 종료 (더 이상 반복 안함)
-        function endTodo(id) {
-            if (confirm('이 할일을 종료하시겠습니까?\n종료하면 더 이상 목록에 표시되지 않습니다.')) {
-                const todo = data.todos.find(t => t.id === id);
-                if (todo) {
-                    todo.ended = true;
-                    todo.endedAt = getTodayString();
-                    saveTodosToStorage();
-                    renderTodoList();
-                    showToast('할일이 종료되었습니다.');
-                }
-            }
-        }
-
-        // 할일 삭제
-        function deleteTodo(id) {
-            if (confirm('이 할일을 완전히 삭제하시겠습니까?')) {
-                data.todos = data.todos.filter(t => t.id !== id);
-                saveTodosToStorage();
-                renderTodoList();
-                renderPastTodos();
-                showToast('할일이 삭제되었습니다.');
-            }
-        }
-
-        // localStorage에 할일 저장 (IndexedDB 백업 포함)
-        function saveTodosToStorage() {
-            localStorage.setItem('todos', JSON.stringify(data.todos));
-            // IndexedDB에도 백업 저장
-            saveAllToIndexedDB();
-        }
-
-        // 할일 추가 폼 열기
-        function openTodoForm() {
-            editingTodoId = null;
-            document.getElementById('todoFormTitle').textContent = '새 할일 추가';
-            document.getElementById('todoTitleInput').value = '';
-            currentRepeatType = 'daily';
-            selectedWeekdays = [];
-            document.getElementById('todoSpecificDate').value = getTodayString();
-            
-            updateRepeatOptionUI();
-            document.getElementById('todoFormModal').classList.add('active');
-            document.getElementById('todoTitleInput').focus();
-        }
-
-        // 할일 추가 폼 닫기
-        function closeTodoForm() {
-            document.getElementById('todoFormModal').classList.remove('active');
-        }
-
-        // 반복 타입 선택
-        function selectRepeatType(type) {
-            currentRepeatType = type;
-            updateRepeatOptionUI();
-        }
-
-        // 반복 옵션 UI 업데이트
-        function updateRepeatOptionUI() {
-            // 옵션 버튼 선택 상태
-            document.querySelectorAll('.todo-repeat-option').forEach(el => {
-                el.classList.toggle('selected', el.dataset.type === currentRepeatType);
-            });
-
-            // 추가 선택기 표시/숨김
-            document.getElementById('weekdaySelector').style.display = 
-                currentRepeatType === 'weekday' ? 'block' : 'none';
-            document.getElementById('specificDateSelector').style.display = 
-                currentRepeatType === 'specific' ? 'block' : 'none';
-
-            // 요일 버튼 상태 업데이트
-            document.querySelectorAll('.todo-weekday-btn').forEach(btn => {
-                const day = parseInt(btn.dataset.day);
-                btn.classList.toggle('selected', selectedWeekdays.includes(day));
-            });
-        }
-
-        // 요일 토글
-        function toggleWeekday(day) {
-            const index = selectedWeekdays.indexOf(day);
-            if (index > -1) {
-                selectedWeekdays.splice(index, 1);
-            } else {
-                selectedWeekdays.push(day);
-            }
-            updateRepeatOptionUI();
-        }
-
-        // 할일 저장
-        function saveTodo() {
-            const title = document.getElementById('todoTitleInput').value.trim();
-            
-            if (!title) {
-                showToast('할일 제목을 입력해주세요.');
-                return;
-            }
-
-            if (currentRepeatType === 'weekday' && selectedWeekdays.length === 0) {
-                showToast('요일을 선택해주세요.');
-                return;
-            }
-
-            if (currentRepeatType === 'specific') {
-                const specificDate = document.getElementById('todoSpecificDate').value;
-                if (!specificDate) {
-                    showToast('날짜를 선택해주세요.');
-                    return;
-                }
-            }
-
-            const todoData = {
-                id: editingTodoId || Date.now(),
-                title: title,
-                repeatType: currentRepeatType,
-                weekdays: currentRepeatType === 'weekday' ? [...selectedWeekdays] : [],
-                specificDate: currentRepeatType === 'specific' ? 
-                    document.getElementById('todoSpecificDate').value : null,
-                completedToday: false,
-                ended: false,
-                createdAt: getTodayString()
-            };
-
-            if (editingTodoId) {
-                const index = data.todos.findIndex(t => t.id === editingTodoId);
-                if (index > -1) {
-                    todoData.completedToday = data.todos[index].completedToday;
-                    data.todos[index] = todoData;
-                }
-            } else {
-                data.todos.push(todoData);
-            }
-
-            saveTodosToStorage();
-            closeTodoForm();
-            renderTodoList();
-            showToast(editingTodoId ? '할일이 수정되었습니다.' : '할일이 추가되었습니다!');
-        }
-
-        // 지난 할일 토글
-        function togglePastTodos() {
-            const list = document.getElementById('todoPastList');
-            const toggle = document.getElementById('todoPastToggle');
-            list.classList.toggle('expanded');
-            toggle.classList.toggle('expanded');
-        }
-
-        // 지난 할일 렌더링
-        function renderPastTodos() {
-            const section = document.getElementById('todoPastSection');
-            const container = document.getElementById('todoPastList');
-            
-            const historyDates = Object.keys(data.todoHistory).sort().reverse();
-            
-            if (historyDates.length === 0) {
-                section.style.display = 'none';
-                return;
-            }
-
-            section.style.display = 'block';
-            
-            let html = '';
-            historyDates.slice(0, 7).forEach(dateStr => {
-                const formatted = formatDateKorean(dateStr);
-                const history = data.todoHistory[dateStr];
-                const completed = history.filter(h => h.completed).length;
-                const total = history.length;
-                const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-                html += `
-                    <div class="todo-past-date-group">
-                        <div class="todo-past-date-title">${formatted.main} (${formatted.sub}) - ${rate}% 달성</div>
-                        ${history.map(item => `
-                            <div class="todo-past-item">
-                                <div class="todo-title">${escapeHtml(item.title)}</div>
-                                <div class="todo-status ${item.completed ? 'completed' : 'incomplete'}">
-                                    <i class="fas ${item.completed ? 'fa-check-circle' : 'fa-times-circle'}"></i>
-                                    ${item.completed ? '완료' : '미완료'}
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        // 자정 체크 타이머 (매분 확인)
-        setInterval(() => {
-            if (document.getElementById('todoFullscreenModal').classList.contains('active')) {
-                checkAndResetDailyTodos();
-                updateTodoDateDisplay();
-                renderTodoList();
-            }
-        }, 60000);
-
         // 초기 로드
-        document.addEventListener('DOMContentLoaded', async () => {
+        document.addEventListener('DOMContentLoaded', () => {
             console.log('절대강자 메모장 로드 완료!');
-            
-            // IndexedDB 초기화 대기 (최대 2초)
-            let waitCount = 0;
-            while (!isDBReady && waitCount < 20) {
-                await new Promise(r => setTimeout(r, 100));
-                waitCount++;
-            }
-            
-            // IndexedDB에서 데이터 로드 및 병합 시도
-            if (isDBReady) {
-                try {
-                    const idbData = await loadAllFromIndexedDB();
-                    if (idbData) {
-                        const localData = loadFromLocalStorage();
-                        data = mergeData(localData, idbData);
-                        console.log('IndexedDB 데이터와 병합 완료 (DOMContentLoaded)');
-                    }
-                } catch (e) {
-                    console.warn('IndexedDB 로드 실패:', e);
-                }
-            }
-            
-            renderCustomCategories();
-            checkAndResetDailyTodos();
-            
-            // 첫 로드 후 데이터 백업 저장
-            saveAllData();
         });
-
-        // Flutter WebView 호환성을 위한 이벤트 리스너들
-        // 페이지 가시성 변경 시 저장 (앱이 백그라운드로 갈 때)
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'hidden') {
-                saveAllData();
-                console.log('visibilitychange: 데이터 저장됨');
-            } else if (document.visibilityState === 'visible') {
-                // 앱이 다시 포그라운드로 돌아왔을 때 IndexedDB에서 데이터 확인
-                (async () => {
-                    if (isDBReady) {
-                        const idbData = await loadAllFromIndexedDB();
-                        if (idbData) {
-                            const localData = loadFromLocalStorage();
-                            data = mergeData(localData, idbData);
-                            console.log('visibilitychange visible: 데이터 재동기화');
-                        }
-                    }
-                })();
-            }
-        });
-
-        // 페이지 언로드 전 저장
-        window.addEventListener('beforeunload', () => {
-            saveAllData();
-            console.log('beforeunload: 데이터 저장됨');
-        });
-
-        // 모바일에서 더 신뢰성 높은 이벤트 (iOS Safari, WebView)
-        window.addEventListener('pagehide', () => {
-            saveAllData();
-            console.log('pagehide: 데이터 저장됨');
-        });
-
-        // 포커스를 잃을 때도 저장 (추가 안전장치)
-        window.addEventListener('blur', () => {
-            saveAllData();
-            console.log('blur: 데이터 저장됨');
-        });
-
-        // 포커스를 얻을 때 데이터 재동기화 (앱으로 돌아왔을 때)
-        window.addEventListener('focus', async () => {
-            if (isDBReady) {
-                const idbData = await loadAllFromIndexedDB();
-                if (idbData) {
-                    const localData = loadFromLocalStorage();
-                    data = mergeData(localData, idbData);
-                    console.log('focus: 데이터 재동기화');
-                }
-            }
-        });
-
-        // 터치 시작 시 저장 상태 확인 (모바일 추가 안전장치)
-        let lastSaveTime = Date.now();
-        document.addEventListener('touchstart', () => {
-            const now = Date.now();
-            // 마지막 저장 이후 5초가 지났으면 저장
-            if (now - lastSaveTime > 5000) {
-                saveAllData();
-                lastSaveTime = now;
-            }
-        }, { passive: true });
-
-        // 주기적 자동 저장 (10초마다 - Flutter WebView용으로 더 자주)
-        setInterval(() => {
-            saveAllData();
-        }, 10000);
     </script>
 </body>
 </html>
