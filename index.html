@@ -252,9 +252,9 @@
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
 
-        /* 일정 관리 - 시안 */
+        /* 일정 관리 - 부드러운 블루그레이 */
         .schedule {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #8BA4B4 0%, #A8C0D0 100%);
         }
 
         /* 여행 관리 - 오렌지/코랄 */
@@ -579,6 +579,932 @@
 
         .restaurant-header .add-btn {
             background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+        }
+
+        /* ========== 여행관리 전체화면 모달 스타일 ========== */
+        .travel-fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fff5f7 0%, #fff0e6 50%, #fff5e6 100%);
+            z-index: 2000;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .travel-fullscreen-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .travel-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(250, 112, 154, 0.2);
+            box-shadow: 0 2px 20px rgba(250, 112, 154, 0.1);
+        }
+
+        .travel-modal-header h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .travel-modal-header h2 i {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .travel-back-btn {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(250, 112, 154, 0.4);
+        }
+
+        .travel-back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .travel-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 20px 100px;
+        }
+
+        .travel-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(250, 112, 154, 0.12);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(250, 112, 154, 0.1);
+        }
+
+        .travel-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(250, 112, 154, 0.2);
+        }
+
+        .travel-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .travel-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .travel-card-title i {
+            color: #fa709a;
+        }
+
+        .travel-card-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        .travel-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .travel-card-info p {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .travel-card-info i {
+            width: 18px;
+            color: #fa709a;
+        }
+
+        .travel-card-memo {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+            color: #888;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .travel-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(250, 112, 154, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .travel-fab:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 10px 35px rgba(250, 112, 154, 0.6);
+        }
+
+        .travel-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .travel-empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.5;
+        }
+
+        .travel-empty-state p {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* 여행 상세보기 모달 */
+        .travel-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fff5f7 0%, #fff0e6 50%, #fff5e6 100%);
+            z-index: 2002;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .travel-detail-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .travel-detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(250, 112, 154, 0.2);
+        }
+
+        .travel-detail-header .left-actions button,
+        .travel-detail-header .right-actions button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .travel-detail-header .right-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .travel-detail-header button:hover {
+            background: rgba(250, 112, 154, 0.1);
+            color: #fa709a;
+        }
+
+        .travel-detail-header .delete-action:hover {
+            background: rgba(255, 95, 109, 0.1);
+            color: #ff5f6d;
+        }
+
+        .travel-detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .travel-detail-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .travel-detail-title i {
+            color: #fa709a;
+        }
+
+        .travel-detail-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(250, 112, 154, 0.1);
+        }
+
+        .travel-detail-info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .travel-detail-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .travel-detail-info-item i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(250, 112, 154, 0.1) 0%, rgba(254, 225, 64, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fa709a;
+            font-size: 16px;
+        }
+
+        .travel-detail-info-item .info-content {
+            flex: 1;
+        }
+
+        .travel-detail-info-item .info-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 3px;
+        }
+
+        .travel-detail-info-item .info-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .travel-detail-memo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(250, 112, 154, 0.1);
+        }
+
+        .travel-detail-memo-card h4 {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .travel-detail-memo-card h4 i {
+            color: #fa709a;
+        }
+
+        .travel-detail-memo-card p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* 여행 입력 폼 모달 */
+        .travel-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fff5f7 0%, #fff0e6 50%, #fff5e6 100%);
+            z-index: 2003;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .travel-form-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .travel-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(250, 112, 154, 0.2);
+        }
+
+        .travel-form-header h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .travel-form-header button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .travel-form-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .travel-form-group {
+            margin-bottom: 20px;
+        }
+
+        .travel-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .travel-form-group input,
+        .travel-form-group textarea,
+        .travel-form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .travel-form-group input:focus,
+        .travel-form-group textarea:focus,
+        .travel-form-group select:focus {
+            outline: none;
+            border-color: #fa709a;
+            box-shadow: 0 0 0 4px rgba(250, 112, 154, 0.1);
+        }
+
+        .travel-form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .travel-form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(250, 112, 154, 0.4);
+        }
+
+        .travel-form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(250, 112, 154, 0.5);
+        }
+
+        /* ========== 맛집관리 전체화면 모달 스타일 ========== */
+        .restaurant-fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fffdf5 0%, #fff8e6 50%, #fff5e0 100%);
+            z-index: 2000;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .restaurant-fullscreen-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .restaurant-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 78, 80, 0.2);
+            box-shadow: 0 2px 20px rgba(255, 78, 80, 0.1);
+        }
+
+        .restaurant-modal-header h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .restaurant-modal-header h2 i {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .restaurant-back-btn {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 78, 80, 0.4);
+        }
+
+        .restaurant-back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .restaurant-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 20px 100px;
+        }
+
+        .restaurant-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(255, 78, 80, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 78, 80, 0.1);
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 78, 80, 0.18);
+        }
+
+        .restaurant-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .restaurant-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .restaurant-card-title i {
+            color: #ff4e50;
+        }
+
+        .restaurant-card-category {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            color: white;
+        }
+
+        .restaurant-card-rating {
+            color: #ffc107;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .restaurant-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .restaurant-card-info p {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .restaurant-card-info i {
+            width: 16px;
+            color: #ff4e50;
+        }
+
+        .restaurant-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(255, 78, 80, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .restaurant-fab:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 10px 35px rgba(255, 78, 80, 0.6);
+        }
+
+        .restaurant-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .restaurant-empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.5;
+        }
+
+        .restaurant-empty-state p {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* 맛집 상세보기 모달 */
+        .restaurant-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fffdf5 0%, #fff8e6 50%, #fff5e0 100%);
+            z-index: 2002;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .restaurant-detail-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .restaurant-detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 78, 80, 0.2);
+        }
+
+        .restaurant-detail-header .left-actions button,
+        .restaurant-detail-header .right-actions button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .restaurant-detail-header .right-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .restaurant-detail-header button:hover {
+            background: rgba(255, 78, 80, 0.1);
+            color: #ff4e50;
+        }
+
+        .restaurant-detail-header .delete-action:hover {
+            background: rgba(255, 95, 109, 0.1);
+            color: #ff5f6d;
+        }
+
+        .restaurant-detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .restaurant-detail-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .restaurant-detail-title i {
+            color: #ff4e50;
+        }
+
+        .restaurant-detail-rating {
+            font-size: 24px;
+            color: #ffc107;
+            margin-bottom: 20px;
+        }
+
+        .restaurant-detail-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(255, 78, 80, 0.08);
+        }
+
+        .restaurant-detail-info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .restaurant-detail-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .restaurant-detail-info-item i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(249, 212, 35, 0.1) 0%, rgba(255, 78, 80, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff4e50;
+            font-size: 16px;
+        }
+
+        .restaurant-detail-info-item .info-content {
+            flex: 1;
+        }
+
+        .restaurant-detail-info-item .info-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 3px;
+        }
+
+        .restaurant-detail-info-item .info-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .restaurant-detail-memo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(255, 78, 80, 0.08);
+        }
+
+        .restaurant-detail-memo-card h4 {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .restaurant-detail-memo-card h4 i {
+            color: #ff4e50;
+        }
+
+        .restaurant-detail-memo-card p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* 맛집 입력 폼 모달 */
+        .restaurant-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fffdf5 0%, #fff8e6 50%, #fff5e0 100%);
+            z-index: 2003;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .restaurant-form-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .restaurant-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 78, 80, 0.2);
+        }
+
+        .restaurant-form-header h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .restaurant-form-header button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .restaurant-form-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .restaurant-form-group {
+            margin-bottom: 20px;
+        }
+
+        .restaurant-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .restaurant-form-group input,
+        .restaurant-form-group textarea,
+        .restaurant-form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .restaurant-form-group input:focus,
+        .restaurant-form-group textarea:focus,
+        .restaurant-form-group select:focus {
+            outline: none;
+            border-color: #ff4e50;
+            box-shadow: 0 0 0 4px rgba(255, 78, 80, 0.1);
+        }
+
+        .restaurant-form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .restaurant-star-rating {
+            display: flex;
+            gap: 8px;
+            padding: 10px 0;
+        }
+
+        .restaurant-star-rating i {
+            font-size: 28px;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .restaurant-star-rating i:hover,
+        .restaurant-star-rating i.active {
+            color: #ffc107;
+            transform: scale(1.1);
+        }
+
+        .restaurant-form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 78, 80, 0.4);
+        }
+
+        .restaurant-form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 78, 80, 0.5);
         }
 
         /* Star rating input */
@@ -2371,6 +3297,618 @@
         .memo-form-body::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.3);
         }
+
+        /* ========== 캘린더 일정관리 스타일 ========== */
+        .schedule-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f5f7fa 0%, #e8ecf1 50%, #dde3eb 100%);
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .schedule-modal-overlay.active {
+            display: block;
+        }
+
+        .schedule-modal {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .schedule-modal-header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 164, 180, 0.2);
+            box-shadow: 0 2px 15px rgba(139, 164, 180, 0.1);
+        }
+
+        .schedule-modal-header h2 {
+            color: #4a5568;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .schedule-modal-header h2 i {
+            color: #7c9aaa;
+        }
+
+        .schedule-modal-close {
+            background: linear-gradient(135deg, #8BA4B4 0%, #A8C0D0 100%);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(139, 164, 180, 0.3);
+        }
+
+        .schedule-modal-close:hover {
+            transform: scale(1.05);
+        }
+
+        .schedule-modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        /* 캘린더 네비게이션 */
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 15px rgba(139, 164, 180, 0.15);
+        }
+
+        .calendar-nav-btn {
+            background: #f0f4f8;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #5a6d7d;
+            font-size: 16px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-nav-btn:hover {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .calendar-nav-title {
+            color: #4a5568;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+
+        .calendar-nav-title:hover {
+            background: #f0f4f8;
+        }
+
+        .calendar-today-btn {
+            background: linear-gradient(135deg, #8BA4B4 0%, #A8C0D0 100%);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(139, 164, 180, 0.3);
+        }
+
+        .calendar-today-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(139, 164, 180, 0.4);
+        }
+
+        /* 캘린더 그리드 */
+        .calendar-container {
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 15px rgba(139, 164, 180, 0.15);
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .calendar-weekday {
+            text-align: center;
+            color: #718096;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 8px 0;
+        }
+
+        .calendar-weekday.sunday {
+            color: #e57373;
+        }
+
+        .calendar-weekday.saturday {
+            color: #64b5f6;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            min-height: 45px;
+        }
+
+        .calendar-day:hover {
+            background: #e2e8f0;
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.4;
+        }
+
+        .calendar-day.today {
+            background: #e8f4f8;
+            box-shadow: 0 0 0 2px #8BA4B4;
+        }
+
+        .calendar-day.selected {
+            background: linear-gradient(135deg, #8BA4B4 0%, #A8C0D0 100%);
+        }
+
+        .calendar-day.selected .day-number {
+            color: white;
+        }
+
+        .calendar-day .day-number {
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .calendar-day.sunday .day-number {
+            color: #e57373;
+        }
+
+        .calendar-day.saturday .day-number {
+            color: #64b5f6;
+        }
+
+        .calendar-day.selected.sunday .day-number,
+        .calendar-day.selected.saturday .day-number {
+            color: white;
+        }
+
+        .calendar-day .schedule-dots {
+            display: flex;
+            gap: 3px;
+            margin-top: 3px;
+            position: absolute;
+            bottom: 5px;
+        }
+
+        .schedule-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #f0b429;
+        }
+
+        .schedule-dot.important {
+            background: #e57373;
+        }
+
+        /* 선택된 날짜 일정 목록 */
+        .selected-date-schedules {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(139, 164, 180, 0.15);
+        }
+
+        .selected-date-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .selected-date-title {
+            color: #4a5568;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .add-schedule-btn {
+            background: linear-gradient(135deg, #8BA4B4 0%, #A8C0D0 100%);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(139, 164, 180, 0.3);
+        }
+
+        .add-schedule-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(139, 164, 180, 0.4);
+        }
+
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .schedule-item {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .schedule-item:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .schedule-time-badge {
+            background: linear-gradient(135deg, #8BA4B4 0%, #A8C0D0 100%);
+            padding: 6px 10px;
+            border-radius: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .schedule-time-badge.all-day {
+            background: #f0b429;
+            color: white;
+        }
+
+        .schedule-item-content {
+            flex: 1;
+        }
+
+        .schedule-item-title {
+            color: #2d3748;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .schedule-item-memo {
+            color: #718096;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .schedule-item-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .schedule-item-btn {
+            background: #e2e8f0;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #5a6d7d;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .schedule-item-btn:hover {
+            background: #cbd5e1;
+            color: #4a5568;
+        }
+
+        .schedule-item-btn.delete:hover {
+            background: #fed7d7;
+            color: #e53e3e;
+        }
+
+        .schedule-empty {
+            text-align: center;
+            padding: 30px;
+            color: #a0aec0;
+        }
+
+        .schedule-empty i {
+            font-size: 40px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        .schedule-empty p {
+            font-size: 14px;
+        }
+
+        /* 일정 추가/수정 모달 */
+        .schedule-form-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .schedule-form-overlay.active {
+            display: flex;
+        }
+
+        .schedule-form-modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .schedule-form-header {
+            background: linear-gradient(135deg, #8BA4B4 0%, #A8C0D0 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .schedule-form-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .schedule-form-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .schedule-form-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .schedule-form-body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .schedule-form-group {
+            margin-bottom: 20px;
+        }
+
+        .schedule-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .schedule-form-group input[type="text"],
+        .schedule-form-group input[type="time"],
+        .schedule-form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .schedule-form-group input:focus,
+        .schedule-form-group textarea:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+
+        .schedule-form-group textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        .schedule-time-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .schedule-time-inputs input {
+            flex: 1;
+        }
+
+        .schedule-time-inputs span {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .schedule-allday-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .schedule-allday-toggle input {
+            width: 20px;
+            height: 20px;
+            accent-color: #4facfe;
+        }
+
+        .schedule-allday-toggle span {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .schedule-important-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: #fff5f5;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .schedule-important-toggle input {
+            width: 20px;
+            height: 20px;
+            accent-color: #ff6b6b;
+        }
+
+        .schedule-important-toggle span {
+            font-size: 14px;
+            color: #ff6b6b;
+        }
+
+        .schedule-form-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 10px;
+        }
+
+        .schedule-form-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .schedule-form-btn.cancel {
+            background: #f1f3f4;
+            color: #666;
+        }
+
+        .schedule-form-btn.cancel:hover {
+            background: #e9ecef;
+        }
+
+        .schedule-form-btn.save {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .schedule-form-btn.save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        /* 캘린더 일정 뱃지 (schedule indicator) */
+        .schedule-indicator {
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2px;
+        }
+
+        .schedule-indicator-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #ffe66d;
+        }
+
+        .schedule-indicator-dot.important {
+            background: #ff6b6b;
+        }
     </style>
 </head>
 <body>
@@ -2667,6 +4205,177 @@
         </div>
     </div>
 
+    <!-- 여행 관리 전체화면 모달 -->
+    <div class="travel-fullscreen-modal" id="travelFullscreenModal">
+        <div class="travel-modal-header">
+            <h2><i class="fas fa-plane"></i> 여행 관리</h2>
+            <button class="travel-back-btn" onclick="closeTravelFullscreen()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="travel-list-container" id="travelListContainer">
+            <!-- 여행 리스트가 여기에 렌더링됨 -->
+        </div>
+        <button class="travel-fab" onclick="openTravelForm()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- 여행 상세보기 모달 -->
+    <div class="travel-detail-modal" id="travelDetailModal">
+        <div class="travel-detail-header">
+            <div class="left-actions">
+                <button onclick="closeTravelDetail()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="right-actions">
+                <button onclick="editCurrentTravel()">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-action" onclick="deleteCurrentTravel()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="travel-detail-content" id="travelDetailContent">
+            <!-- 여행 상세 내용이 여기에 렌더링됨 -->
+        </div>
+    </div>
+
+    <!-- 여행 입력 폼 모달 -->
+    <div class="travel-form-modal" id="travelFormModal">
+        <div class="travel-form-header">
+            <h2 id="travelFormTitle">새 여행 추가</h2>
+            <button onclick="closeTravelForm()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="travel-form-body">
+            <form id="newTravelForm" onsubmit="submitTravelForm(event)">
+                <input type="hidden" id="editTravelId">
+                <div class="travel-form-group">
+                    <label>여행지 *</label>
+                    <input type="text" id="newTravelDestination" placeholder="여행지를 입력하세요" required>
+                </div>
+                <div class="travel-form-group">
+                    <label>여행 기간</label>
+                    <input type="text" id="newTravelPeriod" placeholder="예: 2026.02.10 ~ 2026.02.15">
+                </div>
+                <div class="travel-form-group">
+                    <label>예산</label>
+                    <input type="text" id="newTravelBudget" placeholder="예: 500,000원">
+                </div>
+                <div class="travel-form-group">
+                    <label>상태</label>
+                    <select id="newTravelStatus">
+                        <option value="계획중">계획중</option>
+                        <option value="예약완료">예약완료</option>
+                        <option value="여행중">여행중</option>
+                        <option value="완료">완료</option>
+                    </select>
+                </div>
+                <div class="travel-form-group">
+                    <label>메모</label>
+                    <textarea id="newTravelMemo" placeholder="여행 계획이나 메모를 적어주세요"></textarea>
+                </div>
+                <button type="submit" class="travel-form-submit" id="travelSubmitBtn">여행 추가하기</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 맛집 관리 전체화면 모달 -->
+    <div class="restaurant-fullscreen-modal" id="restaurantFullscreenModal">
+        <div class="restaurant-modal-header">
+            <h2><i class="fas fa-utensils"></i> 맛집 관리</h2>
+            <button class="restaurant-back-btn" onclick="closeRestaurantFullscreen()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="restaurant-list-container" id="restaurantListContainer">
+            <!-- 맛집 리스트가 여기에 렌더링됨 -->
+        </div>
+        <button class="restaurant-fab" onclick="openRestaurantForm()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- 맛집 상세보기 모달 -->
+    <div class="restaurant-detail-modal" id="restaurantDetailModal">
+        <div class="restaurant-detail-header">
+            <div class="left-actions">
+                <button onclick="closeRestaurantDetail()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="right-actions">
+                <button onclick="editCurrentRestaurant()">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-action" onclick="deleteCurrentRestaurant()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="restaurant-detail-content" id="restaurantDetailContent">
+            <!-- 맛집 상세 내용이 여기에 렌더링됨 -->
+        </div>
+    </div>
+
+    <!-- 맛집 입력 폼 모달 -->
+    <div class="restaurant-form-modal" id="restaurantFormModal">
+        <div class="restaurant-form-header">
+            <h2 id="restaurantFormTitle">새 맛집 추가</h2>
+            <button onclick="closeRestaurantForm()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="restaurant-form-body">
+            <form id="newRestaurantForm" onsubmit="submitRestaurantForm(event)">
+                <input type="hidden" id="editRestaurantId">
+                <div class="restaurant-form-group">
+                    <label>맛집 이름 *</label>
+                    <input type="text" id="newRestaurantName" placeholder="맛집 이름을 입력하세요" required>
+                </div>
+                <div class="restaurant-form-group">
+                    <label>위치</label>
+                    <input type="text" id="newRestaurantLocation" placeholder="주소 또는 위치를 입력하세요">
+                </div>
+                <div class="restaurant-form-group">
+                    <label>카테고리</label>
+                    <select id="newRestaurantCategory">
+                        <option value="한식">한식</option>
+                        <option value="중식">중식</option>
+                        <option value="일식">일식</option>
+                        <option value="양식">양식</option>
+                        <option value="분식">분식</option>
+                        <option value="카페">카페</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="restaurant-form-group">
+                    <label>평점</label>
+                    <div class="restaurant-star-rating" id="newRestaurantRating">
+                        <i class="fas fa-star active" data-rating="1"></i>
+                        <i class="fas fa-star active" data-rating="2"></i>
+                        <i class="fas fa-star active" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                </div>
+                <div class="restaurant-form-group">
+                    <label>추천 메뉴</label>
+                    <input type="text" id="newRestaurantMenu" placeholder="추천 메뉴를 입력하세요">
+                </div>
+                <div class="restaurant-form-group">
+                    <label>메모</label>
+                    <textarea id="newRestaurantMemo" placeholder="맛집에 대한 메모를 적어주세요"></textarea>
+                </div>
+                <button type="submit" class="restaurant-form-submit" id="restaurantSubmitBtn">맛집 추가하기</button>
+            </form>
+        </div>
+    </div>
+
     <!-- 일반 메모 전체화면 리스트 모달 -->
     <div class="memo-fullscreen-modal" id="memoFullscreenModal">
         <div class="memo-modal-header">
@@ -2863,6 +4572,106 @@
             <i class="fas fa-times"></i>
         </button>
         <img src="" alt="전체화면" id="imageFullscreenImg">
+    </div>
+
+    <!-- 일정관리 (캘린더) 모달 -->
+    <div class="schedule-modal-overlay" id="scheduleModal">
+        <div class="schedule-modal">
+            <div class="schedule-modal-header">
+                <h2><i class="fas fa-calendar-alt"></i> 일정 관리</h2>
+                <button class="schedule-modal-close" onclick="closeScheduleModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="schedule-modal-body">
+                <!-- 캘린더 네비게이션 -->
+                <div class="calendar-nav">
+                    <button class="calendar-nav-btn" onclick="prevMonth()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="calendar-nav-title" id="calendarNavTitle" onclick="goToToday()">2024년 1월</span>
+                    <button class="calendar-today-btn" onclick="goToToday()">오늘</button>
+                    <button class="calendar-nav-btn" onclick="nextMonth()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- 캘린더 -->
+                <div class="calendar-container">
+                    <div class="calendar-weekdays">
+                        <div class="calendar-weekday sunday">일</div>
+                        <div class="calendar-weekday">월</div>
+                        <div class="calendar-weekday">화</div>
+                        <div class="calendar-weekday">수</div>
+                        <div class="calendar-weekday">목</div>
+                        <div class="calendar-weekday">금</div>
+                        <div class="calendar-weekday saturday">토</div>
+                    </div>
+                    <div class="calendar-days" id="calendarDays">
+                        <!-- 캘린더 날짜가 여기에 동적으로 추가됨 -->
+                    </div>
+                </div>
+
+                <!-- 선택된 날짜 일정 목록 -->
+                <div class="selected-date-schedules">
+                    <div class="selected-date-header">
+                        <span class="selected-date-title" id="selectedDateTitle">오늘의 일정</span>
+                        <button class="add-schedule-btn" onclick="openScheduleForm()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="schedule-list" id="scheduleList">
+                        <!-- 일정 목록이 여기에 동적으로 추가됨 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 일정 추가/수정 폼 모달 -->
+    <div class="schedule-form-overlay" id="scheduleFormModal">
+        <div class="schedule-form-modal">
+            <div class="schedule-form-header">
+                <h3 id="scheduleFormTitle">새 일정</h3>
+                <button class="schedule-form-close" onclick="closeScheduleForm()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="schedule-form-body">
+                <div class="schedule-form-group">
+                    <label>일정 제목</label>
+                    <input type="text" id="scheduleTitle" placeholder="일정 제목을 입력하세요">
+                </div>
+                
+                <label class="schedule-allday-toggle">
+                    <input type="checkbox" id="scheduleAllDay" onchange="toggleTimeInputs()">
+                    <span>하루 종일</span>
+                </label>
+
+                <div class="schedule-form-group" id="scheduleTimeGroup">
+                    <label>시간</label>
+                    <div class="schedule-time-inputs">
+                        <input type="time" id="scheduleStartTime" value="09:00">
+                        <span>~</span>
+                        <input type="time" id="scheduleEndTime" value="10:00">
+                    </div>
+                </div>
+
+                <div class="schedule-form-group">
+                    <label>메모 (선택사항)</label>
+                    <textarea id="scheduleMemo" placeholder="일정에 대한 메모를 남겨보세요"></textarea>
+                </div>
+
+                <label class="schedule-important-toggle">
+                    <input type="checkbox" id="scheduleImportant">
+                    <span><i class="fas fa-star"></i> 중요한 일정</span>
+                </label>
+            </div>
+            <div class="schedule-form-footer">
+                <button class="schedule-form-btn cancel" onclick="closeScheduleForm()">취소</button>
+                <button class="schedule-form-btn save" onclick="saveSchedule()">저장</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -3246,7 +5055,8 @@
                 customCategoryMemos: safeJSONParse(localStorage.getItem('customCategoryMemos'), {}),
                 todos: safeJSONParse(localStorage.getItem('todos'), []),
                 todoHistory: safeJSONParse(localStorage.getItem('todoHistory'), {}),
-                lastTodoDate: localStorage.getItem('lastTodoDate') || ''
+                lastTodoDate: localStorage.getItem('lastTodoDate') || '',
+                schedules: safeJSONParse(localStorage.getItem('schedules'), [])
             };
         }
 
@@ -3336,11 +5146,6 @@
 
         // 모달 열기/닫기
         function openModal(type) {
-            const modalMap = {
-                'travel': 'travelModal',
-                'restaurant': 'restaurantModal'
-            };
-            
             // 일반 메모는 새로운 전체화면 모달로
             if (type === 'memo') {
                 openMemoFullscreen();
@@ -3353,17 +5158,465 @@
                 return;
             }
             
-            const modalId = modalMap[type];
-            if (modalId) {
-                document.getElementById(modalId).classList.add('active');
-                renderList(type);
-            } else {
-                showToast('준비 중인 기능입니다!');
+            // 일정 관리 (캘린더)
+            if (type === 'schedule') {
+                openScheduleModal();
+                return;
             }
+            
+            // 여행 관리는 전체화면 모달로
+            if (type === 'travel') {
+                openTravelFullscreen();
+                return;
+            }
+            
+            // 맛집 관리는 전체화면 모달로
+            if (type === 'restaurant') {
+                openRestaurantFullscreen();
+                return;
+            }
+            
+            showToast('준비 중인 기능입니다!');
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
+        }
+
+        // ========== 여행 관리 전체화면 관련 함수들 ==========
+        let currentTravelId = null;
+        let currentRestaurantId = null;
+        let selectedRestaurantRating = 3;
+
+        // 여행 전체화면 열기
+        function openTravelFullscreen() {
+            document.getElementById('travelFullscreenModal').classList.add('active');
+            renderTravelList();
+        }
+
+        // 여행 전체화면 닫기
+        function closeTravelFullscreen() {
+            document.getElementById('travelFullscreenModal').classList.remove('active');
+        }
+
+        // 여행 리스트 렌더링
+        function renderTravelList() {
+            const container = document.getElementById('travelListContainer');
+            
+            if (data.travels.length === 0) {
+                container.innerHTML = `
+                    <div class="travel-empty-state">
+                        <i class="fas fa-plane"></i>
+                        <p>아직 등록된 여행이 없습니다.<br>새로운 여행을 추가해보세요!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = data.travels.map(travel => `
+                    <div class="travel-card" onclick="openTravelDetail(${travel.id})">
+                        <div class="travel-card-header">
+                            <div class="travel-card-title">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${travel.destination}
+                            </div>
+                            <span class="travel-card-status">${travel.status}</span>
+                        </div>
+                        <div class="travel-card-info">
+                            ${travel.period ? `<p><i class="fas fa-calendar-alt"></i> ${travel.period}</p>` : ''}
+                            ${travel.budget ? `<p><i class="fas fa-wallet"></i> ${travel.budget}</p>` : ''}
+                        </div>
+                        ${travel.memo ? `<div class="travel-card-memo">${travel.memo.substring(0, 50)}${travel.memo.length > 50 ? '...' : ''}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 여행 상세보기 열기
+        function openTravelDetail(id) {
+            const travel = data.travels.find(t => t.id === id);
+            if (!travel) return;
+            
+            currentTravelId = id;
+            const content = document.getElementById('travelDetailContent');
+            
+            content.innerHTML = `
+                <h2 class="travel-detail-title">
+                    <i class="fas fa-plane"></i>
+                    ${travel.destination}
+                </h2>
+                <div class="travel-detail-info-card">
+                    <div class="travel-detail-info-item">
+                        <i class="fas fa-flag"></i>
+                        <div class="info-content">
+                            <div class="info-label">상태</div>
+                            <div class="info-value">${travel.status}</div>
+                        </div>
+                    </div>
+                    ${travel.period ? `
+                    <div class="travel-detail-info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="info-content">
+                            <div class="info-label">여행 기간</div>
+                            <div class="info-value">${travel.period}</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    ${travel.budget ? `
+                    <div class="travel-detail-info-item">
+                        <i class="fas fa-wallet"></i>
+                        <div class="info-content">
+                            <div class="info-label">예산</div>
+                            <div class="info-value">${travel.budget}</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    <div class="travel-detail-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="info-content">
+                            <div class="info-label">등록일</div>
+                            <div class="info-value">${travel.createdAt}</div>
+                        </div>
+                    </div>
+                </div>
+                ${travel.memo ? `
+                <div class="travel-detail-memo-card">
+                    <h4><i class="fas fa-sticky-note"></i> 메모</h4>
+                    <p>${travel.memo}</p>
+                </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('travelDetailModal').classList.add('active');
+        }
+
+        // 여행 상세보기 닫기
+        function closeTravelDetail() {
+            document.getElementById('travelDetailModal').classList.remove('active');
+            currentTravelId = null;
+        }
+
+        // 여행 폼 열기
+        function openTravelForm(travel = null) {
+            const modal = document.getElementById('travelFormModal');
+            const title = document.getElementById('travelFormTitle');
+            const submitBtn = document.getElementById('travelSubmitBtn');
+            
+            if (travel) {
+                // 수정 모드
+                title.textContent = '여행 수정';
+                submitBtn.textContent = '여행 수정하기';
+                document.getElementById('editTravelId').value = travel.id;
+                document.getElementById('newTravelDestination').value = travel.destination;
+                document.getElementById('newTravelPeriod').value = travel.period || '';
+                document.getElementById('newTravelBudget').value = travel.budget || '';
+                document.getElementById('newTravelStatus').value = travel.status;
+                document.getElementById('newTravelMemo').value = travel.memo || '';
+            } else {
+                // 추가 모드
+                title.textContent = '새 여행 추가';
+                submitBtn.textContent = '여행 추가하기';
+                document.getElementById('newTravelForm').reset();
+                document.getElementById('editTravelId').value = '';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        // 여행 폼 닫기
+        function closeTravelForm() {
+            document.getElementById('travelFormModal').classList.remove('active');
+        }
+
+        // 여행 폼 제출
+        function submitTravelForm(e) {
+            e.preventDefault();
+            
+            const editId = document.getElementById('editTravelId').value;
+            const travelData = {
+                destination: document.getElementById('newTravelDestination').value,
+                period: document.getElementById('newTravelPeriod').value,
+                budget: document.getElementById('newTravelBudget').value,
+                status: document.getElementById('newTravelStatus').value,
+                memo: document.getElementById('newTravelMemo').value
+            };
+            
+            if (editId) {
+                // 수정
+                const index = data.travels.findIndex(t => t.id === parseInt(editId));
+                if (index !== -1) {
+                    data.travels[index] = {
+                        ...data.travels[index],
+                        ...travelData
+                    };
+                    showToast('여행이 수정되었습니다!');
+                }
+            } else {
+                // 추가
+                const travel = {
+                    id: Date.now(),
+                    ...travelData,
+                    createdAt: new Date().toLocaleDateString('ko-KR')
+                };
+                data.travels.unshift(travel);
+                showToast('여행이 추가되었습니다!');
+            }
+            
+            saveData('travels');
+            renderTravelList();
+            closeTravelForm();
+            
+            if (editId) {
+                closeTravelDetail();
+            }
+        }
+
+        // 현재 여행 수정
+        function editCurrentTravel() {
+            const travel = data.travels.find(t => t.id === currentTravelId);
+            if (travel) {
+                openTravelForm(travel);
+            }
+        }
+
+        // 현재 여행 삭제
+        function deleteCurrentTravel() {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                data.travels = data.travels.filter(t => t.id !== currentTravelId);
+                saveData('travels');
+                closeTravelDetail();
+                renderTravelList();
+                showToast('삭제되었습니다.');
+            }
+        }
+
+        // ========== 맛집 관리 전체화면 관련 함수들 ==========
+
+        // 맛집 전체화면 열기
+        function openRestaurantFullscreen() {
+            document.getElementById('restaurantFullscreenModal').classList.add('active');
+            renderRestaurantList();
+            initRestaurantRating();
+        }
+
+        // 맛집 전체화면 닫기
+        function closeRestaurantFullscreen() {
+            document.getElementById('restaurantFullscreenModal').classList.remove('active');
+        }
+
+        // 맛집 리스트 렌더링
+        function renderRestaurantList() {
+            const container = document.getElementById('restaurantListContainer');
+            
+            if (data.restaurants.length === 0) {
+                container.innerHTML = `
+                    <div class="restaurant-empty-state">
+                        <i class="fas fa-utensils"></i>
+                        <p>아직 등록된 맛집이 없습니다.<br>좋아하는 맛집을 추가해보세요!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = data.restaurants.map(restaurant => `
+                    <div class="restaurant-card" onclick="openRestaurantDetail(${restaurant.id})">
+                        <div class="restaurant-card-header">
+                            <div class="restaurant-card-title">
+                                <i class="fas fa-store"></i>
+                                ${restaurant.name}
+                            </div>
+                            <span class="restaurant-card-category">${restaurant.category}</span>
+                        </div>
+                        <div class="restaurant-card-rating">${'★'.repeat(restaurant.rating)}${'☆'.repeat(5 - restaurant.rating)}</div>
+                        <div class="restaurant-card-info">
+                            ${restaurant.location ? `<p><i class="fas fa-map-marker-alt"></i> ${restaurant.location}</p>` : ''}
+                            ${restaurant.menu ? `<p><i class="fas fa-utensils"></i> ${restaurant.menu}</p>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 맛집 상세보기 열기
+        function openRestaurantDetail(id) {
+            const restaurant = data.restaurants.find(r => r.id === id);
+            if (!restaurant) return;
+            
+            currentRestaurantId = id;
+            const content = document.getElementById('restaurantDetailContent');
+            
+            content.innerHTML = `
+                <h2 class="restaurant-detail-title">
+                    <i class="fas fa-store"></i>
+                    ${restaurant.name}
+                </h2>
+                <div class="restaurant-detail-rating">${'★'.repeat(restaurant.rating)}${'☆'.repeat(5 - restaurant.rating)}</div>
+                <div class="restaurant-detail-info-card">
+                    <div class="restaurant-detail-info-item">
+                        <i class="fas fa-tag"></i>
+                        <div class="info-content">
+                            <div class="info-label">카테고리</div>
+                            <div class="info-value">${restaurant.category}</div>
+                        </div>
+                    </div>
+                    ${restaurant.location ? `
+                    <div class="restaurant-detail-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <div class="info-label">위치</div>
+                            <div class="info-value">${restaurant.location}</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    ${restaurant.menu ? `
+                    <div class="restaurant-detail-info-item">
+                        <i class="fas fa-utensils"></i>
+                        <div class="info-content">
+                            <div class="info-label">추천 메뉴</div>
+                            <div class="info-value">${restaurant.menu}</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    <div class="restaurant-detail-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="info-content">
+                            <div class="info-label">등록일</div>
+                            <div class="info-value">${restaurant.createdAt}</div>
+                        </div>
+                    </div>
+                </div>
+                ${restaurant.memo ? `
+                <div class="restaurant-detail-memo-card">
+                    <h4><i class="fas fa-sticky-note"></i> 메모</h4>
+                    <p>${restaurant.memo}</p>
+                </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('restaurantDetailModal').classList.add('active');
+        }
+
+        // 맛집 상세보기 닫기
+        function closeRestaurantDetail() {
+            document.getElementById('restaurantDetailModal').classList.remove('active');
+            currentRestaurantId = null;
+        }
+
+        // 맛집 폼 열기
+        function openRestaurantForm(restaurant = null) {
+            const modal = document.getElementById('restaurantFormModal');
+            const title = document.getElementById('restaurantFormTitle');
+            const submitBtn = document.getElementById('restaurantSubmitBtn');
+            
+            if (restaurant) {
+                // 수정 모드
+                title.textContent = '맛집 수정';
+                submitBtn.textContent = '맛집 수정하기';
+                document.getElementById('editRestaurantId').value = restaurant.id;
+                document.getElementById('newRestaurantName').value = restaurant.name;
+                document.getElementById('newRestaurantLocation').value = restaurant.location || '';
+                document.getElementById('newRestaurantCategory').value = restaurant.category;
+                document.getElementById('newRestaurantMenu').value = restaurant.menu || '';
+                document.getElementById('newRestaurantMemo').value = restaurant.memo || '';
+                selectedRestaurantRating = restaurant.rating;
+            } else {
+                // 추가 모드
+                title.textContent = '새 맛집 추가';
+                submitBtn.textContent = '맛집 추가하기';
+                document.getElementById('newRestaurantForm').reset();
+                document.getElementById('editRestaurantId').value = '';
+                selectedRestaurantRating = 3;
+            }
+            
+            updateRestaurantRatingUI();
+            modal.classList.add('active');
+        }
+
+        // 맛집 폼 닫기
+        function closeRestaurantForm() {
+            document.getElementById('restaurantFormModal').classList.remove('active');
+        }
+
+        // 별점 UI 초기화
+        function initRestaurantRating() {
+            const stars = document.querySelectorAll('#newRestaurantRating i');
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    selectedRestaurantRating = index + 1;
+                    updateRestaurantRatingUI();
+                });
+            });
+        }
+
+        // 별점 UI 업데이트
+        function updateRestaurantRatingUI() {
+            const stars = document.querySelectorAll('#newRestaurantRating i');
+            stars.forEach((star, index) => {
+                if (index < selectedRestaurantRating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // 맛집 폼 제출
+        function submitRestaurantForm(e) {
+            e.preventDefault();
+            
+            const editId = document.getElementById('editRestaurantId').value;
+            const restaurantData = {
+                name: document.getElementById('newRestaurantName').value,
+                location: document.getElementById('newRestaurantLocation').value,
+                category: document.getElementById('newRestaurantCategory').value,
+                rating: selectedRestaurantRating,
+                menu: document.getElementById('newRestaurantMenu').value,
+                memo: document.getElementById('newRestaurantMemo').value
+            };
+            
+            if (editId) {
+                // 수정
+                const index = data.restaurants.findIndex(r => r.id === parseInt(editId));
+                if (index !== -1) {
+                    data.restaurants[index] = {
+                        ...data.restaurants[index],
+                        ...restaurantData
+                    };
+                    showToast('맛집이 수정되었습니다!');
+                }
+            } else {
+                // 추가
+                const restaurant = {
+                    id: Date.now(),
+                    ...restaurantData,
+                    createdAt: new Date().toLocaleDateString('ko-KR')
+                };
+                data.restaurants.unshift(restaurant);
+                showToast('맛집이 추가되었습니다!');
+            }
+            
+            saveData('restaurants');
+            renderRestaurantList();
+            closeRestaurantForm();
+            
+            if (editId) {
+                closeRestaurantDetail();
+            }
+        }
+
+        // 현재 맛집 수정
+        function editCurrentRestaurant() {
+            const restaurant = data.restaurants.find(r => r.id === currentRestaurantId);
+            if (restaurant) {
+                openRestaurantForm(restaurant);
+            }
+        }
+
+        // 현재 맛집 삭제
+        function deleteCurrentRestaurant() {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                data.restaurants = data.restaurants.filter(r => r.id !== currentRestaurantId);
+                saveData('restaurants');
+                closeRestaurantDetail();
+                renderRestaurantList();
+                showToast('삭제되었습니다.');
+            }
         }
 
         // ========== 일반 메모 전체화면 관련 함수들 ==========
@@ -5247,6 +7500,378 @@
         setInterval(() => {
             saveAllData();
         }, 10000);
+
+        // ========== 캘린더 일정 관리 기능 ==========
+
+        // 캘린더 상태
+        let currentCalendarDate = new Date();
+        let selectedDate = new Date();
+        let editingScheduleId = null;
+
+        // 일정 모달 열기
+        function openScheduleModal() {
+            document.getElementById('scheduleModal').classList.add('active');
+            currentCalendarDate = new Date();
+            selectedDate = new Date();
+            renderCalendar();
+            renderSelectedDateSchedules();
+        }
+
+        // 일정 모달 닫기
+        function closeScheduleModal() {
+            document.getElementById('scheduleModal').classList.remove('active');
+        }
+
+        // 캘린더 렌더링
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            // 네비게이션 타이틀 업데이트
+            document.getElementById('calendarNavTitle').textContent = `${year}년 ${month + 1}월`;
+            
+            // 캘린더 날짜 생성
+            const calendarDays = document.getElementById('calendarDays');
+            calendarDays.innerHTML = '';
+            
+            // 해당 월의 첫째 날과 마지막 날
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            
+            // 이전 달 날짜 채우기
+            const startWeekday = firstDay.getDay();
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+            
+            for (let i = startWeekday - 1; i >= 0; i--) {
+                const dayEl = createCalendarDay(prevMonthLastDay - i, true, year, month - 1);
+                calendarDays.appendChild(dayEl);
+            }
+            
+            // 현재 달 날짜
+            const today = new Date();
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                const currentDate = new Date(year, month, day);
+                const isToday = today.getFullYear() === year && 
+                               today.getMonth() === month && 
+                               today.getDate() === day;
+                const isSelected = selectedDate.getFullYear() === year &&
+                                  selectedDate.getMonth() === month &&
+                                  selectedDate.getDate() === day;
+                
+                const dayEl = createCalendarDay(day, false, year, month, isToday, isSelected);
+                calendarDays.appendChild(dayEl);
+            }
+            
+            // 다음 달 날짜 채우기
+            const endWeekday = lastDay.getDay();
+            const remainingDays = 6 - endWeekday;
+            for (let i = 1; i <= remainingDays; i++) {
+                const dayEl = createCalendarDay(i, true, year, month + 1);
+                calendarDays.appendChild(dayEl);
+            }
+        }
+
+        // 캘린더 날짜 요소 생성
+        function createCalendarDay(day, isOtherMonth, year, month, isToday = false, isSelected = false) {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'calendar-day';
+            
+            if (isOtherMonth) {
+                dayEl.classList.add('other-month');
+            }
+            if (isToday) {
+                dayEl.classList.add('today');
+            }
+            if (isSelected) {
+                dayEl.classList.add('selected');
+            }
+            
+            // 요일 체크 (일요일, 토요일)
+            const date = new Date(year, month, day);
+            const weekday = date.getDay();
+            if (weekday === 0) dayEl.classList.add('sunday');
+            if (weekday === 6) dayEl.classList.add('saturday');
+            
+            // 날짜 번호
+            const dayNumber = document.createElement('span');
+            dayNumber.className = 'day-number';
+            dayNumber.textContent = day;
+            dayEl.appendChild(dayNumber);
+            
+            // 해당 날짜의 일정 확인
+            const dateStr = formatDateString(year, month, day);
+            const daySchedules = getSchedulesByDate(dateStr);
+            
+            if (daySchedules.length > 0) {
+                const indicator = document.createElement('div');
+                indicator.className = 'schedule-indicator';
+                
+                const maxDots = Math.min(daySchedules.length, 3);
+                for (let i = 0; i < maxDots; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'schedule-indicator-dot';
+                    if (daySchedules[i].important) {
+                        dot.classList.add('important');
+                    }
+                    indicator.appendChild(dot);
+                }
+                dayEl.appendChild(indicator);
+            }
+            
+            // 클릭 이벤트
+            dayEl.onclick = () => {
+                selectCalendarDate(year, month, day);
+            };
+            
+            return dayEl;
+        }
+
+        // 날짜 선택
+        function selectCalendarDate(year, month, day) {
+            selectedDate = new Date(year, month, day);
+            renderCalendar();
+            renderSelectedDateSchedules();
+        }
+
+        // 이전 달
+        function prevMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        // 다음 달
+        function nextMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        // 오늘로 이동
+        function goToToday() {
+            currentCalendarDate = new Date();
+            selectedDate = new Date();
+            renderCalendar();
+            renderSelectedDateSchedules();
+        }
+
+        // 날짜 문자열 포맷 (YYYY-MM-DD)
+        function formatDateString(year, month, day) {
+            return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        }
+
+        // 특정 날짜의 일정 가져오기
+        function getSchedulesByDate(dateStr) {
+            if (!data.schedules) data.schedules = [];
+            return data.schedules.filter(s => s.date === dateStr)
+                                 .sort((a, b) => {
+                                     if (a.allDay && !b.allDay) return -1;
+                                     if (!a.allDay && b.allDay) return 1;
+                                     return (a.startTime || '00:00').localeCompare(b.startTime || '00:00');
+                                 });
+        }
+
+        // 선택된 날짜 일정 렌더링
+        function renderSelectedDateSchedules() {
+            const dateStr = formatDateString(
+                selectedDate.getFullYear(),
+                selectedDate.getMonth(),
+                selectedDate.getDate()
+            );
+            
+            // 타이틀 업데이트
+            const today = new Date();
+            const isToday = today.toDateString() === selectedDate.toDateString();
+            const title = document.getElementById('selectedDateTitle');
+            
+            if (isToday) {
+                title.textContent = '오늘의 일정';
+            } else {
+                const month = selectedDate.getMonth() + 1;
+                const day = selectedDate.getDate();
+                const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+                const weekday = weekdays[selectedDate.getDay()];
+                title.textContent = `${month}월 ${day}일 (${weekday}) 일정`;
+            }
+            
+            // 일정 목록 렌더링
+            const scheduleList = document.getElementById('scheduleList');
+            const schedules = getSchedulesByDate(dateStr);
+            
+            if (schedules.length === 0) {
+                scheduleList.innerHTML = `
+                    <div class="schedule-empty">
+                        <i class="fas fa-calendar-plus"></i>
+                        <p>등록된 일정이 없습니다</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            scheduleList.innerHTML = schedules.map(schedule => `
+                <div class="schedule-item">
+                    <div class="schedule-time-badge ${schedule.allDay ? 'all-day' : ''}">
+                        ${schedule.allDay ? '하루 종일' : `${schedule.startTime} ~ ${schedule.endTime}`}
+                    </div>
+                    <div class="schedule-item-content">
+                        <div class="schedule-item-title">
+                            ${schedule.important ? '<i class="fas fa-star" style="color: #ffe66d; margin-right: 5px;"></i>' : ''}
+                            ${escapeHtml(schedule.title)}
+                        </div>
+                        ${schedule.memo ? `<div class="schedule-item-memo">${escapeHtml(schedule.memo)}</div>` : ''}
+                    </div>
+                    <div class="schedule-item-actions">
+                        <button class="schedule-item-btn" onclick="editSchedule('${schedule.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="schedule-item-btn delete" onclick="deleteSchedule('${schedule.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // HTML 이스케이프
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 일정 추가 폼 열기
+        function openScheduleForm(schedule = null) {
+            const modal = document.getElementById('scheduleFormModal');
+            const titleEl = document.getElementById('scheduleFormTitle');
+            const titleInput = document.getElementById('scheduleTitle');
+            const allDayInput = document.getElementById('scheduleAllDay');
+            const startTimeInput = document.getElementById('scheduleStartTime');
+            const endTimeInput = document.getElementById('scheduleEndTime');
+            const memoInput = document.getElementById('scheduleMemo');
+            const importantInput = document.getElementById('scheduleImportant');
+            
+            if (schedule) {
+                // 수정 모드
+                editingScheduleId = schedule.id;
+                titleEl.textContent = '일정 수정';
+                titleInput.value = schedule.title;
+                allDayInput.checked = schedule.allDay;
+                startTimeInput.value = schedule.startTime || '09:00';
+                endTimeInput.value = schedule.endTime || '10:00';
+                memoInput.value = schedule.memo || '';
+                importantInput.checked = schedule.important;
+            } else {
+                // 추가 모드
+                editingScheduleId = null;
+                titleEl.textContent = '새 일정';
+                titleInput.value = '';
+                allDayInput.checked = false;
+                startTimeInput.value = '09:00';
+                endTimeInput.value = '10:00';
+                memoInput.value = '';
+                importantInput.checked = false;
+            }
+            
+            toggleTimeInputs();
+            modal.classList.add('active');
+            titleInput.focus();
+        }
+
+        // 일정 폼 닫기
+        function closeScheduleForm() {
+            document.getElementById('scheduleFormModal').classList.remove('active');
+            editingScheduleId = null;
+        }
+
+        // 시간 입력 토글
+        function toggleTimeInputs() {
+            const allDay = document.getElementById('scheduleAllDay').checked;
+            const timeGroup = document.getElementById('scheduleTimeGroup');
+            timeGroup.style.display = allDay ? 'none' : 'block';
+        }
+
+        // 일정 저장
+        function saveSchedule() {
+            const title = document.getElementById('scheduleTitle').value.trim();
+            const allDay = document.getElementById('scheduleAllDay').checked;
+            const startTime = document.getElementById('scheduleStartTime').value;
+            const endTime = document.getElementById('scheduleEndTime').value;
+            const memo = document.getElementById('scheduleMemo').value.trim();
+            const important = document.getElementById('scheduleImportant').checked;
+            
+            if (!title) {
+                showToast('일정 제목을 입력해주세요!');
+                return;
+            }
+            
+            const dateStr = formatDateString(
+                selectedDate.getFullYear(),
+                selectedDate.getMonth(),
+                selectedDate.getDate()
+            );
+            
+            if (!data.schedules) data.schedules = [];
+            
+            if (editingScheduleId) {
+                // 수정
+                const index = data.schedules.findIndex(s => s.id === editingScheduleId);
+                if (index !== -1) {
+                    data.schedules[index] = {
+                        ...data.schedules[index],
+                        title,
+                        allDay,
+                        startTime: allDay ? null : startTime,
+                        endTime: allDay ? null : endTime,
+                        memo,
+                        important,
+                        updatedAt: Date.now()
+                    };
+                }
+                showToast('일정이 수정되었습니다!');
+            } else {
+                // 추가
+                const newSchedule = {
+                    id: 'sch_' + Date.now(),
+                    date: dateStr,
+                    title,
+                    allDay,
+                    startTime: allDay ? null : startTime,
+                    endTime: allDay ? null : endTime,
+                    memo,
+                    important,
+                    createdAt: Date.now()
+                };
+                data.schedules.push(newSchedule);
+                showToast('일정이 추가되었습니다!');
+            }
+            
+            // 저장
+            localStorage.setItem('schedules', JSON.stringify(data.schedules));
+            saveToIndexedDB('schedules', data.schedules);
+            
+            closeScheduleForm();
+            renderCalendar();
+            renderSelectedDateSchedules();
+        }
+
+        // 일정 수정
+        function editSchedule(id) {
+            const schedule = data.schedules.find(s => s.id === id);
+            if (schedule) {
+                openScheduleForm(schedule);
+            }
+        }
+
+        // 일정 삭제
+        function deleteSchedule(id) {
+            if (!confirm('이 일정을 삭제하시겠습니까?')) return;
+            
+            data.schedules = data.schedules.filter(s => s.id !== id);
+            localStorage.setItem('schedules', JSON.stringify(data.schedules));
+            saveToIndexedDB('schedules', data.schedules);
+            
+            renderCalendar();
+            renderSelectedDateSchedules();
+            showToast('일정이 삭제되었습니다!');
+        }
     </script>
 </body>
 </html>
