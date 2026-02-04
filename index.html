@@ -1756,6 +1756,20 @@
             color: #667eea;
         }
 
+        /* Flutter WebView에서 카메라 버튼 숨김 */
+        body.flutter-webview .memo-image-upload-label.camera-btn {
+            display: none;
+        }
+        
+        body.flutter-webview .memo-image-buttons {
+            gap: 0;
+        }
+        
+        body.flutter-webview .memo-image-upload-label.gallery-btn {
+            flex: 1;
+            max-width: 100%;
+        }
+
 
 
         .memo-image-upload-label i {
@@ -1869,6 +1883,145 @@
 
         .image-fullscreen-close:hover {
             background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ========== 공유 모달 스타일 ========== */
+        .share-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3500;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 20px;
+        }
+        
+        .share-modal-overlay.active {
+            display: flex;
+        }
+        
+        .share-modal {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 500px;
+            max-height: 70vh;
+            overflow: hidden;
+            animation: slideUpModal 0.3s ease;
+        }
+        
+        @keyframes slideUpModal {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .share-modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .share-modal-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .share-modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .share-modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .share-modal-body {
+            padding: 20px;
+        }
+        
+        .share-preview {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .share-preview h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .share-preview p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        
+        .share-option-btn {
+            background: #f0f1f3;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .share-option-btn:hover {
+            background: #e0e1e3;
+            transform: translateY(-2px);
+        }
+        
+        .share-option-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .share-option-btn i {
+            font-size: 22px;
+            color: #667eea;
+        }
+        
+        .share-option-btn span {
+            font-size: 11px;
+            color: #555;
+            font-weight: 500;
         }
 
         /* ========== 카테고리 추가 버튼 스타일 ========== */
@@ -2899,6 +3052,14 @@
                      window.FlutterCameraChannel || window.FlutterShareChannel ||
                      (navigator.userAgent && navigator.userAgent.includes('wv')));
         }
+        
+        // Flutter WebView 환경에서 body에 클래스 추가 (카메라 버튼 숨김용)
+        function applyFlutterWebViewStyles() {
+            if (isFlutterWebView()) {
+                document.body.classList.add('flutter-webview');
+                console.log('Flutter WebView 감지됨 - 카메라 버튼 숨김');
+            }
+        }
 
         // Flutter에서 카메라 촬영 요청
         function requestFlutterCamera() {
@@ -2966,8 +3127,11 @@
             return false;
         }
 
-        // Flutter에서 공유 요청
-        function requestFlutterShare(title, text, imageBase64) {
+        // Flutter에서 공유 요청 (비동기로 처리하여 응답 대기)
+        let flutterSharePending = false;
+        let flutterShareTimeout = null;
+        
+        function requestFlutterShare(title, text, imageBase64, fallbackCallback) {
             try {
                 const shareData = {
                     action: 'share',
@@ -2976,20 +3140,46 @@
                     image: imageBase64 || null
                 };
                 
+                // 공유 요청 대기 상태 설정
+                flutterSharePending = true;
+                
+                // 3초 후 응답이 없으면 폴백 처리
+                if (flutterShareTimeout) clearTimeout(flutterShareTimeout);
+                flutterShareTimeout = setTimeout(() => {
+                    if (flutterSharePending) {
+                        flutterSharePending = false;
+                        console.log('Flutter 공유 응답 타임아웃 - 폴백 처리');
+                        if (fallbackCallback) fallbackCallback();
+                    }
+                }, 3000);
+                
+                let requestSent = false;
+                
                 if (window.flutter_inappwebview) {
                     window.flutter_inappwebview.callHandler('share', JSON.stringify(shareData));
-                    return true;
+                    requestSent = true;
                 }
-                if (window.FlutterShareChannel) {
+                if (!requestSent && window.FlutterShareChannel) {
                     window.FlutterShareChannel.postMessage(JSON.stringify(shareData));
-                    return true;
+                    requestSent = true;
                 }
-                if (window.FlutterChannel) {
+                if (!requestSent && window.FlutterChannel) {
                     window.FlutterChannel.postMessage(JSON.stringify(shareData));
-                    return true;
+                    requestSent = true;
                 }
+                
+                // 요청이 전송되지 않으면 바로 폴백
+                if (!requestSent) {
+                    flutterSharePending = false;
+                    clearTimeout(flutterShareTimeout);
+                    return false;
+                }
+                
+                return true;
             } catch (e) {
                 console.log('Flutter 공유 요청 실패:', e);
+                flutterSharePending = false;
+                if (flutterShareTimeout) clearTimeout(flutterShareTimeout);
             }
             return false;
         }
@@ -3027,6 +3217,9 @@
 
         // Flutter에서 공유 완료 콜백
         window.flutterShareComplete = function(success) {
+            flutterSharePending = false;
+            if (flutterShareTimeout) clearTimeout(flutterShareTimeout);
+            
             if (success) {
                 showToast('🔗 공유되었습니다');
             }
@@ -3624,73 +3817,209 @@
             const shareTitle = memo.title;
             const shareText = memo.content || '';
             
+            // 웹/앱 공유 실행 함수 (폴백으로 사용)
+            const executeWebShare = async () => {
+                // Web Share API 지원 확인
+                if (navigator.share) {
+                    try {
+                        const shareData = {
+                            title: shareTitle,
+                            text: shareText
+                        };
+                        
+                        // 이미지가 있고 파일 공유를 지원하면 이미지도 포함
+                        if (memo.image && navigator.canShare) {
+                            try {
+                                // Base64를 Blob으로 변환
+                                const response = await fetch(memo.image);
+                                const blob = await response.blob();
+                                const file = new File([blob], 'memo_image.jpg', { type: 'image/jpeg' });
+                                
+                                const shareDataWithFile = {
+                                    title: shareTitle,
+                                    text: shareText,
+                                    files: [file]
+                                };
+                                
+                                if (navigator.canShare(shareDataWithFile)) {
+                                    await navigator.share(shareDataWithFile);
+                                    showToast('🔗 공유되었습니다');
+                                    return;
+                                }
+                            } catch (fileError) {
+                                console.log('파일 공유 실패, 텍스트만 공유합니다:', fileError);
+                            }
+                        }
+                        
+                        // 이미지 없이 공유
+                        await navigator.share(shareData);
+                        showToast('🔗 공유되었습니다');
+                    } catch (err) {
+                        if (err.name !== 'AbortError') {
+                            console.error('공유 오류:', err);
+                            showShareFallback(memo);
+                        }
+                    }
+                } else {
+                    // Web Share API 미지원 시 폴백
+                    showShareFallback(memo);
+                }
+            };
+            
             // Flutter WebView 환경인지 확인하고 우선 처리
             if (isFlutterWebView()) {
-                if (requestFlutterShare(shareTitle, shareText, memo.image || null)) {
-                    return; // Flutter에서 처리
+                // Flutter 공유 요청 시도 (실패/타임아웃 시 웹 공유로 폴백)
+                if (requestFlutterShare(shareTitle, shareText, memo.image || null, executeWebShare)) {
+                    return; // Flutter에서 처리 대기
                 }
             }
             
-            // Web Share API 지원 확인
-            if (navigator.share) {
-                try {
-                    const shareData = {
-                        title: shareTitle,
-                        text: shareText
-                    };
-                    
-                    // 이미지가 있고 파일 공유를 지원하면 이미지도 포함
-                    if (memo.image && navigator.canShare) {
-                        try {
-                            // Base64를 Blob으로 변환
-                            const response = await fetch(memo.image);
-                            const blob = await response.blob();
-                            const file = new File([blob], 'memo_image.jpg', { type: 'image/jpeg' });
-                            
-                            const shareDataWithFile = {
-                                title: shareTitle,
-                                text: shareText,
-                                files: [file]
-                            };
-                            
-                            if (navigator.canShare(shareDataWithFile)) {
-                                await navigator.share(shareDataWithFile);
-                                showToast('🔗 공유되었습니다');
-                                return;
-                            }
-                        } catch (fileError) {
-                            console.log('파일 공유 실패, 텍스트만 공유합니다:', fileError);
-                        }
-                    }
-                    
-                    // 이미지 없이 공유
-                    await navigator.share(shareData);
-                    showToast('🔗 공유되었습니다');
-                } catch (err) {
-                    if (err.name !== 'AbortError') {
-                        console.error('공유 오류:', err);
-                        showShareFallback(memo);
-                    }
-                }
-            } else {
-                // Web Share API 미지원 시 폴백
-                showShareFallback(memo);
-            }
+            // Flutter WebView가 아니거나 Flutter 채널이 없으면 웹 공유 실행
+            await executeWebShare();
         }
         
-        // 공유 폴백 (클립보드 복사)
+        // 공유 폴백 (공유 모달 표시)
         function showShareFallback(memo) {
             const textToShare = `📝 ${memo.title}\n\n${memo.content || ''}`;
             
+            // 앱 환경에서 커스텀 공유 모달 표시
+            showShareModal(memo.title, memo.content || '', textToShare);
+        }
+        
+        // 공유 모달 표시
+        function showShareModal(title, content, fullText) {
+            // 기존 모달 제거
+            const existingModal = document.getElementById('shareModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            const modalHTML = `
+                <div class="share-modal-overlay" id="shareModal">
+                    <div class="share-modal">
+                        <div class="share-modal-header">
+                            <h3><i class="fas fa-share-alt"></i> 공유하기</h3>
+                            <button class="share-modal-close" onclick="closeShareModal()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="share-modal-body">
+                            <div class="share-preview">
+                                <h4>${title}</h4>
+                                <p>${content ? content.substring(0, 100) + (content.length > 100 ? '...' : '') : ''}</p>
+                            </div>
+                            <div class="share-options">
+                                <button class="share-option-btn" onclick="shareViaClipboard()">
+                                    <i class="fas fa-copy"></i>
+                                    <span>클립보드 복사</span>
+                                </button>
+                                <button class="share-option-btn" onclick="shareViaKakao()">
+                                    <i class="fas fa-comment"></i>
+                                    <span>카카오톡</span>
+                                </button>
+                                <button class="share-option-btn" onclick="shareViaSMS()">
+                                    <i class="fas fa-sms"></i>
+                                    <span>문자 메시지</span>
+                                </button>
+                                <button class="share-option-btn" onclick="shareViaEmail()">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>이메일</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            
+            // 공유 데이터 저장
+            window.currentShareData = { title, content, fullText };
+            
+            // 모달 표시 애니메이션
+            setTimeout(() => {
+                document.getElementById('shareModal').classList.add('active');
+            }, 10);
+        }
+        
+        // 공유 모달 닫기
+        function closeShareModal() {
+            const modal = document.getElementById('shareModal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.remove(), 300);
+            }
+        }
+        
+        // 클립보드로 공유
+        function shareViaClipboard() {
+            const data = window.currentShareData;
+            if (!data) return;
+            
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToShare).then(() => {
-                    showToast('📋 공유 내용이 클립보드에 복사되었습니다');
+                navigator.clipboard.writeText(data.fullText).then(() => {
+                    showToast('📋 클립보드에 복사되었습니다');
+                    closeShareModal();
                 }).catch(() => {
-                    fallbackCopyText(textToShare);
+                    fallbackCopyText(data.fullText);
+                    closeShareModal();
                 });
             } else {
-                fallbackCopyText(textToShare);
+                fallbackCopyText(data.fullText);
+                closeShareModal();
             }
+        }
+        
+        // 카카오톡으로 공유 (URL scheme 사용)
+        function shareViaKakao() {
+            const data = window.currentShareData;
+            if (!data) return;
+            
+            const text = encodeURIComponent(data.fullText);
+            
+            // 카카오톡 URL scheme 시도
+            const kakaoUrl = `kakaotalk://msg/text?text=${text}`;
+            
+            // 새 창/탭으로 열기 시도
+            const opened = window.open(kakaoUrl, '_blank');
+            
+            // URL scheme이 작동하지 않으면 클립보드 복사로 폴백
+            setTimeout(() => {
+                if (!opened || opened.closed) {
+                    showToast('📋 내용이 복사되었습니다. 카카오톡에서 붙여넣기하세요');
+                    shareViaClipboard();
+                }
+            }, 1000);
+            
+            closeShareModal();
+        }
+        
+        // 문자 메시지로 공유
+        function shareViaSMS() {
+            const data = window.currentShareData;
+            if (!data) return;
+            
+            const text = encodeURIComponent(data.fullText);
+            
+            // SMS URL scheme (iOS/Android 호환)
+            const smsUrl = /iPhone|iPad|iPod/i.test(navigator.userAgent) 
+                ? `sms:&body=${text}` 
+                : `sms:?body=${text}`;
+            
+            window.location.href = smsUrl;
+            closeShareModal();
+        }
+        
+        // 이메일로 공유
+        function shareViaEmail() {
+            const data = window.currentShareData;
+            if (!data) return;
+            
+            const subject = encodeURIComponent(data.title);
+            const body = encodeURIComponent(data.fullText);
+            
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+            closeShareModal();
         }
 
         // 날짜별로 그룹화하여 메모 리스트 렌더링
@@ -4820,6 +5149,9 @@
         // 초기 로드
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('절대강자 메모장 로드 완료!');
+            
+            // Flutter WebView 환경 감지 및 스타일 적용 (카메라 버튼 숨김)
+            applyFlutterWebViewStyles();
             
             // IndexedDB 초기화 대기 (최대 2초)
             let waitCount = 0;
