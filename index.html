@@ -282,9 +282,9 @@
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
         }
 
-        /* 독서 기록 - 인디고 */
-        .reading {
-            background: linear-gradient(135deg, #667db6 0%, #0082c8 50%, #667db6 100%);
+        /* 문화관리 - 노랑/골드 (맛집 스타일) */
+        .culture {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
         }
 
         /* 운동 기록 - 레드/오렌지 */
@@ -1503,6 +1503,460 @@
         }
 
         .restaurant-form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 78, 80, 0.5);
+        }
+
+        /* ========== 문화관리 전체화면 모달 스타일 (맛집 스타일 기반) ========== */
+        .culture-fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fffdf5 0%, #fff8e6 50%, #fff5e0 100%);
+            z-index: 2000;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .culture-fullscreen-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .culture-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 78, 80, 0.2);
+            box-shadow: 0 2px 20px rgba(255, 78, 80, 0.1);
+        }
+
+        .culture-modal-header h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .culture-modal-header h2 i {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .culture-back-btn {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 78, 80, 0.4);
+        }
+
+        .culture-back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .culture-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 20px 100px;
+        }
+
+        .culture-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(255, 78, 80, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 78, 80, 0.1);
+        }
+
+        .culture-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 78, 80, 0.18);
+        }
+
+        .culture-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .culture-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .culture-card-title i {
+            color: #ff4e50;
+        }
+
+        .culture-card-genre {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            color: white;
+        }
+
+        .culture-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .culture-card-info p {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .culture-card-info i {
+            width: 16px;
+            color: #ff4e50;
+        }
+
+        .culture-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(255, 78, 80, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .culture-fab:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 10px 35px rgba(255, 78, 80, 0.6);
+        }
+
+        .culture-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .culture-empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.5;
+        }
+
+        .culture-empty-state p {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* 문화 상세보기 모달 */
+        .culture-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fffdf5 0%, #fff8e6 50%, #fff5e0 100%);
+            z-index: 2002;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .culture-detail-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .culture-detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 78, 80, 0.2);
+        }
+
+        .culture-detail-header .left-actions button,
+        .culture-detail-header .right-actions button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .culture-detail-header .right-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .culture-detail-header button:hover {
+            background: rgba(255, 78, 80, 0.1);
+            color: #ff4e50;
+        }
+
+        .culture-detail-header .delete-action:hover {
+            background: rgba(255, 95, 109, 0.1);
+            color: #ff5f6d;
+        }
+
+        .culture-detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .culture-detail-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .culture-detail-title i {
+            color: #ff4e50;
+        }
+
+        .culture-detail-genre-badge {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .culture-detail-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(255, 78, 80, 0.08);
+        }
+
+        .culture-detail-info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .culture-detail-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .culture-detail-info-item i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(249, 212, 35, 0.1) 0%, rgba(255, 78, 80, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff4e50;
+            font-size: 16px;
+        }
+
+        .culture-detail-info-item .info-content {
+            flex: 1;
+        }
+
+        .culture-detail-info-item .info-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 3px;
+        }
+
+        .culture-detail-info-item .info-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .culture-detail-memo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(255, 78, 80, 0.08);
+        }
+
+        .culture-detail-memo-card h4 {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .culture-detail-memo-card h4 i {
+            color: #ff4e50;
+        }
+
+        .culture-detail-memo-card p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* 문화 입력 폼 모달 */
+        .culture-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fffdf5 0%, #fff8e6 50%, #fff5e0 100%);
+            z-index: 2003;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .culture-form-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .culture-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 78, 80, 0.2);
+        }
+
+        .culture-form-header h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .culture-form-header button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .culture-form-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .culture-form-group {
+            margin-bottom: 20px;
+        }
+
+        .culture-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .culture-form-group input,
+        .culture-form-group textarea,
+        .culture-form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .culture-form-group input:focus,
+        .culture-form-group textarea:focus,
+        .culture-form-group select:focus {
+            outline: none;
+            border-color: #ff4e50;
+            box-shadow: 0 0 0 4px rgba(255, 78, 80, 0.1);
+        }
+
+        .culture-form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .culture-form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 78, 80, 0.4);
+        }
+
+        .culture-form-submit:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 78, 80, 0.5);
         }
@@ -5481,11 +5935,11 @@
                 <span>계좌번호<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('reading')">
-                <div class="icon-box reading">
-                    <i class="fas fa-book"></i>
+            <div class="grid-item" onclick="openModal('culture')">
+                <div class="icon-box culture">
+                    <i class="fas fa-theater-masks"></i>
                 </div>
-                <span>독서<br>기록</span>
+                <span>문화<br>관리</span>
             </div>
 
             <div class="grid-item" onclick="openModal('exercise')">
@@ -5519,6 +5973,80 @@
                 </div>
                 <span>카테고리<br>추가</span>
             </div>
+        </div>
+    </div>
+
+    <!-- 문화관리 전체화면 모달 -->
+    <div class="culture-fullscreen-modal" id="cultureFullscreenModal">
+        <div class="culture-modal-header">
+            <h2><i class="fas fa-theater-masks"></i> 문화 관리</h2>
+            <button class="culture-back-btn" onclick="closeCultureFullscreen()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="culture-list-container" id="cultureListContainer">
+            <!-- 문화 리스트가 여기에 렌더링됨 -->
+        </div>
+        <button class="culture-fab" onclick="openCultureForm()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- 문화 상세보기 모달 -->
+    <div class="culture-detail-modal" id="cultureDetailModal">
+        <div class="culture-detail-header">
+            <div class="left-actions">
+                <button onclick="closeCultureDetail()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="right-actions">
+                <button onclick="editCurrentCulture()">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-action" onclick="deleteCurrentCulture()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="culture-detail-content" id="cultureDetailContent">
+            <!-- 문화 상세 내용이 여기에 렌더링됨 -->
+        </div>
+    </div>
+
+    <!-- 문화 입력 폼 모달 -->
+    <div class="culture-form-modal" id="cultureFormModal">
+        <div class="culture-form-header">
+            <h2 id="cultureFormTitle">새 문화 기록 추가</h2>
+            <button onclick="closeCultureForm()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="culture-form-body">
+            <form id="newCultureForm" onsubmit="submitCultureForm(event)">
+                <input type="hidden" id="editCultureId">
+                <div class="culture-form-group">
+                    <label>장르 *</label>
+                    <select id="newCultureGenre" required>
+                        <option value="독서">독서</option>
+                        <option value="영화">영화</option>
+                        <option value="드라마">드라마</option>
+                        <option value="연극">연극</option>
+                        <option value="콘서트">콘서트</option>
+                        <option value="취미">취미</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="culture-form-group">
+                    <label>인물/대상 *</label>
+                    <input type="text" id="newCultureTarget" placeholder="작품명, 인물, 대상 등을 입력하세요" required>
+                </div>
+                <div class="culture-form-group">
+                    <label>주요내용</label>
+                    <textarea id="newCultureContent" placeholder="주요 내용, 감상평, 메모 등을 입력하세요"></textarea>
+                </div>
+                <button type="submit" class="culture-form-submit" id="cultureSubmitBtn">문화 기록 추가하기</button>
+            </form>
         </div>
     </div>
 
@@ -6815,6 +7343,7 @@
                 hospitals: safeJSONParse(localStorage.getItem('hospitals'), []),
                 sitemanages: safeJSONParse(localStorage.getItem('sitemanages'), []),
                 bankaccounts: safeJSONParse(localStorage.getItem('bankaccounts'), []),
+                cultures: safeJSONParse(localStorage.getItem('cultures'), []),
                 memos: safeJSONParse(localStorage.getItem('memos'), []),
                 customCategories: safeJSONParse(localStorage.getItem('customCategories'), []),
                 customCategoryMemos: safeJSONParse(localStorage.getItem('customCategoryMemos'), {}),
@@ -6830,7 +7359,7 @@
             if (!idbData) return localData;
             
             const merged = {};
-            const keys = ['travels', 'restaurants', 'hospitals', 'sitemanages', 'bankaccounts', 'memos', 'customCategories', 'todos'];
+            const keys = ['travels', 'restaurants', 'hospitals', 'sitemanages', 'bankaccounts', 'cultures', 'memos', 'customCategories', 'todos'];
             
             keys.forEach(key => {
                 const localArr = localData[key] || [];
@@ -6956,6 +7485,12 @@
             // 계좌번호관리는 전체화면 모달로
             if (type === 'bankaccount') {
                 openBankaccountFullscreen();
+                return;
+            }
+            
+            // 문화관리는 전체화면 모달로
+            if (type === 'culture') {
+                openCultureFullscreen();
                 return;
             }
             
@@ -7398,6 +7933,212 @@
                 saveData('restaurants');
                 closeRestaurantDetail();
                 renderRestaurantList();
+                showToast('삭제되었습니다.');
+            }
+        }
+
+        // ========== 문화관리 전체화면 관련 함수들 ==========
+        let currentCultureId = null;
+
+        // 문화 전체화면 열기
+        function openCultureFullscreen() {
+            document.getElementById('cultureFullscreenModal').classList.add('active');
+            renderCultureList();
+        }
+
+        // 문화 전체화면 닫기
+        function closeCultureFullscreen() {
+            document.getElementById('cultureFullscreenModal').classList.remove('active');
+        }
+
+        // 장르별 아이콘 매핑
+        function getCultureIcon(genre) {
+            const icons = {
+                '독서': 'fa-book',
+                '영화': 'fa-film',
+                '드라마': 'fa-tv',
+                '연극': 'fa-theater-masks',
+                '콘서트': 'fa-music',
+                '취미': 'fa-palette',
+                '기타': 'fa-star'
+            };
+            return icons[genre] || 'fa-star';
+        }
+
+        // 문화 리스트 렌더링
+        function renderCultureList() {
+            const container = document.getElementById('cultureListContainer');
+            
+            if (!data.cultures) data.cultures = [];
+            
+            if (data.cultures.length === 0) {
+                container.innerHTML = `
+                    <div class="culture-empty-state">
+                        <i class="fas fa-theater-masks"></i>
+                        <p>아직 등록된 문화 기록이 없습니다.<br>새로운 기록을 추가해보세요!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = data.cultures.map(culture => `
+                    <div class="culture-card" onclick="openCultureDetail(${culture.id})">
+                        <div class="culture-card-header">
+                            <div class="culture-card-title">
+                                <i class="fas ${getCultureIcon(culture.genre)}"></i>
+                                ${escapeHtml(culture.target)}
+                            </div>
+                            <span class="culture-card-genre">${escapeHtml(culture.genre)}</span>
+                        </div>
+                        <div class="culture-card-info">
+                            ${culture.content ? `<p><i class="fas fa-sticky-note"></i> ${escapeHtml(culture.content.substring(0, 50))}${culture.content.length > 50 ? '...' : ''}</p>` : ''}
+                            <p><i class="fas fa-clock"></i> ${culture.createdAt}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 문화 상세보기 열기
+        function openCultureDetail(id) {
+            const culture = data.cultures.find(c => c.id === id);
+            if (!culture) return;
+            
+            currentCultureId = id;
+            const content = document.getElementById('cultureDetailContent');
+            
+            content.innerHTML = `
+                <h2 class="culture-detail-title">
+                    <i class="fas ${getCultureIcon(culture.genre)}"></i>
+                    ${escapeHtml(culture.target)}
+                </h2>
+                <span class="culture-detail-genre-badge">${escapeHtml(culture.genre)}</span>
+                <div class="culture-detail-info-card">
+                    <div class="culture-detail-info-item">
+                        <i class="fas fa-tag"></i>
+                        <div class="info-content">
+                            <div class="info-label">장르</div>
+                            <div class="info-value">${escapeHtml(culture.genre)}</div>
+                        </div>
+                    </div>
+                    <div class="culture-detail-info-item">
+                        <i class="fas fa-user"></i>
+                        <div class="info-content">
+                            <div class="info-label">인물/대상</div>
+                            <div class="info-value">${escapeHtml(culture.target)}</div>
+                        </div>
+                    </div>
+                    <div class="culture-detail-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="info-content">
+                            <div class="info-label">등록일</div>
+                            <div class="info-value">${culture.createdAt}</div>
+                        </div>
+                    </div>
+                </div>
+                ${culture.content ? `
+                <div class="culture-detail-memo-card">
+                    <h4><i class="fas fa-sticky-note"></i> 주요내용</h4>
+                    <p>${escapeHtml(culture.content)}</p>
+                </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('cultureDetailModal').classList.add('active');
+        }
+
+        // 문화 상세보기 닫기
+        function closeCultureDetail() {
+            document.getElementById('cultureDetailModal').classList.remove('active');
+            currentCultureId = null;
+        }
+
+        // 문화 폼 열기
+        function openCultureForm(culture = null) {
+            const modal = document.getElementById('cultureFormModal');
+            const title = document.getElementById('cultureFormTitle');
+            const submitBtn = document.getElementById('cultureSubmitBtn');
+            
+            if (culture) {
+                // 수정 모드
+                title.textContent = '문화 기록 수정';
+                submitBtn.textContent = '수정하기';
+                document.getElementById('editCultureId').value = culture.id;
+                document.getElementById('newCultureGenre').value = culture.genre;
+                document.getElementById('newCultureTarget').value = culture.target;
+                document.getElementById('newCultureContent').value = culture.content || '';
+            } else {
+                // 추가 모드
+                title.textContent = '새 문화 기록 추가';
+                submitBtn.textContent = '문화 기록 추가하기';
+                document.getElementById('newCultureForm').reset();
+                document.getElementById('editCultureId').value = '';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        // 문화 폼 닫기
+        function closeCultureForm() {
+            document.getElementById('cultureFormModal').classList.remove('active');
+        }
+
+        // 문화 폼 제출
+        function submitCultureForm(e) {
+            e.preventDefault();
+            
+            const editId = document.getElementById('editCultureId').value;
+            const cultureData = {
+                genre: document.getElementById('newCultureGenre').value,
+                target: document.getElementById('newCultureTarget').value,
+                content: document.getElementById('newCultureContent').value
+            };
+            
+            if (!data.cultures) data.cultures = [];
+            
+            if (editId) {
+                // 수정
+                const index = data.cultures.findIndex(c => c.id === parseInt(editId));
+                if (index !== -1) {
+                    data.cultures[index] = {
+                        ...data.cultures[index],
+                        ...cultureData
+                    };
+                    showToast('문화 기록이 수정되었습니다!');
+                }
+            } else {
+                // 추가
+                const culture = {
+                    id: Date.now(),
+                    ...cultureData,
+                    createdAt: new Date().toLocaleDateString('ko-KR')
+                };
+                data.cultures.unshift(culture);
+                showToast('문화 기록이 추가되었습니다!');
+            }
+            
+            saveData('cultures');
+            renderCultureList();
+            closeCultureForm();
+            
+            if (editId) {
+                closeCultureDetail();
+            }
+        }
+
+        // 현재 문화 수정
+        function editCurrentCulture() {
+            const culture = data.cultures.find(c => c.id === currentCultureId);
+            if (culture) {
+                openCultureForm(culture);
+            }
+        }
+
+        // 현재 문화 삭제
+        function deleteCurrentCulture() {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                data.cultures = data.cultures.filter(c => c.id !== currentCultureId);
+                saveData('cultures');
+                closeCultureDetail();
+                renderCultureList();
                 showToast('삭제되었습니다.');
             }
         }
@@ -8895,6 +9636,7 @@
                 // 1. localStorage에 저장
                 localStorage.setItem('travels', JSON.stringify(data.travels));
                 localStorage.setItem('restaurants', JSON.stringify(data.restaurants));
+                localStorage.setItem('cultures', JSON.stringify(data.cultures || []));
                 localStorage.setItem('memos', JSON.stringify(data.memos));
                 localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
                 localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
@@ -9311,7 +10053,7 @@
                     bankaccounts: data.bankaccounts,
                     ideas: data.ideas,
                     goals: data.goals,
-                    readings: data.readings,
+                    cultures: data.cultures,
                     exercises: data.exercises,
                     finances: data.finances,
                     diaries: data.diaries,
@@ -9418,9 +10160,9 @@
                         data.goals = bd.goals;
                         localStorage.setItem('goals', JSON.stringify(bd.goals));
                     }
-                    if (bd.readings) {
-                        data.readings = bd.readings;
-                        localStorage.setItem('readings', JSON.stringify(bd.readings));
+                    if (bd.cultures) {
+                        data.cultures = bd.cultures;
+                        localStorage.setItem('cultures', JSON.stringify(bd.cultures));
                     }
                     if (bd.exercises) {
                         data.exercises = bd.exercises;
