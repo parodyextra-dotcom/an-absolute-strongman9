@@ -267,9 +267,9 @@
             background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
         }
 
-        /* 아이디어 노트 - 민트 */
-        .idea {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        /* 병원 관리 - 의료 블루 */
+        .hospital {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
         /* 쇼핑 리스트 - 퍼플 */
@@ -1505,6 +1505,481 @@
         .restaurant-form-submit:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 78, 80, 0.5);
+        }
+
+        /* ========== 병원관리 전체화면 모달 스타일 ========== */
+        .hospital-fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+            z-index: 2000;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .hospital-fullscreen-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hospital-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+            box-shadow: 0 2px 20px rgba(79, 172, 254, 0.1);
+        }
+
+        .hospital-modal-header h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hospital-modal-header h2 i {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hospital-back-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        .hospital-back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .hospital-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 20px 100px;
+        }
+
+        .hospital-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(79, 172, 254, 0.1);
+        }
+
+        .hospital-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(79, 172, 254, 0.18);
+        }
+
+        .hospital-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .hospital-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hospital-card-title i {
+            color: #4facfe;
+        }
+
+        .hospital-card-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .hospital-card-status.미진행 {
+            background: #9ca3af;
+        }
+
+        .hospital-card-status.예약 {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .hospital-card-status.진행중 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .hospital-card-status.완료 {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        }
+
+        .hospital-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .hospital-card-info p {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hospital-card-info i {
+            width: 16px;
+            color: #4facfe;
+        }
+
+        .hospital-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(79, 172, 254, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .hospital-fab:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 10px 35px rgba(79, 172, 254, 0.6);
+        }
+
+        .hospital-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .hospital-empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.5;
+        }
+
+        .hospital-empty-state p {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* 병원 상세보기 모달 */
+        .hospital-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+            z-index: 2002;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .hospital-detail-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hospital-detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+        }
+
+        .hospital-detail-header .left-actions button,
+        .hospital-detail-header .right-actions button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hospital-detail-header .right-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .hospital-detail-header button:hover {
+            background: rgba(79, 172, 254, 0.1);
+            color: #4facfe;
+        }
+
+        .hospital-detail-header .delete-action:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .hospital-detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .hospital-detail-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hospital-detail-title i {
+            color: #4facfe;
+        }
+
+        .hospital-detail-status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .hospital-detail-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.08);
+        }
+
+        .hospital-detail-info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .hospital-detail-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .hospital-detail-info-item i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4facfe;
+            font-size: 16px;
+        }
+
+        .hospital-detail-info-item .info-content {
+            flex: 1;
+        }
+
+        .hospital-detail-info-item .info-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 3px;
+        }
+
+        .hospital-detail-info-item .info-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .hospital-detail-memo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .hospital-detail-memo-card h4 {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hospital-detail-memo-card h4 i {
+            color: #4facfe;
+        }
+
+        .hospital-detail-memo-card p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* 병원 입력 폼 모달 */
+        .hospital-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+            z-index: 2003;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .hospital-form-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hospital-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+        }
+
+        .hospital-form-header h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .hospital-form-header button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .hospital-form-header button:hover {
+            background: rgba(79, 172, 254, 0.1);
+            color: #4facfe;
+        }
+
+        .hospital-form-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .hospital-form-group {
+            margin-bottom: 20px;
+        }
+
+        .hospital-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .hospital-form-group input,
+        .hospital-form-group textarea,
+        .hospital-form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .hospital-form-group input:focus,
+        .hospital-form-group textarea:focus,
+        .hospital-form-group select:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.1);
+        }
+
+        .hospital-form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .hospital-form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        .hospital-form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
         }
 
         /* Star rating input */
@@ -3957,11 +4432,11 @@
                 <span>맛집<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('idea')">
-                <div class="icon-box idea">
-                    <i class="fas fa-lightbulb"></i>
+            <div class="grid-item" onclick="openModal('hospital')">
+                <div class="icon-box hospital">
+                    <i class="fas fa-hospital"></i>
                 </div>
-                <span>아이디어<br>노트</span>
+                <span>병원<br>관리</span>
             </div>
 
             <div class="grid-item" onclick="openModal('shopping')">
@@ -4372,6 +4847,93 @@
                     <textarea id="newRestaurantMemo" placeholder="맛집에 대한 메모를 적어주세요"></textarea>
                 </div>
                 <button type="submit" class="restaurant-form-submit" id="restaurantSubmitBtn">맛집 추가하기</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 병원관리 전체화면 모달 -->
+    <div class="hospital-fullscreen-modal" id="hospitalFullscreenModal">
+        <div class="hospital-modal-header">
+            <h2><i class="fas fa-hospital"></i> 병원 관리</h2>
+            <button class="hospital-back-btn" onclick="closeHospitalFullscreen()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="hospital-list-container" id="hospitalListContainer">
+            <!-- 병원 리스트가 여기에 렌더링됨 -->
+        </div>
+        <button class="hospital-fab" onclick="openHospitalForm()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- 병원 상세보기 모달 -->
+    <div class="hospital-detail-modal" id="hospitalDetailModal">
+        <div class="hospital-detail-header">
+            <div class="left-actions">
+                <button onclick="closeHospitalDetail()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="right-actions">
+                <button onclick="editCurrentHospital()">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-action" onclick="deleteCurrentHospital()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="hospital-detail-content" id="hospitalDetailContent">
+            <!-- 병원 상세 내용이 여기에 렌더링됨 -->
+        </div>
+    </div>
+
+    <!-- 병원 입력 폼 모달 -->
+    <div class="hospital-form-modal" id="hospitalFormModal">
+        <div class="hospital-form-header">
+            <h2 id="hospitalFormTitle">새 병원 기록 추가</h2>
+            <button onclick="closeHospitalForm()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="hospital-form-body">
+            <form id="newHospitalForm" onsubmit="submitHospitalForm(event)">
+                <input type="hidden" id="editHospitalId">
+                <div class="hospital-form-group">
+                    <label>병원명 *</label>
+                    <input type="text" id="newHospitalName" placeholder="병원명을 입력하세요" required>
+                </div>
+                <div class="hospital-form-group">
+                    <label>병명</label>
+                    <input type="text" id="newHospitalDisease" placeholder="병명을 입력하세요">
+                </div>
+                <div class="hospital-form-group">
+                    <label>환자명</label>
+                    <input type="text" id="newHospitalPatient" placeholder="환자명을 입력하세요">
+                </div>
+                <div class="hospital-form-group">
+                    <label>진료 상태</label>
+                    <select id="newHospitalStatus">
+                        <option value="미진행">미진행</option>
+                        <option value="예약">예약</option>
+                        <option value="진행중">진행중</option>
+                        <option value="완료">완료</option>
+                    </select>
+                </div>
+                <div class="hospital-form-group">
+                    <label>다음 예약 날짜</label>
+                    <input type="date" id="newHospitalNextDate">
+                </div>
+                <div class="hospital-form-group">
+                    <label>증상</label>
+                    <textarea id="newHospitalSymptoms" placeholder="증상을 입력하세요"></textarea>
+                </div>
+                <div class="hospital-form-group">
+                    <label>의사 소견</label>
+                    <textarea id="newHospitalDoctorNote" placeholder="의사 소견을 입력하세요"></textarea>
+                </div>
+                <button type="submit" class="hospital-form-submit" id="hospitalSubmitBtn">병원 기록 추가하기</button>
             </form>
         </div>
     </div>
@@ -5050,6 +5612,7 @@
             return {
                 travels: safeJSONParse(localStorage.getItem('travels'), []),
                 restaurants: safeJSONParse(localStorage.getItem('restaurants'), []),
+                hospitals: safeJSONParse(localStorage.getItem('hospitals'), []),
                 memos: safeJSONParse(localStorage.getItem('memos'), []),
                 customCategories: safeJSONParse(localStorage.getItem('customCategories'), []),
                 customCategoryMemos: safeJSONParse(localStorage.getItem('customCategoryMemos'), {}),
@@ -5065,7 +5628,7 @@
             if (!idbData) return localData;
             
             const merged = {};
-            const keys = ['travels', 'restaurants', 'memos', 'customCategories', 'todos'];
+            const keys = ['travels', 'restaurants', 'hospitals', 'memos', 'customCategories', 'todos'];
             
             keys.forEach(key => {
                 const localArr = localData[key] || [];
@@ -5173,6 +5736,12 @@
             // 맛집 관리는 전체화면 모달로
             if (type === 'restaurant') {
                 openRestaurantFullscreen();
+                return;
+            }
+            
+            // 병원 관리는 전체화면 모달로
+            if (type === 'hospital') {
+                openHospitalFullscreen();
                 return;
             }
             
@@ -5615,6 +6184,226 @@
                 saveData('restaurants');
                 closeRestaurantDetail();
                 renderRestaurantList();
+                showToast('삭제되었습니다.');
+            }
+        }
+
+        // ========== 병원 관리 전체화면 관련 함수들 ==========
+        let currentHospitalId = null;
+
+        // 병원 전체화면 열기
+        function openHospitalFullscreen() {
+            document.getElementById('hospitalFullscreenModal').classList.add('active');
+            renderHospitalList();
+        }
+
+        // 병원 전체화면 닫기
+        function closeHospitalFullscreen() {
+            document.getElementById('hospitalFullscreenModal').classList.remove('active');
+        }
+
+        // 병원 리스트 렌더링
+        function renderHospitalList() {
+            const container = document.getElementById('hospitalListContainer');
+            
+            if (!data.hospitals) data.hospitals = [];
+            
+            if (data.hospitals.length === 0) {
+                container.innerHTML = `
+                    <div class="hospital-empty-state">
+                        <i class="fas fa-hospital"></i>
+                        <p>아직 등록된 병원 기록이 없습니다.<br>새로운 기록을 추가해보세요!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = data.hospitals.map(hospital => `
+                    <div class="hospital-card" onclick="openHospitalDetail(${hospital.id})">
+                        <div class="hospital-card-header">
+                            <div class="hospital-card-title">
+                                <i class="fas fa-hospital"></i>
+                                ${escapeHtml(hospital.name)}
+                            </div>
+                            <span class="hospital-card-status ${hospital.status}">${hospital.status}</span>
+                        </div>
+                        <div class="hospital-card-info">
+                            ${hospital.disease ? `<p><i class="fas fa-notes-medical"></i> ${escapeHtml(hospital.disease)}</p>` : ''}
+                            ${hospital.patient ? `<p><i class="fas fa-user"></i> ${escapeHtml(hospital.patient)}</p>` : ''}
+                            ${hospital.nextDate ? `<p><i class="fas fa-calendar-check"></i> 다음 예약: ${hospital.nextDate}</p>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 병원 상세보기 열기
+        function openHospitalDetail(id) {
+            const hospital = data.hospitals.find(h => h.id === id);
+            if (!hospital) return;
+            
+            currentHospitalId = id;
+            const content = document.getElementById('hospitalDetailContent');
+            
+            content.innerHTML = `
+                <h2 class="hospital-detail-title">
+                    <i class="fas fa-hospital"></i>
+                    ${escapeHtml(hospital.name)}
+                </h2>
+                <div class="hospital-detail-status ${hospital.status}">${hospital.status}</div>
+                <div class="hospital-detail-info-card">
+                    ${hospital.disease ? `
+                    <div class="hospital-detail-info-item">
+                        <i class="fas fa-notes-medical"></i>
+                        <div class="info-content">
+                            <div class="info-label">병명</div>
+                            <div class="info-value">${escapeHtml(hospital.disease)}</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    ${hospital.patient ? `
+                    <div class="hospital-detail-info-item">
+                        <i class="fas fa-user"></i>
+                        <div class="info-content">
+                            <div class="info-label">환자명</div>
+                            <div class="info-value">${escapeHtml(hospital.patient)}</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    ${hospital.nextDate ? `
+                    <div class="hospital-detail-info-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="info-content">
+                            <div class="info-label">다음 예약 날짜</div>
+                            <div class="info-value">${hospital.nextDate}</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    <div class="hospital-detail-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="info-content">
+                            <div class="info-label">등록일</div>
+                            <div class="info-value">${hospital.createdAt}</div>
+                        </div>
+                    </div>
+                </div>
+                ${hospital.symptoms ? `
+                <div class="hospital-detail-memo-card">
+                    <h4><i class="fas fa-stethoscope"></i> 증상</h4>
+                    <p>${escapeHtml(hospital.symptoms)}</p>
+                </div>
+                ` : ''}
+                ${hospital.doctorNote ? `
+                <div class="hospital-detail-memo-card">
+                    <h4><i class="fas fa-user-md"></i> 의사 소견</h4>
+                    <p>${escapeHtml(hospital.doctorNote)}</p>
+                </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('hospitalDetailModal').classList.add('active');
+        }
+
+        // 병원 상세보기 닫기
+        function closeHospitalDetail() {
+            document.getElementById('hospitalDetailModal').classList.remove('active');
+            currentHospitalId = null;
+        }
+
+        // 병원 폼 열기
+        function openHospitalForm(hospital = null) {
+            const modal = document.getElementById('hospitalFormModal');
+            const title = document.getElementById('hospitalFormTitle');
+            const submitBtn = document.getElementById('hospitalSubmitBtn');
+            
+            if (hospital) {
+                // 수정 모드
+                title.textContent = '병원 기록 수정';
+                submitBtn.textContent = '병원 기록 수정하기';
+                document.getElementById('editHospitalId').value = hospital.id;
+                document.getElementById('newHospitalName').value = hospital.name;
+                document.getElementById('newHospitalDisease').value = hospital.disease || '';
+                document.getElementById('newHospitalPatient').value = hospital.patient || '';
+                document.getElementById('newHospitalStatus').value = hospital.status;
+                document.getElementById('newHospitalNextDate').value = hospital.nextDate || '';
+                document.getElementById('newHospitalSymptoms').value = hospital.symptoms || '';
+                document.getElementById('newHospitalDoctorNote').value = hospital.doctorNote || '';
+            } else {
+                // 추가 모드
+                title.textContent = '새 병원 기록 추가';
+                submitBtn.textContent = '병원 기록 추가하기';
+                document.getElementById('newHospitalForm').reset();
+                document.getElementById('editHospitalId').value = '';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        // 병원 폼 닫기
+        function closeHospitalForm() {
+            document.getElementById('hospitalFormModal').classList.remove('active');
+        }
+
+        // 병원 폼 제출
+        function submitHospitalForm(e) {
+            e.preventDefault();
+            
+            const editId = document.getElementById('editHospitalId').value;
+            const hospitalData = {
+                name: document.getElementById('newHospitalName').value,
+                disease: document.getElementById('newHospitalDisease').value,
+                patient: document.getElementById('newHospitalPatient').value,
+                status: document.getElementById('newHospitalStatus').value,
+                nextDate: document.getElementById('newHospitalNextDate').value,
+                symptoms: document.getElementById('newHospitalSymptoms').value,
+                doctorNote: document.getElementById('newHospitalDoctorNote').value
+            };
+            
+            if (!data.hospitals) data.hospitals = [];
+            
+            if (editId) {
+                // 수정
+                const index = data.hospitals.findIndex(h => h.id === parseInt(editId));
+                if (index !== -1) {
+                    data.hospitals[index] = {
+                        ...data.hospitals[index],
+                        ...hospitalData
+                    };
+                    showToast('병원 기록이 수정되었습니다!');
+                }
+            } else {
+                // 추가
+                const hospital = {
+                    id: Date.now(),
+                    ...hospitalData,
+                    createdAt: new Date().toLocaleDateString('ko-KR')
+                };
+                data.hospitals.unshift(hospital);
+                showToast('병원 기록이 추가되었습니다!');
+            }
+            
+            saveData('hospitals');
+            renderHospitalList();
+            closeHospitalForm();
+            
+            if (editId) {
+                closeHospitalDetail();
+            }
+        }
+
+        // 현재 병원 기록 수정
+        function editCurrentHospital() {
+            const hospital = data.hospitals.find(h => h.id === currentHospitalId);
+            if (hospital) {
+                openHospitalForm(hospital);
+            }
+        }
+
+        // 현재 병원 기록 삭제
+        function deleteCurrentHospital() {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                data.hospitals = data.hospitals.filter(h => h.id !== currentHospitalId);
+                saveData('hospitals');
+                closeHospitalDetail();
+                renderHospitalList();
                 showToast('삭제되었습니다.');
             }
         }
@@ -6865,6 +7654,7 @@
                     schedules: data.schedules,
                     travels: data.travels,
                     restaurants: data.restaurants,
+                    hospitals: data.hospitals,
                     ideas: data.ideas,
                     shoppings: data.shoppings,
                     goals: data.goals,
@@ -6954,6 +7744,10 @@
                     if (bd.restaurants) {
                         data.restaurants = bd.restaurants;
                         localStorage.setItem('restaurants', JSON.stringify(bd.restaurants));
+                    }
+                    if (bd.hospitals) {
+                        data.hospitals = bd.hospitals;
+                        localStorage.setItem('hospitals', JSON.stringify(bd.hospitals));
                     }
                     if (bd.ideas) {
                         data.ideas = bd.ideas;
