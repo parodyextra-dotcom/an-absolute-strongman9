@@ -287,9 +287,9 @@
             background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
         }
 
-        /* 운동 기록 - 레드/오렌지 */
-        .exercise {
-            background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%);
+        /* 사람관리 - 레드/오렌지 (맛집 스타일) */
+        .people {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
         }
 
         /* 가계부 - 블루 */
@@ -1503,6 +1503,500 @@
         }
 
         .restaurant-form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 78, 80, 0.5);
+        }
+
+        /* ========== 사람관리 전체화면 모달 스타일 (맛집 스타일 기반) ========== */
+        .people-fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fffdf5 0%, #fff8e6 50%, #fff5e0 100%);
+            z-index: 2000;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .people-fullscreen-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .people-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 78, 80, 0.2);
+            box-shadow: 0 2px 20px rgba(255, 78, 80, 0.1);
+        }
+
+        .people-modal-header h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .people-modal-header h2 i {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .people-back-btn {
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 78, 80, 0.4);
+        }
+
+        .people-back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .people-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 20px 100px;
+        }
+
+        .people-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(255, 78, 80, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 78, 80, 0.1);
+        }
+
+        .people-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 78, 80, 0.18);
+        }
+
+        .people-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .people-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .people-card-title i {
+            color: #ff4e50;
+        }
+
+        .people-card-relation {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            color: white;
+        }
+
+        .people-card-importance {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .people-card-importance.high {
+            color: #ff4e50;
+        }
+
+        .people-card-importance.medium {
+            color: #f9a825;
+        }
+
+        .people-card-importance.low {
+            color: #9e9e9e;
+        }
+
+        .people-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .people-card-info p {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .people-card-info i {
+            width: 16px;
+            color: #ff4e50;
+        }
+
+        .people-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(255, 78, 80, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .people-fab:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 10px 35px rgba(255, 78, 80, 0.6);
+        }
+
+        .people-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .people-empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.5;
+        }
+
+        .people-empty-state p {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* 사람 상세보기 모달 */
+        .people-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fffdf5 0%, #fff8e6 50%, #fff5e0 100%);
+            z-index: 2002;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .people-detail-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .people-detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 78, 80, 0.2);
+        }
+
+        .people-detail-header .left-actions button,
+        .people-detail-header .right-actions button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .people-detail-header .right-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .people-detail-header button:hover {
+            background: rgba(255, 78, 80, 0.1);
+            color: #ff4e50;
+        }
+
+        .people-detail-header .delete-action:hover {
+            background: rgba(255, 95, 109, 0.1);
+            color: #ff5f6d;
+        }
+
+        .people-detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .people-detail-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .people-detail-title i {
+            color: #ff4e50;
+        }
+
+        .people-detail-importance {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .people-detail-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(255, 78, 80, 0.08);
+        }
+
+        .people-detail-info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .people-detail-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .people-detail-info-item i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(249, 212, 35, 0.1) 0%, rgba(255, 78, 80, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff4e50;
+            font-size: 16px;
+        }
+
+        .people-detail-info-item .info-content {
+            flex: 1;
+        }
+
+        .people-detail-info-item .info-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 3px;
+        }
+
+        .people-detail-info-item .info-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .people-detail-memo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(255, 78, 80, 0.08);
+        }
+
+        .people-detail-memo-card h4 {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .people-detail-memo-card h4 i {
+            color: #ff4e50;
+        }
+
+        .people-detail-memo-card p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* 사람 입력 폼 모달 */
+        .people-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fffdf5 0%, #fff8e6 50%, #fff5e0 100%);
+            z-index: 2003;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .people-form-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .people-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 78, 80, 0.2);
+        }
+
+        .people-form-header h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .people-form-header button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .people-form-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .people-form-group {
+            margin-bottom: 20px;
+        }
+
+        .people-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .people-form-group input,
+        .people-form-group textarea,
+        .people-form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .people-form-group input:focus,
+        .people-form-group textarea:focus,
+        .people-form-group select:focus {
+            outline: none;
+            border-color: #ff4e50;
+            box-shadow: 0 0 0 4px rgba(255, 78, 80, 0.1);
+        }
+
+        .people-form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .people-importance-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .people-importance-option {
+            flex: 1;
+            min-width: 80px;
+            padding: 12px 16px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .people-importance-option:hover {
+            border-color: #ff4e50;
+        }
+
+        .people-importance-option.active {
+            border-color: #ff4e50;
+            background: linear-gradient(135deg, rgba(249, 212, 35, 0.1) 0%, rgba(255, 78, 80, 0.1) 100%);
+            color: #ff4e50;
+        }
+
+        .people-form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 78, 80, 0.4);
+        }
+
+        .people-form-submit:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 78, 80, 0.5);
         }
@@ -5942,11 +6436,11 @@
                 <span>문화<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('exercise')">
-                <div class="icon-box exercise">
-                    <i class="fas fa-dumbbell"></i>
+            <div class="grid-item" onclick="openModal('people')">
+                <div class="icon-box people">
+                    <i class="fas fa-users"></i>
                 </div>
-                <span>운동<br>기록</span>
+                <span>사람<br>관리</span>
             </div>
 
             <div class="grid-item" onclick="openModal('finance')">
@@ -5973,6 +6467,100 @@
                 </div>
                 <span>카테고리<br>추가</span>
             </div>
+        </div>
+    </div>
+
+    <!-- 사람관리 전체화면 모달 -->
+    <div class="people-fullscreen-modal" id="peopleFullscreenModal">
+        <div class="people-modal-header">
+            <h2><i class="fas fa-users"></i> 사람 관리</h2>
+            <button class="people-back-btn" onclick="closePeopleFullscreen()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="people-list-container" id="peopleListContainer">
+            <!-- 사람 리스트가 여기에 렌더링됨 -->
+        </div>
+        <button class="people-fab" onclick="openPeopleForm()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- 사람 상세보기 모달 -->
+    <div class="people-detail-modal" id="peopleDetailModal">
+        <div class="people-detail-header">
+            <div class="left-actions">
+                <button onclick="closePeopleDetail()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="right-actions">
+                <button onclick="editCurrentPeople()">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-action" onclick="deleteCurrentPeople()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="people-detail-content" id="peopleDetailContent">
+            <!-- 사람 상세 내용이 여기에 렌더링됨 -->
+        </div>
+    </div>
+
+    <!-- 사람 입력 폼 모달 -->
+    <div class="people-form-modal" id="peopleFormModal">
+        <div class="people-form-header">
+            <h2 id="peopleFormTitle">새 인물 추가</h2>
+            <button onclick="closePeopleForm()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="people-form-body">
+            <form id="newPeopleForm" onsubmit="submitPeopleForm(event)">
+                <input type="hidden" id="editPeopleId">
+                <div class="people-form-group">
+                    <label>관계 *</label>
+                    <select id="newPeopleRelation" required>
+                        <option value="가족">가족</option>
+                        <option value="친척">친척</option>
+                        <option value="친구">친구</option>
+                        <option value="업무">업무</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="people-form-group">
+                    <label>이름 *</label>
+                    <input type="text" id="newPeopleName" placeholder="이름을 입력하세요" required>
+                </div>
+                <div class="people-form-group">
+                    <label>전화번호</label>
+                    <input type="tel" id="newPeoplePhone" placeholder="전화번호를 입력하세요">
+                </div>
+                <div class="people-form-group">
+                    <label>이메일</label>
+                    <input type="email" id="newPeopleEmail" placeholder="이메일을 입력하세요">
+                </div>
+                <div class="people-form-group">
+                    <label>중요도 *</label>
+                    <div class="people-importance-selector">
+                        <div class="people-importance-option" data-value="낮음" onclick="selectPeopleImportance('낮음')">
+                            <i class="fas fa-star"></i> 낮음
+                        </div>
+                        <div class="people-importance-option active" data-value="중간" onclick="selectPeopleImportance('중간')">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i> 중간
+                        </div>
+                        <div class="people-importance-option" data-value="높음" onclick="selectPeopleImportance('높음')">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 높음
+                        </div>
+                    </div>
+                </div>
+                <div class="people-form-group">
+                    <label>특이사항</label>
+                    <textarea id="newPeopleNote" placeholder="특이사항, 메모 등을 입력하세요"></textarea>
+                </div>
+                <button type="submit" class="people-form-submit" id="peopleSubmitBtn">인물 추가하기</button>
+            </form>
         </div>
     </div>
 
@@ -7344,6 +7932,7 @@
                 sitemanages: safeJSONParse(localStorage.getItem('sitemanages'), []),
                 bankaccounts: safeJSONParse(localStorage.getItem('bankaccounts'), []),
                 cultures: safeJSONParse(localStorage.getItem('cultures'), []),
+                people: safeJSONParse(localStorage.getItem('people'), []),
                 memos: safeJSONParse(localStorage.getItem('memos'), []),
                 customCategories: safeJSONParse(localStorage.getItem('customCategories'), []),
                 customCategoryMemos: safeJSONParse(localStorage.getItem('customCategoryMemos'), {}),
@@ -7359,7 +7948,7 @@
             if (!idbData) return localData;
             
             const merged = {};
-            const keys = ['travels', 'restaurants', 'hospitals', 'sitemanages', 'bankaccounts', 'cultures', 'memos', 'customCategories', 'todos'];
+            const keys = ['travels', 'restaurants', 'hospitals', 'sitemanages', 'bankaccounts', 'cultures', 'people', 'memos', 'customCategories', 'todos'];
             
             keys.forEach(key => {
                 const localArr = localData[key] || [];
@@ -7491,6 +8080,12 @@
             // 문화관리는 전체화면 모달로
             if (type === 'culture') {
                 openCultureFullscreen();
+                return;
+            }
+            
+            // 사람관리는 전체화면 모달로
+            if (type === 'people') {
+                openPeopleFullscreen();
                 return;
             }
             
@@ -8139,6 +8734,273 @@
                 saveData('cultures');
                 closeCultureDetail();
                 renderCultureList();
+                showToast('삭제되었습니다.');
+            }
+        }
+
+        // ========== 사람관리 전체화면 관련 함수들 ==========
+        let currentPeopleId = null;
+        let selectedPeopleImportance = '중간';
+
+        // 사람 전체화면 열기
+        function openPeopleFullscreen() {
+            document.getElementById('peopleFullscreenModal').classList.add('active');
+            renderPeopleList();
+        }
+
+        // 사람 전체화면 닫기
+        function closePeopleFullscreen() {
+            document.getElementById('peopleFullscreenModal').classList.remove('active');
+        }
+
+        // 관계별 아이콘 매핑
+        function getPeopleIcon(relation) {
+            const icons = {
+                '가족': 'fa-home',
+                '친척': 'fa-users',
+                '친구': 'fa-user-friends',
+                '업무': 'fa-briefcase',
+                '기타': 'fa-user'
+            };
+            return icons[relation] || 'fa-user';
+        }
+
+        // 중요도 표시
+        function getImportanceStars(importance) {
+            const stars = {
+                '낮음': '<i class="fas fa-star"></i>',
+                '중간': '<i class="fas fa-star"></i><i class="fas fa-star"></i>',
+                '높음': '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>'
+            };
+            return stars[importance] || stars['중간'];
+        }
+
+        // 중요도 클래스
+        function getImportanceClass(importance) {
+            const classes = {
+                '낮음': 'low',
+                '중간': 'medium',
+                '높음': 'high'
+            };
+            return classes[importance] || 'medium';
+        }
+
+        // 사람 리스트 렌더링
+        function renderPeopleList() {
+            const container = document.getElementById('peopleListContainer');
+            
+            if (!data.people) data.people = [];
+            
+            if (data.people.length === 0) {
+                container.innerHTML = `
+                    <div class="people-empty-state">
+                        <i class="fas fa-users"></i>
+                        <p>아직 등록된 인물이 없습니다.<br>새로운 인물을 추가해보세요!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = data.people.map(person => `
+                    <div class="people-card" onclick="openPeopleDetail(${person.id})">
+                        <div class="people-card-header">
+                            <div class="people-card-title">
+                                <i class="fas ${getPeopleIcon(person.relation)}"></i>
+                                ${escapeHtml(person.name)}
+                            </div>
+                            <span class="people-card-relation">${escapeHtml(person.relation)}</span>
+                        </div>
+                        <div class="people-card-importance ${getImportanceClass(person.importance)}">
+                            ${getImportanceStars(person.importance)}
+                        </div>
+                        <div class="people-card-info">
+                            ${person.phone ? `<p><i class="fas fa-phone"></i> ${escapeHtml(person.phone)}</p>` : ''}
+                            ${person.email ? `<p><i class="fas fa-envelope"></i> ${escapeHtml(person.email)}</p>` : ''}
+                            ${person.note ? `<p><i class="fas fa-sticky-note"></i> ${escapeHtml(person.note.substring(0, 30))}${person.note.length > 30 ? '...' : ''}</p>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 사람 상세보기 열기
+        function openPeopleDetail(id) {
+            const person = data.people.find(p => p.id === id);
+            if (!person) return;
+            
+            currentPeopleId = id;
+            const content = document.getElementById('peopleDetailContent');
+            
+            content.innerHTML = `
+                <h2 class="people-detail-title">
+                    <i class="fas ${getPeopleIcon(person.relation)}"></i>
+                    ${escapeHtml(person.name)}
+                </h2>
+                <div class="people-detail-importance ${getImportanceClass(person.importance)}">
+                    ${getImportanceStars(person.importance)} ${person.importance}
+                </div>
+                <div class="people-detail-info-card">
+                    <div class="people-detail-info-item">
+                        <i class="fas fa-heart"></i>
+                        <div class="info-content">
+                            <div class="info-label">관계</div>
+                            <div class="info-value">${escapeHtml(person.relation)}</div>
+                        </div>
+                    </div>
+                    <div class="people-detail-info-item">
+                        <i class="fas fa-user"></i>
+                        <div class="info-content">
+                            <div class="info-label">이름</div>
+                            <div class="info-value">${escapeHtml(person.name)}</div>
+                        </div>
+                    </div>
+                    ${person.phone ? `
+                    <div class="people-detail-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div class="info-content">
+                            <div class="info-label">전화번호</div>
+                            <div class="info-value">${escapeHtml(person.phone)}</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    ${person.email ? `
+                    <div class="people-detail-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="info-content">
+                            <div class="info-label">이메일</div>
+                            <div class="info-value">${escapeHtml(person.email)}</div>
+                        </div>
+                    </div>
+                    ` : ''}
+                    <div class="people-detail-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="info-content">
+                            <div class="info-label">등록일</div>
+                            <div class="info-value">${person.createdAt}</div>
+                        </div>
+                    </div>
+                </div>
+                ${person.note ? `
+                <div class="people-detail-memo-card">
+                    <h4><i class="fas fa-sticky-note"></i> 특이사항</h4>
+                    <p>${escapeHtml(person.note)}</p>
+                </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('peopleDetailModal').classList.add('active');
+        }
+
+        // 사람 상세보기 닫기
+        function closePeopleDetail() {
+            document.getElementById('peopleDetailModal').classList.remove('active');
+            currentPeopleId = null;
+        }
+
+        // 중요도 선택
+        function selectPeopleImportance(importance) {
+            selectedPeopleImportance = importance;
+            document.querySelectorAll('.people-importance-option').forEach(opt => {
+                opt.classList.remove('active');
+                if (opt.dataset.value === importance) {
+                    opt.classList.add('active');
+                }
+            });
+        }
+
+        // 사람 폼 열기
+        function openPeopleForm(person = null) {
+            const modal = document.getElementById('peopleFormModal');
+            const title = document.getElementById('peopleFormTitle');
+            const submitBtn = document.getElementById('peopleSubmitBtn');
+            
+            if (person) {
+                // 수정 모드
+                title.textContent = '인물 수정';
+                submitBtn.textContent = '수정하기';
+                document.getElementById('editPeopleId').value = person.id;
+                document.getElementById('newPeopleRelation').value = person.relation;
+                document.getElementById('newPeopleName').value = person.name;
+                document.getElementById('newPeoplePhone').value = person.phone || '';
+                document.getElementById('newPeopleEmail').value = person.email || '';
+                document.getElementById('newPeopleNote').value = person.note || '';
+                selectPeopleImportance(person.importance || '중간');
+            } else {
+                // 추가 모드
+                title.textContent = '새 인물 추가';
+                submitBtn.textContent = '인물 추가하기';
+                document.getElementById('newPeopleForm').reset();
+                document.getElementById('editPeopleId').value = '';
+                selectPeopleImportance('중간');
+            }
+            
+            modal.classList.add('active');
+        }
+
+        // 사람 폼 닫기
+        function closePeopleForm() {
+            document.getElementById('peopleFormModal').classList.remove('active');
+        }
+
+        // 사람 폼 제출
+        function submitPeopleForm(e) {
+            e.preventDefault();
+            
+            const editId = document.getElementById('editPeopleId').value;
+            const personData = {
+                relation: document.getElementById('newPeopleRelation').value,
+                name: document.getElementById('newPeopleName').value,
+                phone: document.getElementById('newPeoplePhone').value,
+                email: document.getElementById('newPeopleEmail').value,
+                importance: selectedPeopleImportance,
+                note: document.getElementById('newPeopleNote').value
+            };
+            
+            if (!data.people) data.people = [];
+            
+            if (editId) {
+                // 수정
+                const index = data.people.findIndex(p => p.id === parseInt(editId));
+                if (index !== -1) {
+                    data.people[index] = {
+                        ...data.people[index],
+                        ...personData
+                    };
+                    showToast('인물 정보가 수정되었습니다!');
+                }
+            } else {
+                // 추가
+                const person = {
+                    id: Date.now(),
+                    ...personData,
+                    createdAt: new Date().toLocaleDateString('ko-KR')
+                };
+                data.people.unshift(person);
+                showToast('인물이 추가되었습니다!');
+            }
+            
+            saveData('people');
+            renderPeopleList();
+            closePeopleForm();
+            
+            if (editId) {
+                closePeopleDetail();
+            }
+        }
+
+        // 현재 사람 수정
+        function editCurrentPeople() {
+            const person = data.people.find(p => p.id === currentPeopleId);
+            if (person) {
+                openPeopleForm(person);
+            }
+        }
+
+        // 현재 사람 삭제
+        function deleteCurrentPeople() {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                data.people = data.people.filter(p => p.id !== currentPeopleId);
+                saveData('people');
+                closePeopleDetail();
+                renderPeopleList();
                 showToast('삭제되었습니다.');
             }
         }
@@ -9637,6 +10499,7 @@
                 localStorage.setItem('travels', JSON.stringify(data.travels));
                 localStorage.setItem('restaurants', JSON.stringify(data.restaurants));
                 localStorage.setItem('cultures', JSON.stringify(data.cultures || []));
+                localStorage.setItem('people', JSON.stringify(data.people || []));
                 localStorage.setItem('memos', JSON.stringify(data.memos));
                 localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
                 localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
@@ -10054,7 +10917,7 @@
                     ideas: data.ideas,
                     goals: data.goals,
                     cultures: data.cultures,
-                    exercises: data.exercises,
+                    people: data.people,
                     finances: data.finances,
                     diaries: data.diaries,
                     customCategories: data.customCategories,
@@ -10164,9 +11027,9 @@
                         data.cultures = bd.cultures;
                         localStorage.setItem('cultures', JSON.stringify(bd.cultures));
                     }
-                    if (bd.exercises) {
-                        data.exercises = bd.exercises;
-                        localStorage.setItem('exercises', JSON.stringify(bd.exercises));
+                    if (bd.people) {
+                        data.people = bd.people;
+                        localStorage.setItem('people', JSON.stringify(bd.people));
                     }
                     if (bd.finances) {
                         data.finances = bd.finances;
