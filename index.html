@@ -277,8 +277,8 @@
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
         }
 
-        /* 목표 관리 - 그린 */
-        .goal {
+        /* 계좌번호 관리 - 민트/청록 */
+        .bankaccount {
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
         }
 
@@ -1505,6 +1505,523 @@
         .restaurant-form-submit:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 78, 80, 0.5);
+        }
+
+        /* ========== 계좌번호관리 전체화면 모달 스타일 ========== */
+        .bankaccount-fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f0fff4 0%, #dcffe4 50%, #c6f7d4 100%);
+            z-index: 2000;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .bankaccount-fullscreen-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bankaccount-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(17, 153, 142, 0.2);
+            box-shadow: 0 2px 20px rgba(17, 153, 142, 0.1);
+        }
+
+        .bankaccount-modal-header h2 {
+            color: #333;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bankaccount-modal-header h2 i {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bankaccount-back-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .bankaccount-back-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .bankaccount-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 20px 100px;
+        }
+
+        .bankaccount-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(17, 153, 142, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(17, 153, 142, 0.1);
+        }
+
+        .bankaccount-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(17, 153, 142, 0.18);
+        }
+
+        .bankaccount-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .bankaccount-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bankaccount-card-title i {
+            color: #11998e;
+        }
+
+        .bankaccount-card-bank {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .bankaccount-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .bankaccount-card-info p {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bankaccount-card-info i {
+            width: 16px;
+            color: #11998e;
+        }
+
+        .bankaccount-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(17, 153, 142, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .bankaccount-fab:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 10px 35px rgba(17, 153, 142, 0.6);
+        }
+
+        .bankaccount-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .bankaccount-empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.5;
+        }
+
+        .bankaccount-empty-state p {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* 계좌번호 상세보기 모달 */
+        .bankaccount-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f0fff4 0%, #dcffe4 50%, #c6f7d4 100%);
+            z-index: 2002;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .bankaccount-detail-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bankaccount-detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(17, 153, 142, 0.2);
+        }
+
+        .bankaccount-detail-header .left-actions button,
+        .bankaccount-detail-header .right-actions button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bankaccount-detail-header .right-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .bankaccount-detail-header button:hover {
+            background: rgba(17, 153, 142, 0.1);
+            color: #11998e;
+        }
+
+        .bankaccount-detail-header .delete-action:hover {
+            background: rgba(255, 95, 109, 0.1);
+            color: #ff5f6d;
+        }
+
+        .bankaccount-detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .bankaccount-detail-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bankaccount-detail-title i {
+            color: #11998e;
+        }
+
+        .bankaccount-detail-bank {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .bankaccount-detail-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(17, 153, 142, 0.08);
+        }
+
+        .bankaccount-detail-info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .bankaccount-detail-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .bankaccount-detail-info-item i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #11998e;
+            font-size: 16px;
+        }
+
+        .bankaccount-detail-info-item .info-content {
+            flex: 1;
+        }
+
+        .bankaccount-detail-info-item .info-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 3px;
+        }
+
+        .bankaccount-detail-info-item .info-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .bankaccount-detail-info-item .info-value.account-number {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #11998e;
+        }
+
+        .bankaccount-detail-memo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(17, 153, 142, 0.08);
+        }
+
+        .bankaccount-detail-memo-card h4 {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bankaccount-detail-memo-card h4 i {
+            color: #11998e;
+        }
+
+        .bankaccount-detail-memo-card p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .bankaccount-detail-warning {
+            background: #fff3cd;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-top: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        .bankaccount-detail-warning i {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        /* 계좌번호 입력 폼 모달 */
+        .bankaccount-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f0fff4 0%, #dcffe4 50%, #c6f7d4 100%);
+            z-index: 2003;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .bankaccount-form-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bankaccount-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(17, 153, 142, 0.2);
+        }
+
+        .bankaccount-form-header h2 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .bankaccount-form-header button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .bankaccount-form-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .bankaccount-form-group {
+            margin-bottom: 20px;
+        }
+
+        .bankaccount-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .bankaccount-form-group input,
+        .bankaccount-form-group textarea,
+        .bankaccount-form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .bankaccount-form-group input:focus,
+        .bankaccount-form-group textarea:focus,
+        .bankaccount-form-group select:focus {
+            outline: none;
+            border-color: #11998e;
+            box-shadow: 0 0 0 4px rgba(17, 153, 142, 0.1);
+        }
+
+        .bankaccount-form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .bankaccount-form-warning {
+            background: #fff3cd;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        .bankaccount-form-warning i {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .bankaccount-form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .bankaccount-form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.5);
+        }
+
+        /* 계좌번호 복사 버튼 */
+        .copy-account-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: auto;
+        }
+
+        .copy-account-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .copy-account-btn i {
+            margin-right: 5px;
         }
 
         /* ========== 병원관리 전체화면 모달 스타일 ========== */
@@ -4957,11 +5474,11 @@
                 <span>사이트<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('goal')">
-                <div class="icon-box goal">
-                    <i class="fas fa-bullseye"></i>
+            <div class="grid-item" onclick="openModal('bankaccount')">
+                <div class="icon-box bankaccount">
+                    <i class="fas fa-university"></i>
                 </div>
-                <span>목표<br>관리</span>
+                <span>계좌번호<br>관리</span>
             </div>
 
             <div class="grid-item" onclick="openModal('reading')">
@@ -5266,6 +5783,104 @@
                     <textarea id="newTravelMemo" placeholder="여행 계획이나 메모를 적어주세요"></textarea>
                 </div>
                 <button type="submit" class="travel-form-submit" id="travelSubmitBtn">여행 추가하기</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 계좌번호 관리 전체화면 모달 -->
+    <div class="bankaccount-fullscreen-modal" id="bankaccountFullscreenModal">
+        <div class="bankaccount-modal-header">
+            <h2><i class="fas fa-university"></i> 계좌번호 관리</h2>
+            <button class="bankaccount-back-btn" onclick="closeBankaccountFullscreen()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="bankaccount-list-container" id="bankaccountListContainer">
+            <!-- 계좌번호 리스트가 여기에 렌더링됨 -->
+        </div>
+        <button class="bankaccount-fab" onclick="openBankaccountForm()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- 계좌번호 상세보기 모달 -->
+    <div class="bankaccount-detail-modal" id="bankaccountDetailModal">
+        <div class="bankaccount-detail-header">
+            <div class="left-actions">
+                <button onclick="closeBankaccountDetail()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="right-actions">
+                <button onclick="editCurrentBankaccount()">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-action" onclick="deleteCurrentBankaccount()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="bankaccount-detail-content" id="bankaccountDetailContent">
+            <!-- 계좌번호 상세 내용이 여기에 렌더링됨 -->
+        </div>
+    </div>
+
+    <!-- 계좌번호 입력 폼 모달 -->
+    <div class="bankaccount-form-modal" id="bankaccountFormModal">
+        <div class="bankaccount-form-header">
+            <h2 id="bankaccountFormTitle">새 계좌 추가</h2>
+            <button onclick="closeBankaccountForm()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="bankaccount-form-body">
+            <form id="newBankaccountForm" onsubmit="submitBankaccountForm(event)">
+                <input type="hidden" id="editBankaccountId">
+                <div class="bankaccount-form-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>비밀번호는 보안상 입력하지 마세요. 계좌정보만 기록하세요.</span>
+                </div>
+                <div class="bankaccount-form-group">
+                    <label>1. 은행명 *</label>
+                    <select id="newBankaccountBank" required>
+                        <option value="">은행을 선택하세요</option>
+                        <option value="국민은행">국민은행</option>
+                        <option value="신한은행">신한은행</option>
+                        <option value="우리은행">우리은행</option>
+                        <option value="하나은행">하나은행</option>
+                        <option value="농협은행">농협은행</option>
+                        <option value="기업은행">기업은행</option>
+                        <option value="카카오뱅크">카카오뱅크</option>
+                        <option value="토스뱅크">토스뱅크</option>
+                        <option value="케이뱅크">케이뱅크</option>
+                        <option value="SC제일은행">SC제일은행</option>
+                        <option value="씨티은행">씨티은행</option>
+                        <option value="새마을금고">새마을금고</option>
+                        <option value="신협">신협</option>
+                        <option value="우체국">우체국</option>
+                        <option value="수협은행">수협은행</option>
+                        <option value="부산은행">부산은행</option>
+                        <option value="대구은행">대구은행</option>
+                        <option value="경남은행">경남은행</option>
+                        <option value="광주은행">광주은행</option>
+                        <option value="전북은행">전북은행</option>
+                        <option value="제주은행">제주은행</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="bankaccount-form-group">
+                    <label>2. 계좌번호 *</label>
+                    <input type="text" id="newBankaccountNumber" placeholder="계좌번호를 입력하세요 (- 포함 가능)" required>
+                </div>
+                <div class="bankaccount-form-group">
+                    <label>3. 소유자 *</label>
+                    <input type="text" id="newBankaccountOwner" placeholder="계좌 소유자명을 입력하세요" required>
+                </div>
+                <div class="bankaccount-form-group">
+                    <label>4. 메모</label>
+                    <textarea id="newBankaccountMemo" placeholder="계좌에 대한 메모를 적어주세요 (예: 급여 통장, 적금 통장 등)"></textarea>
+                </div>
+                <button type="submit" class="bankaccount-form-submit" id="bankaccountSubmitBtn">계좌 추가하기</button>
             </form>
         </div>
     </div>
@@ -6199,6 +6814,7 @@
                 restaurants: safeJSONParse(localStorage.getItem('restaurants'), []),
                 hospitals: safeJSONParse(localStorage.getItem('hospitals'), []),
                 sitemanages: safeJSONParse(localStorage.getItem('sitemanages'), []),
+                bankaccounts: safeJSONParse(localStorage.getItem('bankaccounts'), []),
                 memos: safeJSONParse(localStorage.getItem('memos'), []),
                 customCategories: safeJSONParse(localStorage.getItem('customCategories'), []),
                 customCategoryMemos: safeJSONParse(localStorage.getItem('customCategoryMemos'), {}),
@@ -6214,7 +6830,7 @@
             if (!idbData) return localData;
             
             const merged = {};
-            const keys = ['travels', 'restaurants', 'hospitals', 'sitemanages', 'memos', 'customCategories', 'todos'];
+            const keys = ['travels', 'restaurants', 'hospitals', 'sitemanages', 'bankaccounts', 'memos', 'customCategories', 'todos'];
             
             keys.forEach(key => {
                 const localArr = localData[key] || [];
@@ -6334,6 +6950,12 @@
             // 사이트관리는 전체화면 모달로
             if (type === 'sitemanage') {
                 openSitemanageFullscreen();
+                return;
+            }
+            
+            // 계좌번호관리는 전체화면 모달로
+            if (type === 'bankaccount') {
+                openBankaccountFullscreen();
                 return;
             }
             
@@ -6776,6 +7398,231 @@
                 saveData('restaurants');
                 closeRestaurantDetail();
                 renderRestaurantList();
+                showToast('삭제되었습니다.');
+            }
+        }
+
+        // ========== 계좌번호 관리 전체화면 관련 함수들 ==========
+        let currentBankaccountId = null;
+
+        // 계좌번호 전체화면 열기
+        function openBankaccountFullscreen() {
+            document.getElementById('bankaccountFullscreenModal').classList.add('active');
+            renderBankaccountList();
+        }
+
+        // 계좌번호 전체화면 닫기
+        function closeBankaccountFullscreen() {
+            document.getElementById('bankaccountFullscreenModal').classList.remove('active');
+        }
+
+        // 계좌번호 리스트 렌더링
+        function renderBankaccountList() {
+            const container = document.getElementById('bankaccountListContainer');
+            
+            if (!data.bankaccounts) data.bankaccounts = [];
+            
+            if (data.bankaccounts.length === 0) {
+                container.innerHTML = `
+                    <div class="bankaccount-empty-state">
+                        <i class="fas fa-university"></i>
+                        <p>아직 등록된 계좌가 없습니다.<br>새로운 계좌를 추가해보세요!</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = data.bankaccounts.map(account => `
+                    <div class="bankaccount-card" onclick="openBankaccountDetail(${account.id})">
+                        <div class="bankaccount-card-header">
+                            <div class="bankaccount-card-title">
+                                <i class="fas fa-credit-card"></i>
+                                ${escapeHtml(account.owner)}
+                            </div>
+                            <span class="bankaccount-card-bank">${escapeHtml(account.bank)}</span>
+                        </div>
+                        <div class="bankaccount-card-info">
+                            <p><i class="fas fa-hashtag"></i> ${escapeHtml(account.accountNumber)}</p>
+                            ${account.memo ? `<p><i class="fas fa-sticky-note"></i> ${escapeHtml(account.memo.substring(0, 30))}${account.memo.length > 30 ? '...' : ''}</p>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 계좌번호 상세보기 열기
+        function openBankaccountDetail(id) {
+            const account = data.bankaccounts.find(a => a.id === id);
+            if (!account) return;
+            
+            currentBankaccountId = id;
+            const content = document.getElementById('bankaccountDetailContent');
+            
+            content.innerHTML = `
+                <h2 class="bankaccount-detail-title">
+                    <i class="fas fa-credit-card"></i>
+                    ${escapeHtml(account.owner)}
+                </h2>
+                <div class="bankaccount-detail-bank">${escapeHtml(account.bank)}</div>
+                <div class="bankaccount-detail-info-card">
+                    <div class="bankaccount-detail-info-item">
+                        <i class="fas fa-university"></i>
+                        <div class="info-content">
+                            <div class="info-label">은행</div>
+                            <div class="info-value">${escapeHtml(account.bank)}</div>
+                        </div>
+                    </div>
+                    <div class="bankaccount-detail-info-item">
+                        <i class="fas fa-hashtag"></i>
+                        <div class="info-content">
+                            <div class="info-label">계좌번호</div>
+                            <div class="info-value account-number">${escapeHtml(account.accountNumber)}</div>
+                        </div>
+                        <button class="copy-account-btn" onclick="copyAccountNumber(event, '${escapeHtml(account.accountNumber)}')">
+                            <i class="fas fa-copy"></i>복사
+                        </button>
+                    </div>
+                    <div class="bankaccount-detail-info-item">
+                        <i class="fas fa-user"></i>
+                        <div class="info-content">
+                            <div class="info-label">소유자</div>
+                            <div class="info-value">${escapeHtml(account.owner)}</div>
+                        </div>
+                    </div>
+                    <div class="bankaccount-detail-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="info-content">
+                            <div class="info-label">등록일</div>
+                            <div class="info-value">${account.createdAt}</div>
+                        </div>
+                    </div>
+                </div>
+                ${account.memo ? `
+                <div class="bankaccount-detail-memo-card">
+                    <h4><i class="fas fa-sticky-note"></i> 메모</h4>
+                    <p>${escapeHtml(account.memo)}</p>
+                </div>
+                ` : ''}
+                <div class="bankaccount-detail-warning">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>계좌 정보를 안전하게 보관하세요. 비밀번호나 보안카드 정보는 저장하지 마세요.</span>
+                </div>
+            `;
+            
+            document.getElementById('bankaccountDetailModal').classList.add('active');
+        }
+
+        // 계좌번호 복사 함수
+        function copyAccountNumber(event, accountNumber) {
+            event.stopPropagation();
+            navigator.clipboard.writeText(accountNumber).then(() => {
+                showToast('계좌번호가 복사되었습니다!');
+            }).catch(err => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = accountNumber;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('계좌번호가 복사되었습니다!');
+            });
+        }
+
+        // 계좌번호 상세보기 닫기
+        function closeBankaccountDetail() {
+            document.getElementById('bankaccountDetailModal').classList.remove('active');
+            currentBankaccountId = null;
+        }
+
+        // 계좌번호 폼 열기
+        function openBankaccountForm(account = null) {
+            const modal = document.getElementById('bankaccountFormModal');
+            const title = document.getElementById('bankaccountFormTitle');
+            const submitBtn = document.getElementById('bankaccountSubmitBtn');
+            
+            if (account) {
+                // 수정 모드
+                title.textContent = '계좌 수정';
+                submitBtn.textContent = '계좌 수정하기';
+                document.getElementById('editBankaccountId').value = account.id;
+                document.getElementById('newBankaccountBank').value = account.bank;
+                document.getElementById('newBankaccountNumber').value = account.accountNumber;
+                document.getElementById('newBankaccountOwner').value = account.owner;
+                document.getElementById('newBankaccountMemo').value = account.memo || '';
+            } else {
+                // 추가 모드
+                title.textContent = '새 계좌 추가';
+                submitBtn.textContent = '계좌 추가하기';
+                document.getElementById('newBankaccountForm').reset();
+                document.getElementById('editBankaccountId').value = '';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        // 계좌번호 폼 닫기
+        function closeBankaccountForm() {
+            document.getElementById('bankaccountFormModal').classList.remove('active');
+        }
+
+        // 계좌번호 폼 제출
+        function submitBankaccountForm(e) {
+            e.preventDefault();
+            
+            const editId = document.getElementById('editBankaccountId').value;
+            const accountData = {
+                bank: document.getElementById('newBankaccountBank').value,
+                accountNumber: document.getElementById('newBankaccountNumber').value,
+                owner: document.getElementById('newBankaccountOwner').value,
+                memo: document.getElementById('newBankaccountMemo').value
+            };
+            
+            if (!data.bankaccounts) data.bankaccounts = [];
+            
+            if (editId) {
+                // 수정
+                const index = data.bankaccounts.findIndex(a => a.id === parseInt(editId));
+                if (index !== -1) {
+                    data.bankaccounts[index] = {
+                        ...data.bankaccounts[index],
+                        ...accountData
+                    };
+                    showToast('계좌가 수정되었습니다!');
+                }
+            } else {
+                // 추가
+                const account = {
+                    id: Date.now(),
+                    ...accountData,
+                    createdAt: new Date().toLocaleDateString('ko-KR')
+                };
+                data.bankaccounts.unshift(account);
+                showToast('계좌가 추가되었습니다!');
+            }
+            
+            saveData('bankaccounts');
+            renderBankaccountList();
+            closeBankaccountForm();
+            
+            if (editId) {
+                closeBankaccountDetail();
+            }
+        }
+
+        // 현재 계좌 수정
+        function editCurrentBankaccount() {
+            const account = data.bankaccounts.find(a => a.id === currentBankaccountId);
+            if (account) {
+                openBankaccountForm(account);
+            }
+        }
+
+        // 현재 계좌 삭제
+        function deleteCurrentBankaccount() {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                data.bankaccounts = data.bankaccounts.filter(a => a.id !== currentBankaccountId);
+                saveData('bankaccounts');
+                closeBankaccountDetail();
+                renderBankaccountList();
                 showToast('삭제되었습니다.');
             }
         }
@@ -8461,6 +9308,7 @@
                     restaurants: data.restaurants,
                     hospitals: data.hospitals,
                     sitemanages: data.sitemanages,
+                    bankaccounts: data.bankaccounts,
                     ideas: data.ideas,
                     goals: data.goals,
                     readings: data.readings,
@@ -8561,6 +9409,10 @@
                     if (bd.sitemanages) {
                         data.sitemanages = bd.sitemanages;
                         localStorage.setItem('sitemanages', JSON.stringify(bd.sitemanages));
+                    }
+                    if (bd.bankaccounts) {
+                        data.bankaccounts = bd.bankaccounts;
+                        localStorage.setItem('bankaccounts', JSON.stringify(bd.bankaccounts));
                     }
                     if (bd.goals) {
                         data.goals = bd.goals;
