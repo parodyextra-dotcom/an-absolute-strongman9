@@ -207,6 +207,265 @@
             display: none;
         }
 
+        /* 메뉴 관리 버튼 스타일 */
+        .menu-manage-btn {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-manage-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* 메뉴 관리 모달 스타일 */
+        .menu-manage-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .menu-manage-modal-overlay.active {
+            display: flex;
+        }
+
+        .menu-manage-modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 450px;
+            max-height: 80vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-manage-modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .menu-manage-modal-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-manage-modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-manage-modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .menu-manage-modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .menu-manage-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .menu-manage-tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f0f1f3;
+            color: #666;
+        }
+
+        .menu-manage-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .menu-manage-tab:hover:not(.active) {
+            background: #e0e1e3;
+        }
+
+        .menu-manage-section {
+            display: none;
+        }
+
+        .menu-manage-section.active {
+            display: block;
+        }
+
+        .menu-manage-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu-manage-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-manage-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+
+        .menu-manage-item:hover {
+            background: #f0f1f3;
+        }
+
+        .menu-manage-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .menu-manage-item-info {
+            flex: 1;
+        }
+
+        .menu-manage-item-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .menu-manage-item-category {
+            font-size: 11px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .menu-manage-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .menu-manage-action-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-manage-action-btn.hide {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .menu-manage-action-btn.hide:hover {
+            background: #ffeaa7;
+        }
+
+        .menu-manage-action-btn.show {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .menu-manage-action-btn.show:hover {
+            background: #c3e6cb;
+        }
+
+        .menu-manage-action-btn.delete {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .menu-manage-action-btn.delete:hover {
+            background: #f5c6cb;
+        }
+
+        .menu-manage-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .menu-manage-empty i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .menu-manage-empty p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* 숨겨진 메뉴 아이템 스타일 */
+        .grid-item.hidden-menu {
+            display: none !important;
+        }
+
         .header h1 {
             font-size: 28px;
             font-weight: 700;
@@ -5736,6 +5995,359 @@
         .custom-gradient-9 { background: linear-gradient(135deg, #667db6 0%, #0082c8 100%); }
         .custom-gradient-10 { background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%); }
 
+        /* 입력 항목 설정 스타일 */
+        .field-settings-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .field-setting-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 14px;
+            transition: all 0.2s;
+        }
+
+        .field-setting-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .field-setting-item.required {
+            border-color: rgba(102, 126, 234, 0.4);
+            background: rgba(102, 126, 234, 0.15);
+        }
+
+        .field-setting-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .field-checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .field-checkbox-wrapper input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .field-checkbox-wrapper input[type="checkbox"]:disabled {
+            opacity: 0.8;
+        }
+
+        .field-required-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .field-optional-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .field-type-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .field-detail-settings {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .field-name-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .field-name-input:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .field-name-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .field-sub-options {
+            margin-top: 10px;
+        }
+
+        .sub-options-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .field-options-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .field-options-input:focus {
+            outline: none;
+            border-color: rgba(102, 126, 234, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .field-options-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* 커스텀 카테고리 전용 메모 폼 스타일 */
+        .custom-memo-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            z-index: 3000;
+            flex-direction: column;
+        }
+
+        .custom-memo-form-modal.active {
+            display: flex;
+        }
+
+        .custom-memo-form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        .custom-memo-form-header h2 {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .custom-memo-form-header .header-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .custom-memo-form-header .cancel-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .custom-memo-form-header .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-memo-form-header .save-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .custom-memo-form-header .save-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .custom-memo-form-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .custom-form-group {
+            margin-bottom: 20px;
+        }
+
+        .custom-form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .custom-form-group label .required-mark {
+            color: #ff6b6b;
+            margin-left: 4px;
+        }
+
+        .custom-form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .custom-form-input:focus {
+            outline: none;
+            border-color: var(--theme-color, rgba(102, 126, 234, 0.6));
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .custom-form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .custom-form-select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='rgba(255,255,255,0.6)' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 24px;
+            transition: all 0.2s;
+        }
+
+        .custom-form-select:focus {
+            outline: none;
+            border-color: var(--theme-color, rgba(102, 126, 234, 0.6));
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .custom-form-select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .custom-form-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: all 0.2s;
+        }
+
+        .custom-form-textarea:focus {
+            outline: none;
+            border-color: var(--theme-color, rgba(102, 126, 234, 0.6));
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .custom-form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* 테마 색상 클래스 */
+        .theme-color-1 { --theme-color: #667eea; --theme-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .theme-color-2 { --theme-color: #f093fb; --theme-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .theme-color-3 { --theme-color: #4facfe; --theme-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .theme-color-4 { --theme-color: #fa709a; --theme-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .theme-color-5 { --theme-color: #f9d423; --theme-gradient: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%); }
+        .theme-color-6 { --theme-color: #a8edea; --theme-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .theme-color-7 { --theme-color: #a18cd1; --theme-gradient: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .theme-color-8 { --theme-color: #11998e; --theme-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .theme-color-9 { --theme-color: #667db6; --theme-gradient: linear-gradient(135deg, #667db6 0%, #0082c8 100%); }
+        .theme-color-10 { --theme-color: #ff5f6d; --theme-gradient: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%); }
+
+        .custom-memo-form-modal .save-btn {
+            background: var(--theme-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+        }
+
+        .custom-form-input:focus,
+        .custom-form-select:focus,
+        .custom-form-textarea:focus {
+            border-color: var(--theme-color, #667eea);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+
+        /* 메모 상세보기 필드 아이템 스타일 */
+        .memo-field-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .memo-field-item:last-child {
+            border-bottom: none;
+        }
+
+        .memo-field-item .field-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .memo-field-item .field-value {
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
         /* 스크롤바 스타일 */
         .memo-list-container::-webkit-scrollbar,
         .memo-detail-content::-webkit-scrollbar,
@@ -6378,6 +6990,9 @@
 <body>
     <div class="container">
         <header class="header">
+            <button class="menu-manage-btn" onclick="openMenuManageModal()" title="메뉴 관리">
+                <i class="fas fa-cog"></i>
+            </button>
             <button class="backup-btn" onclick="openBackupModal()" title="데이터 백업/복원">
                 <i class="fas fa-cloud"></i>
             </button>
@@ -6386,84 +7001,84 @@
         </header>
 
         <div class="grid-container">
-            <div class="grid-item" onclick="openModal('memo')">
+            <div class="grid-item" data-menu-id="memo" onclick="openModal('memo')">
                 <div class="icon-box memo-general">
                     <i class="fas fa-sticky-note"></i>
                 </div>
                 <span>일반<br>메모</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('todo')">
+            <div class="grid-item" data-menu-id="todo" onclick="openModal('todo')">
                 <div class="icon-box todo-list">
                     <i class="fas fa-check-square"></i>
                 </div>
                 <span>할일<br>목록</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('schedule')">
+            <div class="grid-item" data-menu-id="schedule" onclick="openModal('schedule')">
                 <div class="icon-box schedule">
                     <i class="fas fa-calendar-alt"></i>
                 </div>
                 <span>일정<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('travel')">
+            <div class="grid-item" data-menu-id="travel" onclick="openModal('travel')">
                 <div class="icon-box travel">
                     <i class="fas fa-plane"></i>
                 </div>
                 <span>여행<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('restaurant')">
+            <div class="grid-item" data-menu-id="restaurant" onclick="openModal('restaurant')">
                 <div class="icon-box restaurant">
                     <i class="fas fa-utensils"></i>
                 </div>
                 <span>맛집<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('hospital')">
+            <div class="grid-item" data-menu-id="hospital" onclick="openModal('hospital')">
                 <div class="icon-box hospital">
                     <i class="fas fa-hospital"></i>
                 </div>
                 <span>병원<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('sitemanage')">
+            <div class="grid-item" data-menu-id="sitemanage" onclick="openModal('sitemanage')">
                 <div class="icon-box sitemanage">
                     <i class="fas fa-globe"></i>
                 </div>
                 <span>사이트<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('bankaccount')">
+            <div class="grid-item" data-menu-id="bankaccount" onclick="openModal('bankaccount')">
                 <div class="icon-box bankaccount">
                     <i class="fas fa-university"></i>
                 </div>
                 <span>계좌번호<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('culture')">
+            <div class="grid-item" data-menu-id="culture" onclick="openModal('culture')">
                 <div class="icon-box culture">
                     <i class="fas fa-theater-masks"></i>
                 </div>
                 <span>문화<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('people')">
+            <div class="grid-item" data-menu-id="people" onclick="openModal('people')">
                 <div class="icon-box people">
                     <i class="fas fa-users"></i>
                 </div>
                 <span>사람<br>관리</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('finance')">
+            <div class="grid-item" data-menu-id="finance" onclick="openModal('finance')">
                 <div class="icon-box finance">
                     <i class="fas fa-wallet"></i>
                 </div>
                 <span>가계부</span>
             </div>
 
-            <div class="grid-item" onclick="openModal('diary')">
+            <div class="grid-item" data-menu-id="diary" onclick="openModal('diary')">
                 <div class="icon-box diary">
                     <i class="fas fa-feather-alt"></i>
                 </div>
@@ -6695,6 +7310,44 @@
         </div>
     </div>
 
+    <!-- 메뉴 관리 모달 -->
+    <div class="menu-manage-modal-overlay" id="menuManageModal">
+        <div class="menu-manage-modal">
+            <div class="menu-manage-modal-header">
+                <h2><i class="fas fa-cog"></i> 메뉴 관리</h2>
+                <button class="menu-manage-modal-close" onclick="closeMenuManageModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="menu-manage-modal-body">
+                <div class="menu-manage-tabs">
+                    <button class="menu-manage-tab active" onclick="switchMenuManageTab('visible')" id="visibleMenuTab">
+                        <i class="fas fa-eye"></i> 표시 중
+                    </button>
+                    <button class="menu-manage-tab" onclick="switchMenuManageTab('hidden')" id="hiddenMenuTab">
+                        <i class="fas fa-eye-slash"></i> 숨김
+                    </button>
+                </div>
+                
+                <!-- 표시 중인 메뉴 -->
+                <div class="menu-manage-section active" id="visibleMenuSection">
+                    <div class="menu-manage-section-title">홈 화면에 표시 중인 메뉴</div>
+                    <div class="menu-manage-list" id="visibleMenuList">
+                        <!-- 동적으로 채워짐 -->
+                    </div>
+                </div>
+                
+                <!-- 숨긴 메뉴 -->
+                <div class="menu-manage-section" id="hiddenMenuSection">
+                    <div class="menu-manage-section-title">숨긴 메뉴 (클릭하여 복원)</div>
+                    <div class="menu-manage-list" id="hiddenMenuList">
+                        <!-- 동적으로 채워짐 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 메뉴 추가 모달 -->
     <div class="category-modal-overlay" id="categoryModal">
         <div class="category-modal">
@@ -6734,6 +7387,84 @@
                     <label><i class="fas fa-palette"></i> 색상 선택</label>
                     <div class="color-selector-grid" id="colorSelectorGrid">
                         <!-- 색상들이 여기에 동적으로 추가됨 -->
+                    </div>
+                </div>
+
+                <!-- 입력 항목 설정 -->
+                <div class="category-form-group">
+                    <label><i class="fas fa-list-alt"></i> 입력 항목 설정</label>
+                    <div class="field-settings-container" id="fieldSettingsContainer">
+                        <!-- 항목1: 이름 또는 제목 (필수) -->
+                        <div class="field-setting-item required">
+                            <div class="field-setting-header">
+                                <div class="field-checkbox-wrapper">
+                                    <input type="checkbox" id="field1Enabled" checked disabled>
+                                    <span class="field-required-badge">필수</span>
+                                </div>
+                                <span class="field-type-label">이름 또는 제목</span>
+                            </div>
+                            <input type="text" id="field1Name" class="field-name-input" placeholder="항목 이름 (예: 이름, 제목)" value="이름/제목" maxlength="20">
+                        </div>
+
+                        <!-- 항목2: 카테고리 선택 -->
+                        <div class="field-setting-item">
+                            <div class="field-setting-header">
+                                <div class="field-checkbox-wrapper">
+                                    <input type="checkbox" id="field2Enabled" onchange="toggleFieldSetting(2)">
+                                    <span class="field-optional-badge">선택</span>
+                                </div>
+                                <span class="field-type-label">카테고리 선택</span>
+                            </div>
+                            <div class="field-detail-settings" id="field2Details" style="display: none;">
+                                <input type="text" id="field2Name" class="field-name-input" placeholder="항목 이름 (예: 카테고리, 분류)" value="카테고리" maxlength="20">
+                                <div class="field-sub-options">
+                                    <label class="sub-options-label"><i class="fas fa-tags"></i> 선택 옵션 (쉼표로 구분)</label>
+                                    <input type="text" id="field2Options" class="field-options-input" placeholder="옵션1, 옵션2, 옵션3, 옵션4, 옵션5">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 항목3: 날짜 선택 -->
+                        <div class="field-setting-item">
+                            <div class="field-setting-header">
+                                <div class="field-checkbox-wrapper">
+                                    <input type="checkbox" id="field3Enabled" onchange="toggleFieldSetting(3)">
+                                    <span class="field-optional-badge">선택</span>
+                                </div>
+                                <span class="field-type-label">날짜 선택</span>
+                            </div>
+                            <div class="field-detail-settings" id="field3Details" style="display: none;">
+                                <input type="text" id="field3Name" class="field-name-input" placeholder="항목 이름 (예: 날짜, 기간)" value="날짜" maxlength="20">
+                            </div>
+                        </div>
+
+                        <!-- 항목4: 이름 또는 제목 (추가) -->
+                        <div class="field-setting-item">
+                            <div class="field-setting-header">
+                                <div class="field-checkbox-wrapper">
+                                    <input type="checkbox" id="field4Enabled" onchange="toggleFieldSetting(4)">
+                                    <span class="field-optional-badge">선택</span>
+                                </div>
+                                <span class="field-type-label">이름 또는 제목 (추가)</span>
+                            </div>
+                            <div class="field-detail-settings" id="field4Details" style="display: none;">
+                                <input type="text" id="field4Name" class="field-name-input" placeholder="항목 이름 (예: 부제목, 담당자)" value="부제목" maxlength="20">
+                            </div>
+                        </div>
+
+                        <!-- 항목5: 특이사항 -->
+                        <div class="field-setting-item">
+                            <div class="field-setting-header">
+                                <div class="field-checkbox-wrapper">
+                                    <input type="checkbox" id="field5Enabled" onchange="toggleFieldSetting(5)">
+                                    <span class="field-optional-badge">선택</span>
+                                </div>
+                                <span class="field-type-label">특이사항 (메모)</span>
+                            </div>
+                            <div class="field-detail-settings" id="field5Details" style="display: none;">
+                                <input type="text" id="field5Name" class="field-name-input" placeholder="항목 이름 (예: 메모, 비고)" value="특이사항" maxlength="20">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -7286,7 +8017,7 @@
         <div class="memo-list-container" id="memoListContainer">
             <!-- 날짜별 그룹화된 메모 리스트가 여기에 렌더링됨 -->
         </div>
-        <button class="memo-fab" onclick="openMemoForm()">
+        <button class="memo-fab" onclick="handleMemoFabClick()">
             <i class="fas fa-plus"></i>
         </button>
     </div>
@@ -7356,6 +8087,20 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- 커스텀 카테고리 메모 추가/수정 폼 모달 -->
+    <div class="custom-memo-form-modal" id="customMemoFormModal">
+        <div class="custom-memo-form-header">
+            <h2 id="customMemoFormTitle"><i class="fas fa-star"></i> 새 항목</h2>
+            <div class="header-btns">
+                <button class="cancel-btn" onclick="closeCustomMemoForm()">취소</button>
+                <button class="save-btn" onclick="saveCustomMemoForm()">저장</button>
+            </div>
+        </div>
+        <div class="custom-memo-form-body" id="customMemoFormBody">
+            <!-- 동적으로 폼 필드가 생성됨 -->
         </div>
     </div>
 
@@ -9703,6 +10448,17 @@
             currentCustomCategoryId = null;
         }
 
+        // 메모 FAB 버튼 클릭 핸들러
+        function handleMemoFabClick() {
+            if (currentCustomCategoryId) {
+                // 커스텀 카테고리인 경우 새 폼 열기
+                openCustomMemoForm();
+            } else {
+                // 일반 메모인 경우 기존 폼 열기
+                openMemoForm();
+            }
+        }
+
         // 메모 추가 폼 열기
         function openMemoForm(memo = null) {
             const modal = document.getElementById('memoFormModal');
@@ -10032,12 +10788,16 @@
             let memo;
             if (currentCustomCategoryId !== null) {
                 memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === currentMemoId);
+                if (memo) {
+                    document.getElementById('memoDetailModal').classList.remove('active');
+                    openCustomMemoForm(memo);
+                }
             } else {
                 memo = data.memos.find(m => m.id === currentMemoId);
-            }
-            if (memo) {
-                closeMemoDetail();
-                openMemoForm(memo);
+                if (memo) {
+                    closeMemoDetail();
+                    openMemoForm(memo);
+                }
             }
         }
 
@@ -10664,6 +11424,7 @@
             updateCategoryPreview();
             updateIconSelection();
             updateColorSelection();
+            resetFieldSettings();
         }
 
         // 아이콘 선택기 렌더링
@@ -10733,6 +11494,99 @@
             previewName.textContent = name;
         }
 
+        // 항목 설정 토글
+        function toggleFieldSetting(fieldNum) {
+            const checkbox = document.getElementById(`field${fieldNum}Enabled`);
+            const details = document.getElementById(`field${fieldNum}Details`);
+            
+            if (details) {
+                details.style.display = checkbox.checked ? 'block' : 'none';
+            }
+        }
+
+        // 필드 설정 수집
+        function collectFieldSettings() {
+            const fields = [];
+            
+            // 항목1: 필수 (이름/제목)
+            fields.push({
+                id: 1,
+                enabled: true,
+                type: 'text',
+                name: document.getElementById('field1Name').value.trim() || '이름/제목',
+                required: true
+            });
+            
+            // 항목2: 카테고리 선택
+            if (document.getElementById('field2Enabled').checked) {
+                const optionsStr = document.getElementById('field2Options').value.trim();
+                const options = optionsStr ? optionsStr.split(',').map(o => o.trim()).filter(o => o) : [];
+                fields.push({
+                    id: 2,
+                    enabled: true,
+                    type: 'select',
+                    name: document.getElementById('field2Name').value.trim() || '카테고리',
+                    options: options.length > 0 ? options : ['옵션1', '옵션2', '옵션3']
+                });
+            }
+            
+            // 항목3: 날짜 선택
+            if (document.getElementById('field3Enabled').checked) {
+                fields.push({
+                    id: 3,
+                    enabled: true,
+                    type: 'date',
+                    name: document.getElementById('field3Name').value.trim() || '날짜'
+                });
+            }
+            
+            // 항목4: 이름/제목 (추가)
+            if (document.getElementById('field4Enabled').checked) {
+                fields.push({
+                    id: 4,
+                    enabled: true,
+                    type: 'text',
+                    name: document.getElementById('field4Name').value.trim() || '부제목'
+                });
+            }
+            
+            // 항목5: 특이사항
+            if (document.getElementById('field5Enabled').checked) {
+                fields.push({
+                    id: 5,
+                    enabled: true,
+                    type: 'textarea',
+                    name: document.getElementById('field5Name').value.trim() || '특이사항'
+                });
+            }
+            
+            return fields;
+        }
+
+        // 필드 설정 초기화
+        function resetFieldSettings() {
+            // 체크박스 초기화
+            document.getElementById('field1Enabled').checked = true;
+            document.getElementById('field2Enabled').checked = false;
+            document.getElementById('field3Enabled').checked = false;
+            document.getElementById('field4Enabled').checked = false;
+            document.getElementById('field5Enabled').checked = false;
+            
+            // 이름 초기화
+            document.getElementById('field1Name').value = '이름/제목';
+            document.getElementById('field2Name').value = '카테고리';
+            document.getElementById('field2Options').value = '';
+            document.getElementById('field3Name').value = '날짜';
+            document.getElementById('field4Name').value = '부제목';
+            document.getElementById('field5Name').value = '특이사항';
+            
+            // 상세설정 숨기기
+            for (let i = 2; i <= 5; i++) {
+                const details = document.getElementById(`field${i}Details`);
+                if (details) details.style.display = 'none';
+            }
+        }
+
         // 커스텀 카테고리 추가
         function addCustomCategory() {
             const name = document.getElementById('categoryNameInput').value.trim();
@@ -10747,12 +11601,16 @@
                 return;
             }
 
+            // 필드 설정 수집
+            const fieldSettings = collectFieldSettings();
+
             const category = {
                 id: Date.now(),
                 name: name,
                 icon: selectedIcon,
                 colorId: selectedColor,
-                createdAt: new Date().toLocaleDateString('ko-KR')
+                createdAt: new Date().toLocaleDateString('ko-KR'),
+                fields: fieldSettings
             };
 
             data.customCategories.push(category);
@@ -10830,13 +11688,14 @@
         // 커스텀 카테고리 메모 리스트 렌더링
         function renderCustomCategoryMemoList() {
             const container = document.getElementById('memoListContainer');
+            const category = data.customCategories.find(c => c.id === currentCustomCategoryId);
             const memos = data.customCategoryMemos[currentCustomCategoryId] || [];
 
             if (memos.length === 0) {
                 container.innerHTML = `
                     <div class="memo-empty-state">
                         <i class="fas fa-sticky-note"></i>
-                        <p>아직 등록된 메모가 없습니다.<br>+ 버튼을 눌러 새 메모를 추가해보세요!</p>
+                        <p>아직 등록된 항목이 없습니다.<br>+ 버튼을 눌러 새 항목을 추가해보세요!</p>
                     </div>
                 `;
                 return;
@@ -10874,21 +11733,32 @@
                             </div>
                             <div class="date-info">
                                 <div class="date-text">${displayDate}</div>
-                                <div class="date-count">${count}개의 메모</div>
+                                <div class="date-count">${count}개의 항목</div>
                             </div>
                         </div>
                 `;
 
                 memoList.forEach(memo => {
-                    const preview = memo.content ? memo.content.substring(0, 100) : '(내용 없음)';
+                    // 필드 기반 미리보기 생성
+                    let previewItems = [];
+                    if (category && category.fields) {
+                        category.fields.forEach(field => {
+                            if (field.id > 1 && memo[`field${field.id}`]) {
+                                previewItems.push(`${field.name}: ${memo[`field${field.id}`]}`);
+                            }
+                        });
+                    }
+                    const preview = previewItems.length > 0 ? previewItems.join(' | ') : (memo.content ? memo.content.substring(0, 100) : '');
                     const time = memo.createdTime || '';
-                    const hasImage = memo.image ? true : false;
+                    
+                    // title은 field1 값으로 표시
+                    const displayTitle = memo.field1 || memo.title || '(제목 없음)';
+                    
                     html += `
-                        <div class="memo-list-item" onclick="showMemoDetail(${JSON.stringify({id: memo.id}).replace(/"/g, '&quot;')})">
-                            ${hasImage ? `<img src="${memo.image}" alt="메모 이미지" class="memo-list-item-image">` : ''}
-                            <h4>${escapeHtml(memo.title)}</h4>
-                            <div class="memo-preview">${escapeHtml(preview)}</div>
-                            ${time ? `<div class="memo-time"><i class="fas fa-clock"></i> ${time}${hasImage ? ' · <i class="fas fa-image"></i>' : ''}</div>` : ''}
+                        <div class="memo-list-item" onclick="showCustomMemoDetail(${memo.id})">
+                            <h4>${escapeHtml(displayTitle)}</h4>
+                            ${preview ? `<div class="memo-preview">${escapeHtml(preview)}</div>` : ''}
+                            ${time ? `<div class="memo-time"><i class="fas fa-clock"></i> ${time}</div>` : ''}
                         </div>
                     `;
                 });
@@ -10897,6 +11767,182 @@
             });
 
             container.innerHTML = html;
+        }
+
+        // ========== 커스텀 메모 폼 관련 함수 ==========
+        
+        let customMemoEditId = null;
+
+        // 커스텀 메모 폼 열기
+        function openCustomMemoForm(memo = null) {
+            const category = data.customCategories.find(c => c.id === currentCustomCategoryId);
+            if (!category) return;
+
+            const modal = document.getElementById('customMemoFormModal');
+            const titleEl = document.getElementById('customMemoFormTitle');
+            const bodyEl = document.getElementById('customMemoFormBody');
+            
+            // 테마 색상 적용
+            modal.className = `custom-memo-form-modal theme-color-${category.colorId}`;
+            
+            // 헤더 업데이트
+            titleEl.innerHTML = `<i class="fas ${category.icon}"></i> ${memo ? '항목 수정' : '새 항목'}`;
+            
+            // 폼 필드 생성
+            let formHtml = '';
+            const fields = category.fields || [{id: 1, enabled: true, type: 'text', name: '이름/제목', required: true}];
+            
+            fields.forEach(field => {
+                if (!field.enabled) return;
+                
+                const value = memo ? (memo[`field${field.id}`] || '') : '';
+                const requiredMark = field.required ? '<span class="required-mark">*</span>' : '';
+                const requiredAttr = field.required ? 'required' : '';
+                
+                formHtml += `<div class="custom-form-group">`;
+                formHtml += `<label>${escapeHtml(field.name)}${requiredMark}</label>`;
+                
+                switch (field.type) {
+                    case 'select':
+                        formHtml += `<select id="customField${field.id}" class="custom-form-select" ${requiredAttr}>`;
+                        formHtml += `<option value="">선택하세요</option>`;
+                        (field.options || []).forEach(opt => {
+                            const selected = value === opt ? 'selected' : '';
+                            formHtml += `<option value="${escapeHtml(opt)}" ${selected}>${escapeHtml(opt)}</option>`;
+                        });
+                        formHtml += `</select>`;
+                        break;
+                    case 'date':
+                        formHtml += `<input type="date" id="customField${field.id}" class="custom-form-input" value="${escapeHtml(value)}" ${requiredAttr}>`;
+                        break;
+                    case 'textarea':
+                        formHtml += `<textarea id="customField${field.id}" class="custom-form-textarea" placeholder="${escapeHtml(field.name)}을(를) 입력하세요" ${requiredAttr}>${escapeHtml(value)}</textarea>`;
+                        break;
+                    default: // text
+                        formHtml += `<input type="text" id="customField${field.id}" class="custom-form-input" placeholder="${escapeHtml(field.name)}을(를) 입력하세요" value="${escapeHtml(value)}" ${requiredAttr}>`;
+                }
+                
+                formHtml += `</div>`;
+            });
+            
+            bodyEl.innerHTML = formHtml;
+            
+            // 수정 모드 설정
+            customMemoEditId = memo ? memo.id : null;
+            
+            modal.classList.add('active');
+            
+            // 첫 번째 입력 필드에 포커스
+            const firstInput = bodyEl.querySelector('input, select, textarea');
+            if (firstInput) firstInput.focus();
+        }
+
+        // 커스텀 메모 폼 닫기
+        function closeCustomMemoForm() {
+            document.getElementById('customMemoFormModal').classList.remove('active');
+            customMemoEditId = null;
+        }
+
+        // 커스텀 메모 저장
+        function saveCustomMemoForm() {
+            const category = data.customCategories.find(c => c.id === currentCustomCategoryId);
+            if (!category) return;
+
+            const fields = category.fields || [{id: 1, enabled: true, type: 'text', name: '이름/제목', required: true}];
+            
+            // 데이터 수집
+            const memoData = {};
+            for (const field of fields) {
+                if (!field.enabled) continue;
+                
+                const input = document.getElementById(`customField${field.id}`);
+                if (!input) continue;
+                
+                const value = input.value.trim();
+                
+                // 필수 필드 검증
+                if (field.required && !value) {
+                    showToast(`${field.name}을(를) 입력해주세요`);
+                    input.focus();
+                    return;
+                }
+                
+                memoData[`field${field.id}`] = value;
+            }
+            
+            const now = new Date();
+            
+            if (customMemoEditId) {
+                // 수정 모드
+                const memos = data.customCategoryMemos[currentCustomCategoryId] || [];
+                const memoIndex = memos.findIndex(m => m.id === customMemoEditId);
+                if (memoIndex !== -1) {
+                    Object.assign(memos[memoIndex], memoData);
+                    memos[memoIndex].updatedAt = now.toLocaleDateString('ko-KR');
+                    memos[memoIndex].updatedTime = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+                }
+                showToast('항목이 수정되었습니다');
+            } else {
+                // 추가 모드
+                const newMemo = {
+                    id: Date.now(),
+                    ...memoData,
+                    createdAt: now.toLocaleDateString('ko-KR'),
+                    createdTime: now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+                };
+                
+                if (!data.customCategoryMemos[currentCustomCategoryId]) {
+                    data.customCategoryMemos[currentCustomCategoryId] = [];
+                }
+                data.customCategoryMemos[currentCustomCategoryId].push(newMemo);
+                showToast('새 항목이 추가되었습니다');
+            }
+            
+            // 저장
+            localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+            saveAllToIndexedDB();
+            
+            // 폼 닫고 리스트 업데이트
+            closeCustomMemoForm();
+            renderCustomCategoryMemoList();
+        }
+
+        // 커스텀 메모 상세보기
+        function showCustomMemoDetail(memoId) {
+            const category = data.customCategories.find(c => c.id === currentCustomCategoryId);
+            if (!category) return;
+            
+            const memos = data.customCategoryMemos[currentCustomCategoryId] || [];
+            const memo = memos.find(m => m.id === memoId);
+            if (!memo) return;
+            
+            currentMemoId = memoId;
+            
+            const fields = category.fields || [{id: 1, enabled: true, type: 'text', name: '이름/제목', required: true}];
+            
+            // 상세 내용 생성
+            let detailHtml = '';
+            fields.forEach(field => {
+                if (!field.enabled) return;
+                const value = memo[`field${field.id}`] || '';
+                if (value) {
+                    detailHtml += `<div class="memo-field-item">`;
+                    detailHtml += `<span class="field-label">${escapeHtml(field.name)}</span>`;
+                    detailHtml += `<span class="field-value">${escapeHtml(value)}</span>`;
+                    detailHtml += `</div>`;
+                }
+            });
+            
+            // 상세보기 모달 업데이트
+            const titleEl = document.getElementById('memoDetailTitle');
+            const bodyEl = document.getElementById('memoDetailBody');
+            const dateEl = document.querySelector('#memoDetailDate span');
+            
+            titleEl.textContent = memo.field1 || '(제목 없음)';
+            bodyEl.innerHTML = detailHtml || '<p style="color: rgba(255,255,255,0.5);">내용이 없습니다.</p>';
+            dateEl.textContent = `${memo.createdAt} ${memo.createdTime || ''}`;
+            
+            document.getElementById('memoDetailModal').classList.add('active');
         }
 
         // ========== 백업/복원 기능 ==========
@@ -10942,7 +11988,8 @@
                     finances: data.finances,
                     diaries: data.diaries,
                     customCategories: data.customCategories,
-                    customCategoryMemos: data.customCategoryMemos
+                    customCategoryMemos: data.customCategoryMemos,
+                    hiddenMenus: hiddenMenus
                 }
             };
             
@@ -11068,12 +12115,17 @@
                         data.customCategoryMemos = bd.customCategoryMemos;
                         localStorage.setItem('customCategoryMemos', JSON.stringify(bd.customCategoryMemos));
                     }
+                    if (bd.hiddenMenus) {
+                        hiddenMenus = bd.hiddenMenus;
+                        localStorage.setItem('hiddenMenus', JSON.stringify(bd.hiddenMenus));
+                    }
                     
                     // IndexedDB에도 전체 백업 저장
                     saveAllToIndexedDB();
                     
                     // 화면 갱신
                     renderCustomCategories();
+                    applyMenuVisibility();
                     
                     closeBackupModal();
                     showToast('데이터가 성공적으로 복원되었습니다!');
@@ -11113,7 +12165,7 @@
                 'schedules', 'travels', 'restaurants', 'hospitals',
                 'sitemanages', 'bankaccounts', 'ideas', 'goals',
                 'cultures', 'people', 'finances', 'diaries',
-                'customCategories', 'customCategoryMemos'
+                'customCategories', 'customCategoryMemos', 'hiddenMenus'
             ];
             
             keysToDelete.forEach(key => {
@@ -11139,12 +12191,14 @@
             data.diaries = [];
             data.customCategories = [];
             data.customCategoryMemos = {};
+            hiddenMenus = [];
             
             // IndexedDB도 초기화
             saveAllToIndexedDB();
             
             // 화면 갱신
             renderCustomCategories();
+            applyMenuVisibility();
             
             closeBackupModal();
             showToast('모든 데이터가 삭제되었습니다.');
@@ -12006,6 +13060,285 @@
             renderSelectedDateSchedules();
             showToast('일정이 삭제되었습니다!');
         }
+
+        // =====================================================
+        // 메뉴 관리 기능 (숨김/복원)
+        // =====================================================
+
+        // 기본 메뉴 정의 (id, 이름, 아이콘, 색상 클래스, 카테고리)
+        const defaultMenus = [
+            { id: 'memo', name: '일반 메모', icon: 'fa-sticky-note', colorClass: 'memo-general', category: '기록' },
+            { id: 'todo', name: '할일 목록', icon: 'fa-check-square', colorClass: 'todo-list', category: '일정' },
+            { id: 'schedule', name: '일정 관리', icon: 'fa-calendar-alt', colorClass: 'schedule', category: '일정' },
+            { id: 'travel', name: '여행 관리', icon: 'fa-plane', colorClass: 'travel', category: '생활' },
+            { id: 'restaurant', name: '맛집 관리', icon: 'fa-utensils', colorClass: 'restaurant', category: '생활' },
+            { id: 'hospital', name: '병원 관리', icon: 'fa-hospital', colorClass: 'hospital', category: '건강' },
+            { id: 'sitemanage', name: '사이트 관리', icon: 'fa-globe', colorClass: 'sitemanage', category: '정보' },
+            { id: 'bankaccount', name: '계좌번호 관리', icon: 'fa-university', colorClass: 'bankaccount', category: '금융' },
+            { id: 'culture', name: '문화 관리', icon: 'fa-theater-masks', colorClass: 'culture', category: '취미' },
+            { id: 'people', name: '사람 관리', icon: 'fa-users', colorClass: 'people', category: '관계' },
+            { id: 'finance', name: '가계부', icon: 'fa-wallet', colorClass: 'finance', category: '금융' },
+            { id: 'diary', name: '일기장', icon: 'fa-feather-alt', colorClass: 'diary', category: '기록' }
+        ];
+
+        // 숨긴 메뉴 목록 (localStorage에서 로드)
+        let hiddenMenus = safeJSONParse(localStorage.getItem('hiddenMenus'), []);
+
+        // 메뉴 관리 모달 열기
+        function openMenuManageModal() {
+            document.getElementById('menuManageModal').classList.add('active');
+            switchMenuManageTab('visible');
+            renderMenuManageLists();
+        }
+
+        // 메뉴 관리 모달 닫기
+        function closeMenuManageModal() {
+            document.getElementById('menuManageModal').classList.remove('active');
+        }
+
+        // 탭 전환
+        function switchMenuManageTab(tab) {
+            document.getElementById('visibleMenuTab').classList.toggle('active', tab === 'visible');
+            document.getElementById('hiddenMenuTab').classList.toggle('active', tab === 'hidden');
+            document.getElementById('visibleMenuSection').classList.toggle('active', tab === 'visible');
+            document.getElementById('hiddenMenuSection').classList.toggle('active', tab === 'hidden');
+        }
+
+        // 메뉴 관리 리스트 렌더링
+        function renderMenuManageLists() {
+            renderVisibleMenuList();
+            renderHiddenMenuList();
+        }
+
+        // 표시 중인 메뉴 리스트 렌더링
+        function renderVisibleMenuList() {
+            const container = document.getElementById('visibleMenuList');
+            const visibleMenus = defaultMenus.filter(m => !hiddenMenus.includes(m.id));
+            
+            // 커스텀 카테고리도 포함
+            const customCats = data.customCategories || [];
+            const visibleCustom = customCats.filter(c => !hiddenMenus.includes('custom_' + c.id));
+
+            if (visibleMenus.length === 0 && visibleCustom.length === 0) {
+                container.innerHTML = `
+                    <div class="menu-manage-empty">
+                        <i class="fas fa-eye-slash"></i>
+                        <p>표시 중인 메뉴가 없습니다.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            
+            // 기본 메뉴
+            visibleMenus.forEach(menu => {
+                html += `
+                    <div class="menu-manage-item">
+                        <div class="menu-manage-item-icon ${menu.colorClass}">
+                            <i class="fas ${menu.icon}"></i>
+                        </div>
+                        <div class="menu-manage-item-info">
+                            <div class="menu-manage-item-name">${menu.name}</div>
+                            <div class="menu-manage-item-category">${menu.category}</div>
+                        </div>
+                        <div class="menu-manage-item-actions">
+                            <button class="menu-manage-action-btn hide" onclick="hideMenu('${menu.id}')" title="숨기기">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // 커스텀 카테고리
+            visibleCustom.forEach(cat => {
+                html += `
+                    <div class="menu-manage-item">
+                        <div class="menu-manage-item-icon custom-gradient-${cat.colorId}">
+                            <i class="fas ${cat.icon}"></i>
+                        </div>
+                        <div class="menu-manage-item-info">
+                            <div class="menu-manage-item-name">${escapeHtml(cat.name)}</div>
+                            <div class="menu-manage-item-category">커스텀 메뉴</div>
+                        </div>
+                        <div class="menu-manage-item-actions">
+                            <button class="menu-manage-action-btn hide" onclick="hideMenu('custom_${cat.id}')" title="숨기기">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                            <button class="menu-manage-action-btn delete" onclick="deleteCustomCategoryFromManage(${cat.id})" title="삭제">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 숨긴 메뉴 리스트 렌더링
+        function renderHiddenMenuList() {
+            const container = document.getElementById('hiddenMenuList');
+            
+            // 기본 메뉴 중 숨긴 것
+            const hiddenDefaultMenus = defaultMenus.filter(m => hiddenMenus.includes(m.id));
+            
+            // 커스텀 카테고리 중 숨긴 것
+            const customCats = data.customCategories || [];
+            const hiddenCustom = customCats.filter(c => hiddenMenus.includes('custom_' + c.id));
+
+            if (hiddenDefaultMenus.length === 0 && hiddenCustom.length === 0) {
+                container.innerHTML = `
+                    <div class="menu-manage-empty">
+                        <i class="fas fa-check-circle"></i>
+                        <p>숨긴 메뉴가 없습니다.<br>모든 메뉴가 표시되고 있어요!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            
+            // 기본 메뉴
+            hiddenDefaultMenus.forEach(menu => {
+                html += `
+                    <div class="menu-manage-item">
+                        <div class="menu-manage-item-icon ${menu.colorClass}">
+                            <i class="fas ${menu.icon}"></i>
+                        </div>
+                        <div class="menu-manage-item-info">
+                            <div class="menu-manage-item-name">${menu.name}</div>
+                            <div class="menu-manage-item-category">${menu.category}</div>
+                        </div>
+                        <div class="menu-manage-item-actions">
+                            <button class="menu-manage-action-btn show" onclick="showMenu('${menu.id}')" title="표시하기">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // 커스텀 카테고리
+            hiddenCustom.forEach(cat => {
+                html += `
+                    <div class="menu-manage-item">
+                        <div class="menu-manage-item-icon custom-gradient-${cat.colorId}">
+                            <i class="fas ${cat.icon}"></i>
+                        </div>
+                        <div class="menu-manage-item-info">
+                            <div class="menu-manage-item-name">${escapeHtml(cat.name)}</div>
+                            <div class="menu-manage-item-category">커스텀 메뉴</div>
+                        </div>
+                        <div class="menu-manage-item-actions">
+                            <button class="menu-manage-action-btn show" onclick="showMenu('custom_${cat.id}')" title="표시하기">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="menu-manage-action-btn delete" onclick="deleteCustomCategoryFromManage(${cat.id})" title="삭제">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 메뉴 숨기기
+        function hideMenu(menuId) {
+            if (!hiddenMenus.includes(menuId)) {
+                hiddenMenus.push(menuId);
+                saveHiddenMenus();
+                applyMenuVisibility();
+                renderMenuManageLists();
+                showToast('메뉴가 숨겨졌습니다.');
+            }
+        }
+
+        // 메뉴 표시하기
+        function showMenu(menuId) {
+            hiddenMenus = hiddenMenus.filter(id => id !== menuId);
+            saveHiddenMenus();
+            applyMenuVisibility();
+            renderMenuManageLists();
+            showToast('메뉴가 복원되었습니다.');
+        }
+
+        // 숨긴 메뉴 저장
+        function saveHiddenMenus() {
+            localStorage.setItem('hiddenMenus', JSON.stringify(hiddenMenus));
+            // IndexedDB에도 저장
+            if (db) {
+                saveToIndexedDB('hiddenMenus', hiddenMenus);
+            }
+        }
+
+        // 메뉴 가시성 적용 (홈화면)
+        function applyMenuVisibility() {
+            // 기본 메뉴들 숨김/표시 적용
+            defaultMenus.forEach(menu => {
+                const gridItem = document.querySelector(`.grid-item[data-menu-id="${menu.id}"]`);
+                if (gridItem) {
+                    if (hiddenMenus.includes(menu.id)) {
+                        gridItem.classList.add('hidden-menu');
+                    } else {
+                        gridItem.classList.remove('hidden-menu');
+                    }
+                }
+            });
+
+            // 커스텀 카테고리 숨김/표시 적용
+            const customCats = data.customCategories || [];
+            customCats.forEach(cat => {
+                const wrapper = document.querySelector(`.custom-category-wrapper[data-category-id="${cat.id}"]`);
+                if (wrapper) {
+                    if (hiddenMenus.includes('custom_' + cat.id)) {
+                        wrapper.classList.add('hidden-menu');
+                    } else {
+                        wrapper.classList.remove('hidden-menu');
+                    }
+                }
+            });
+        }
+
+        // 메뉴 관리에서 커스텀 카테고리 삭제
+        function deleteCustomCategoryFromManage(id) {
+            const category = data.customCategories.find(c => c.id === id);
+            if (!category) return;
+
+            if (confirm(`'${category.name}' 메뉴를 완전히 삭제하시겠습니까?\n(해당 메뉴의 메모도 모두 삭제됩니다)`)) {
+                // 숨긴 메뉴 목록에서도 제거
+                hiddenMenus = hiddenMenus.filter(m => m !== 'custom_' + id);
+                saveHiddenMenus();
+                
+                // 카테고리 및 메모 삭제
+                data.customCategories = data.customCategories.filter(c => c.id !== id);
+                delete data.customCategoryMemos[id];
+                
+                localStorage.setItem('customCategories', JSON.stringify(data.customCategories));
+                localStorage.setItem('customCategoryMemos', JSON.stringify(data.customCategoryMemos));
+                saveAllToIndexedDB();
+
+                renderCustomCategories();
+                renderMenuManageLists();
+                showToast('메뉴가 삭제되었습니다.');
+            }
+        }
+
+        // 페이지 로드 시 메뉴 가시성 적용
+        document.addEventListener('DOMContentLoaded', function() {
+            // 약간의 지연 후 적용 (커스텀 카테고리가 렌더링된 후)
+            setTimeout(applyMenuVisibility, 100);
+        });
+
+        // 커스텀 카테고리 렌더링 후 가시성 재적용
+        const originalRenderCustomCategories = renderCustomCategories;
+        renderCustomCategories = function() {
+            originalRenderCustomCategories();
+            setTimeout(applyMenuVisibility, 50);
+        };
     </script>
 </body>
 </html>
