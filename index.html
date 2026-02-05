@@ -564,15 +564,7 @@
             background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
         }
 
-        /* 가계부 - 블루 */
-        .finance {
-            background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
-        }
 
-        /* 일기장 - 소프트 핑크 */
-        .diary {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        }
 
         .grid-item span {
             color: white;
@@ -6298,17 +6290,87 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* 테마 색상 클래스 */
-        .theme-color-1 { --theme-color: #667eea; --theme-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .theme-color-2 { --theme-color: #f093fb; --theme-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .theme-color-3 { --theme-color: #4facfe; --theme-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .theme-color-4 { --theme-color: #fa709a; --theme-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .theme-color-5 { --theme-color: #f9d423; --theme-gradient: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%); }
-        .theme-color-6 { --theme-color: #a8edea; --theme-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
-        .theme-color-7 { --theme-color: #a18cd1; --theme-gradient: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
-        .theme-color-8 { --theme-color: #11998e; --theme-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-        .theme-color-9 { --theme-color: #667db6; --theme-gradient: linear-gradient(135deg, #667db6 0%, #0082c8 100%); }
-        .theme-color-10 { --theme-color: #ff5f6d; --theme-gradient: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%); }
+        /* 테마 색상 클래스 - 각 색상별 밝은 배경과 어두운 배경 변형 포함 */
+        .theme-color-1 { 
+            --theme-color: #667eea; --theme-color2: #764ba2;
+            --theme-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            --theme-bg-light: linear-gradient(180deg, #eef0fb 0%, #f0eaf8 50%, #f3eff9 100%);
+            --theme-bg-dark: linear-gradient(180deg, #1e1a3a 0%, #1a1640 50%, #1c1248 100%);
+            --theme-header-border: rgba(102, 126, 234, 0.2);
+            --theme-header-shadow: rgba(102, 126, 234, 0.1);
+        }
+        .theme-color-2 { 
+            --theme-color: #f093fb; --theme-color2: #f5576c;
+            --theme-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); 
+            --theme-bg-light: linear-gradient(180deg, #fef0fe 0%, #fdeef5 50%, #fff0f3 100%);
+            --theme-bg-dark: linear-gradient(180deg, #3a1a2e 0%, #361630 50%, #301228 100%);
+            --theme-header-border: rgba(240, 147, 251, 0.2);
+            --theme-header-shadow: rgba(240, 147, 251, 0.1);
+        }
+        .theme-color-3 { 
+            --theme-color: #4facfe; --theme-color2: #00f2fe;
+            --theme-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); 
+            --theme-bg-light: linear-gradient(180deg, #edf6ff 0%, #e8fbff 50%, #f0faff 100%);
+            --theme-bg-dark: linear-gradient(180deg, #0f1e30 0%, #0e2535 50%, #0c2a38 100%);
+            --theme-header-border: rgba(79, 172, 254, 0.2);
+            --theme-header-shadow: rgba(79, 172, 254, 0.1);
+        }
+        .theme-color-4 { 
+            --theme-color: #fa709a; --theme-color2: #fee140;
+            --theme-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%); 
+            --theme-bg-light: linear-gradient(180deg, #fff5f7 0%, #fff0e6 50%, #fff5e6 100%);
+            --theme-bg-dark: linear-gradient(180deg, #301820 0%, #302518 50%, #302a10 100%);
+            --theme-header-border: rgba(250, 112, 154, 0.2);
+            --theme-header-shadow: rgba(250, 112, 154, 0.1);
+        }
+        .theme-color-5 { 
+            --theme-color: #f9d423; --theme-color2: #ff4e50;
+            --theme-gradient: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%); 
+            --theme-bg-light: linear-gradient(180deg, #fffbe6 0%, #fff4ea 50%, #fff0ef 100%);
+            --theme-bg-dark: linear-gradient(180deg, #302810 0%, #301e14 50%, #301416 100%);
+            --theme-header-border: rgba(249, 212, 35, 0.2);
+            --theme-header-shadow: rgba(249, 212, 35, 0.1);
+        }
+        .theme-color-6 { 
+            --theme-color: #a8edea; --theme-color2: #fed6e3;
+            --theme-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); 
+            --theme-bg-light: linear-gradient(180deg, #f2fcfb 0%, #fcf5f8 50%, #fdf7f9 100%);
+            --theme-bg-dark: linear-gradient(180deg, #182e2d 0%, #2a2025 50%, #2e2228 100%);
+            --theme-header-border: rgba(168, 237, 234, 0.3);
+            --theme-header-shadow: rgba(168, 237, 234, 0.15);
+        }
+        .theme-color-7 { 
+            --theme-color: #a18cd1; --theme-color2: #fbc2eb;
+            --theme-gradient: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); 
+            --theme-bg-light: linear-gradient(180deg, #f3eff9 0%, #fef4fb 50%, #fdf5fc 100%);
+            --theme-bg-dark: linear-gradient(180deg, #201a30 0%, #2a1828 50%, #2e1a2c 100%);
+            --theme-header-border: rgba(161, 140, 209, 0.2);
+            --theme-header-shadow: rgba(161, 140, 209, 0.1);
+        }
+        .theme-color-8 { 
+            --theme-color: #11998e; --theme-color2: #38ef7d;
+            --theme-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
+            --theme-bg-light: linear-gradient(180deg, #e6f9f5 0%, #ecfbf0 50%, #f0fdf4 100%);
+            --theme-bg-dark: linear-gradient(180deg, #0a201e 0%, #0e2518 50%, #122a1c 100%);
+            --theme-header-border: rgba(17, 153, 142, 0.2);
+            --theme-header-shadow: rgba(17, 153, 142, 0.1);
+        }
+        .theme-color-9 { 
+            --theme-color: #667db6; --theme-color2: #0082c8;
+            --theme-gradient: linear-gradient(135deg, #667db6 0%, #0082c8 100%); 
+            --theme-bg-light: linear-gradient(180deg, #eff2f9 0%, #e8f3fc 50%, #edf5fd 100%);
+            --theme-bg-dark: linear-gradient(180deg, #141828 0%, #0e1e30 50%, #0c2235 100%);
+            --theme-header-border: rgba(102, 125, 182, 0.2);
+            --theme-header-shadow: rgba(102, 125, 182, 0.1);
+        }
+        .theme-color-10 { 
+            --theme-color: #ff5f6d; --theme-color2: #ffc371;
+            --theme-gradient: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%); 
+            --theme-bg-light: linear-gradient(180deg, #fff0f0 0%, #fff6ed 50%, #fff8f0 100%);
+            --theme-bg-dark: linear-gradient(180deg, #301418 0%, #30241a 50%, #302818 100%);
+            --theme-header-border: rgba(255, 95, 109, 0.2);
+            --theme-header-shadow: rgba(255, 95, 109, 0.1);
+        }
 
         .custom-memo-form-modal .save-btn {
             background: var(--theme-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
@@ -6319,6 +6381,99 @@
         .custom-form-textarea:focus {
             border-color: var(--theme-color, #667eea);
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+
+        /* ===== 커스텀 카테고리 테마 색상 동기화 ===== */
+
+        /* 리스트 모달 (memoFullscreenModal) 테마 적용 */
+        .memo-fullscreen-modal.custom-themed {
+            background: var(--theme-bg-dark, linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%));
+        }
+        .memo-fullscreen-modal.custom-themed .memo-modal-header {
+            background: rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid var(--theme-header-border, rgba(255, 255, 255, 0.1));
+            box-shadow: 0 2px 20px var(--theme-header-shadow, transparent);
+        }
+        .memo-fullscreen-modal.custom-themed .memo-modal-header h2 i {
+            background: var(--theme-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .memo-fullscreen-modal.custom-themed .memo-fab {
+            background: var(--theme-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        .memo-fullscreen-modal.custom-themed .memo-fab:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        .memo-fullscreen-modal.custom-themed .date-icon {
+            background: var(--theme-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+        }
+        .memo-fullscreen-modal.custom-themed .memo-list-item {
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .memo-fullscreen-modal.custom-themed .memo-list-item:hover {
+            border-left-color: var(--theme-color, #667eea);
+        }
+        .memo-fullscreen-modal.custom-themed .memo-back-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--theme-header-border, rgba(255,255,255,0.1));
+        }
+        .memo-fullscreen-modal.custom-themed .memo-back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* 상세보기 모달 (memoDetailModal) 테마 적용 */
+        .memo-detail-modal.custom-themed {
+            background: var(--theme-bg-dark, linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%));
+        }
+        .memo-detail-modal.custom-themed .memo-detail-header {
+            background: rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid var(--theme-header-border, rgba(255, 255, 255, 0.1));
+            box-shadow: 0 2px 20px var(--theme-header-shadow, transparent);
+        }
+        .memo-detail-modal.custom-themed .memo-detail-header button {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--theme-header-border, rgba(255,255,255,0.1));
+        }
+        .memo-detail-modal.custom-themed .memo-detail-header button:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .memo-detail-modal.custom-themed .field-label {
+            color: var(--theme-color, rgba(255, 255, 255, 0.6));
+        }
+        .memo-detail-modal.custom-themed .memo-field-item {
+            border-bottom-color: var(--theme-header-border, rgba(255, 255, 255, 0.1));
+        }
+        .memo-detail-modal.custom-themed .memo-detail-content .memo-date i {
+            color: var(--theme-color, rgba(255, 255, 255, 0.5));
+        }
+
+        /* 입력 폼 모달 (customMemoFormModal) 테마 강화 */
+        .custom-memo-form-modal {
+            background: var(--theme-bg-dark, linear-gradient(180deg, #1a1a2e 0%, #16213e 100%)) !important;
+        }
+        .custom-memo-form-modal .custom-memo-form-header {
+            background: rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid var(--theme-header-border, rgba(255, 255, 255, 0.1));
+            box-shadow: 0 2px 20px var(--theme-header-shadow, transparent);
+        }
+        .custom-memo-form-modal .custom-memo-form-header .save-btn {
+            background: var(--theme-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+        }
+        .custom-memo-form-modal .custom-memo-form-header h2 i {
+            background: var(--theme-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .custom-memo-form-modal .custom-form-input:focus,
+        .custom-memo-form-modal .custom-form-select:focus,
+        .custom-memo-form-modal .custom-form-textarea:focus {
+            border-color: var(--theme-color, #667eea);
+            box-shadow: 0 0 0 3px var(--theme-header-shadow, rgba(102, 126, 234, 0.15));
         }
 
         /* 메모 상세보기 필드 아이템 스타일 */
@@ -7069,20 +7224,6 @@
                     <i class="fas fa-users"></i>
                 </div>
                 <span>사람<br>관리</span>
-            </div>
-
-            <div class="grid-item" data-menu-id="finance" onclick="openModal('finance')">
-                <div class="icon-box finance">
-                    <i class="fas fa-wallet"></i>
-                </div>
-                <span>가계부</span>
-            </div>
-
-            <div class="grid-item" data-menu-id="diary" onclick="openModal('diary')">
-                <div class="icon-box diary">
-                    <i class="fas fa-feather-alt"></i>
-                </div>
-                <span>일기장</span>
             </div>
 
             <!-- 커스텀 카테고리가 여기에 추가됨 -->
@@ -10438,13 +10579,20 @@
             const modalHeader = document.querySelector('#memoFullscreenModal .memo-modal-header h2');
             modalHeader.innerHTML = `<i class="fas fa-sticky-note"></i> 일반 메모`;
             
-            document.getElementById('memoFullscreenModal').classList.add('active');
+            // 커스텀 테마 제거 (일반 메모는 기본 색상)
+            const modal = document.getElementById('memoFullscreenModal');
+            modal.className = modal.className.replace(/theme-color-\d+/g, '').replace('custom-themed', '').trim();
+            
+            modal.classList.add('active');
             renderMemoListByDate();
         }
 
         // 전체화면 메모 리스트 닫기
         function closeMemoFullscreen() {
-            document.getElementById('memoFullscreenModal').classList.remove('active');
+            const modal = document.getElementById('memoFullscreenModal');
+            modal.classList.remove('active');
+            // 커스텀 테마 제거
+            modal.className = modal.className.replace(/theme-color-\d+/g, '').replace('custom-themed', '').trim();
             currentCustomCategoryId = null;
         }
 
@@ -10762,7 +10910,11 @@
             }
             
             document.getElementById('memoDetailBody').textContent = memo.content || '(내용 없음)';
-            document.getElementById('memoDetailModal').classList.add('active');
+            
+            // 일반 메모일 때는 커스텀 테마 제거
+            const detailModal = document.getElementById('memoDetailModal');
+            detailModal.className = detailModal.className.replace(/theme-color-\d+/g, '').replace('custom-themed', '').trim();
+            detailModal.classList.add('active');
         }
 
         // 이미지 전체화면 열기
@@ -10778,7 +10930,10 @@
 
         // 메모 상세보기 닫기
         function closeMemoDetail() {
-            document.getElementById('memoDetailModal').classList.remove('active');
+            const detailModal = document.getElementById('memoDetailModal');
+            detailModal.classList.remove('active');
+            // 커스텀 테마 제거
+            detailModal.className = detailModal.className.replace(/theme-color-\d+/g, '').replace('custom-themed', '').trim();
             currentMemoId = null;
         }
 
@@ -11678,8 +11833,14 @@
             const modalHeader = document.querySelector('#memoFullscreenModal .memo-modal-header h2');
             modalHeader.innerHTML = `<i class="fas ${category.icon}"></i> ${escapeHtml(category.name)}`;
             
+            // 테마 색상 적용 (아이콘 색상과 동기화)
+            const modal = document.getElementById('memoFullscreenModal');
+            // 기존 theme-color 클래스 제거
+            modal.className = modal.className.replace(/theme-color-\d+/g, '').replace('custom-themed', '').trim();
+            modal.classList.add('custom-themed', 'theme-color-' + category.colorId);
+            
             // 모달 열기
-            document.getElementById('memoFullscreenModal').classList.add('active');
+            modal.classList.add('active');
             
             // 해당 카테고리 메모 렌더링
             renderCustomCategoryMemoList();
@@ -11942,7 +12103,12 @@
             bodyEl.innerHTML = detailHtml || '<p style="color: rgba(255,255,255,0.5);">내용이 없습니다.</p>';
             dateEl.textContent = `${memo.createdAt} ${memo.createdTime || ''}`;
             
-            document.getElementById('memoDetailModal').classList.add('active');
+            // 테마 색상 적용 (아이콘 색상과 동기화)
+            const detailModal = document.getElementById('memoDetailModal');
+            detailModal.className = detailModal.className.replace(/theme-color-\d+/g, '').replace('custom-themed', '').trim();
+            detailModal.classList.add('custom-themed', 'theme-color-' + category.colorId);
+            
+            detailModal.classList.add('active');
         }
 
         // ========== 백업/복원 기능 ==========
@@ -11985,8 +12151,6 @@
                     goals: data.goals,
                     cultures: data.cultures,
                     people: data.people,
-                    finances: data.finances,
-                    diaries: data.diaries,
                     customCategories: data.customCategories,
                     customCategoryMemos: data.customCategoryMemos,
                     hiddenMenus: hiddenMenus
@@ -12099,14 +12263,6 @@
                         data.people = bd.people;
                         localStorage.setItem('people', JSON.stringify(bd.people));
                     }
-                    if (bd.finances) {
-                        data.finances = bd.finances;
-                        localStorage.setItem('finances', JSON.stringify(bd.finances));
-                    }
-                    if (bd.diaries) {
-                        data.diaries = bd.diaries;
-                        localStorage.setItem('diaries', JSON.stringify(bd.diaries));
-                    }
                     if (bd.customCategories) {
                         data.customCategories = bd.customCategories;
                         localStorage.setItem('customCategories', JSON.stringify(bd.customCategories));
@@ -12164,7 +12320,7 @@
                 'memos', 'todos', 'todoHistory', 'lastTodoDate',
                 'schedules', 'travels', 'restaurants', 'hospitals',
                 'sitemanages', 'bankaccounts', 'ideas', 'goals',
-                'cultures', 'people', 'finances', 'diaries',
+                'cultures', 'people',
                 'customCategories', 'customCategoryMemos', 'hiddenMenus'
             ];
             
@@ -12187,8 +12343,6 @@
             data.goals = [];
             data.cultures = [];
             data.people = [];
-            data.finances = [];
-            data.diaries = [];
             data.customCategories = [];
             data.customCategoryMemos = {};
             hiddenMenus = [];
@@ -13076,9 +13230,7 @@
             { id: 'sitemanage', name: '사이트 관리', icon: 'fa-globe', colorClass: 'sitemanage', category: '정보' },
             { id: 'bankaccount', name: '계좌번호 관리', icon: 'fa-university', colorClass: 'bankaccount', category: '금융' },
             { id: 'culture', name: '문화 관리', icon: 'fa-theater-masks', colorClass: 'culture', category: '취미' },
-            { id: 'people', name: '사람 관리', icon: 'fa-users', colorClass: 'people', category: '관계' },
-            { id: 'finance', name: '가계부', icon: 'fa-wallet', colorClass: 'finance', category: '금융' },
-            { id: 'diary', name: '일기장', icon: 'fa-feather-alt', colorClass: 'diary', category: '기록' }
+            { id: 'people', name: '사람 관리', icon: 'fa-users', colorClass: 'people', category: '관계' }
         ];
 
         // 숨긴 메뉴 목록 (localStorage에서 로드)
