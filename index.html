@@ -7457,11 +7457,11 @@
                         <input type="file" id="peopleImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'people', 'gallery')">
                         <input type="file" id="peopleCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'people', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="peopleImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('people')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="peopleCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('people')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -7554,11 +7554,11 @@
                         <input type="file" id="cultureImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'culture', 'gallery')">
                         <input type="file" id="cultureCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'culture', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="cultureImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('culture')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="cultureCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('culture')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -7966,11 +7966,11 @@
                         <input type="file" id="travelImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'travel', 'gallery')">
                         <input type="file" id="travelCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'travel', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="travelImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('travel')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="travelCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('travel')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -8179,11 +8179,11 @@
                         <input type="file" id="restaurantImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'restaurant', 'gallery')">
                         <input type="file" id="restaurantCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'restaurant', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="restaurantImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('restaurant')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="restaurantCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('restaurant')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -8289,11 +8289,11 @@
                         <input type="file" id="hospitalImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'hospital', 'gallery')">
                         <input type="file" id="hospitalCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'hospital', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="hospitalImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('hospital')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="hospitalCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('hospital')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -8444,14 +8444,10 @@
                 <input type="file" id="memoImageInput" accept="image/*" style="display: none;" onchange="handleMemoImageSelect(event, 'gallery')">
                 <input type="file" id="memoCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleMemoImageSelect(event, 'camera')">
                 <div class="memo-image-buttons">
-                    <label class="memo-image-upload-label gallery-btn" for="memoImageInput">
-                        <i class="fas fa-image"></i>
-                        <span>갤러리</span>
-                    </label>
-                    <label class="memo-image-upload-label camera-btn" for="memoCameraInput">
+                    <button type="button" class="memo-image-upload-label camera-btn" onclick="handleCameraClick()">
                         <i class="fas fa-camera"></i>
                         <span>카메라</span>
-                    </label>
+                    </button>
                 </div>
                 <div class="memo-image-preview-container" id="memoImagePreviewContainer">
                     <img src="" alt="미리보기" class="memo-image-preview" id="memoImagePreview">
