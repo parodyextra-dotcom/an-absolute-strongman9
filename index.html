@@ -7457,11 +7457,11 @@
                         <input type="file" id="peopleImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'people', 'gallery')">
                         <input type="file" id="peopleCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'people', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="peopleImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('people')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="peopleCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('people')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -7554,11 +7554,11 @@
                         <input type="file" id="cultureImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'culture', 'gallery')">
                         <input type="file" id="cultureCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'culture', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="cultureImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('culture')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="cultureCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('culture')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -7966,11 +7966,11 @@
                         <input type="file" id="travelImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'travel', 'gallery')">
                         <input type="file" id="travelCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'travel', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="travelImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('travel')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="travelCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('travel')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -8179,11 +8179,11 @@
                         <input type="file" id="restaurantImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'restaurant', 'gallery')">
                         <input type="file" id="restaurantCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'restaurant', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="restaurantImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('restaurant')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="restaurantCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('restaurant')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -8289,11 +8289,11 @@
                         <input type="file" id="hospitalImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'hospital', 'gallery')">
                         <input type="file" id="hospitalCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'hospital', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="hospitalImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('hospital')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="hospitalCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('hospital')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -8444,11 +8444,11 @@
                 <input type="file" id="memoImageInput" accept="image/*" style="display: none;" onchange="handleMemoImageSelect(event, 'gallery')">
                 <input type="file" id="memoCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleMemoImageSelect(event, 'camera')">
                 <div class="memo-image-buttons">
-                    <label class="memo-image-upload-label gallery-btn" for="memoImageInput">
+                    <label class="memo-image-upload-label gallery-btn" onclick="handleGalleryClick()">
                         <i class="fas fa-image"></i>
                         <span>갤러리</span>
                     </label>
-                    <label class="memo-image-upload-label camera-btn" for="memoCameraInput">
+                    <label class="memo-image-upload-label camera-btn" onclick="handleCameraClick()">
                         <i class="fas fa-camera"></i>
                         <span>카메라</span>
                     </label>
@@ -9011,8 +9011,84 @@
             return false;
         }
 
-        // Flutter에서 카메라/갤러리 이미지 수신 (콜백 함수)
-        window.flutterReceiveImage = function(base64ImageData, source) {
+        // 현재 활성화된 폼 타입 추적 (Flutter에서 이미지 수신 시 사용)
+        window.currentFormType = null;
+        window.currentImageTarget = 'memo'; // 'memo' 또는 다른 폼 타입
+
+        // Flutter에서 폼별 카메라 요청
+        function requestFlutterCameraForForm(formType) {
+            try {
+                window.currentFormType = formType;
+                window.currentImageTarget = formType;
+                
+                const requestData = { 
+                    type: 'camera',
+                    formType: formType,
+                    maxSize: 800,
+                    quality: 80
+                };
+                
+                if (window.flutter_inappwebview) {
+                    window.flutter_inappwebview.callHandler('openCamera', JSON.stringify(requestData));
+                    return true;
+                }
+                if (window.FlutterCameraChannel) {
+                    window.FlutterCameraChannel.postMessage(JSON.stringify(requestData));
+                    return true;
+                }
+                if (window.FlutterChannel) {
+                    window.FlutterChannel.postMessage(JSON.stringify({ 
+                        action: 'openCamera',
+                        formType: formType,
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+            } catch (e) {
+                console.log('Flutter 폼 카메라 요청 실패:', e);
+            }
+            return false;
+        }
+
+        // Flutter에서 폼별 갤러리 요청
+        function requestFlutterGalleryForForm(formType) {
+            try {
+                window.currentFormType = formType;
+                window.currentImageTarget = formType;
+                
+                const requestData = { 
+                    type: 'gallery',
+                    formType: formType,
+                    maxSize: 800,
+                    quality: 80
+                };
+                
+                if (window.flutter_inappwebview) {
+                    window.flutter_inappwebview.callHandler('openGallery', JSON.stringify(requestData));
+                    return true;
+                }
+                if (window.FlutterGalleryChannel) {
+                    window.FlutterGalleryChannel.postMessage(JSON.stringify(requestData));
+                    return true;
+                }
+                if (window.FlutterChannel) {
+                    window.FlutterChannel.postMessage(JSON.stringify({ 
+                        action: 'openGallery',
+                        formType: formType,
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+            } catch (e) {
+                console.log('Flutter 폼 갤러리 요청 실패:', e);
+            }
+            return false;
+        }
+
+        // Flutter에서 카메라/갤러리 이미지 수신 (콜백 함수) - 확장된 버전
+        window.flutterReceiveImage = function(base64ImageData, source, formType) {
             try {
                 // data:image 형식인지 확인, 아니면 추가
                 let imageData = base64ImageData;
@@ -9020,11 +9096,26 @@
                     imageData = 'data:image/jpeg;base64,' + imageData;
                 }
                 
+                // formType이 전달되지 않으면 currentFormType 또는 currentImageTarget 사용
+                const targetFormType = formType || window.currentFormType || window.currentImageTarget || 'memo';
+                
                 // 이미지 리사이징 후 저장
                 resizeImage(imageData, 800, 800, function(resizedImage) {
-                    currentMemoImage = resizedImage;
-                    document.getElementById('memoImagePreview').src = resizedImage;
-                    document.getElementById('memoImagePreviewContainer').classList.add('active');
+                    // 메모 폼인 경우
+                    if (targetFormType === 'memo' || !targetFormType) {
+                        currentMemoImage = resizedImage;
+                        document.getElementById('memoImagePreview').src = resizedImage;
+                        document.getElementById('memoImagePreviewContainer').classList.add('active');
+                    } else {
+                        // 다른 폼 타입 (people, culture, travel, restaurant, hospital 등)
+                        if (typeof currentFormImages !== 'undefined') {
+                            currentFormImages[targetFormType] = resizedImage;
+                        }
+                        const previewEl = document.getElementById(targetFormType + 'ImagePreview');
+                        const containerEl = document.getElementById(targetFormType + 'ImagePreviewContainer');
+                        if (previewEl) previewEl.src = resizedImage;
+                        if (containerEl) containerEl.classList.add('active');
+                    }
                     
                     // 카메라로 찍은 사진이면 앨범에 저장 안내
                     if (source === 'camera') {
@@ -9032,6 +9123,9 @@
                     } else {
                         showToast('🖼️ 이미지가 추가되었습니다');
                     }
+                    
+                    // 폼 타입 초기화
+                    window.currentFormType = null;
                 });
                 
                 return JSON.stringify({ success: true });
@@ -9040,6 +9134,11 @@
                 showToast('이미지 처리 중 오류가 발생했습니다');
                 return JSON.stringify({ success: false, error: e.message });
             }
+        };
+
+        // Flutter WebView에서 폼 이미지 수신을 위한 추가 콜백 (formType 명시)
+        window.flutterReceiveFormImage = function(base64ImageData, source, formType) {
+            return window.flutterReceiveImage(base64ImageData, source, formType);
         };
 
         // Flutter에서 공유 완료 콜백
@@ -10934,10 +11033,13 @@
             titleInput.focus();
         }
 
-        // 갤러리 버튼 클릭 핸들러
+        // 갤러리 버튼 클릭 핸들러 (메모 폼용)
         function handleGalleryClick() {
             // Flutter WebView 환경인지 확인
             if (isFlutterWebView()) {
+                // 메모 폼임을 표시
+                window.currentFormType = 'memo';
+                window.currentImageTarget = 'memo';
                 // Flutter 갤러리 요청 시도
                 if (requestFlutterGallery()) {
                     return; // Flutter에서 처리
@@ -10947,10 +11049,13 @@
             document.getElementById('memoImageInput').click();
         }
 
-        // 카메라 버튼 클릭 핸들러
+        // 카메라 버튼 클릭 핸들러 (메모 폼용)
         function handleCameraClick() {
             // Flutter WebView 환경인지 확인
             if (isFlutterWebView()) {
+                // 메모 폼임을 표시
+                window.currentFormType = 'memo';
+                window.currentImageTarget = 'memo';
                 // Flutter 카메라 요청 시도
                 if (requestFlutterCamera()) {
                     return; // Flutter에서 처리
@@ -13864,7 +13969,143 @@
         document.addEventListener('DOMContentLoaded', function() {
             // 약간의 지연 후 적용 (커스텀 카테고리가 렌더링된 후)
             setTimeout(applyMenuVisibility, 100);
+            
+            // Flutter WebView 카메라 캡처 호환성 개선
+            setupFlutterWebViewCameraCompat();
         });
+
+        // Flutter WebView 카메라 캡처 호환성 설정
+        function setupFlutterWebViewCameraCompat() {
+            if (!isFlutterWebView()) return;
+            
+            console.log('Flutter WebView 카메라 호환성 설정 적용');
+            
+            // 모든 카메라 input에 대해 이벤트 핸들러 강화
+            const cameraInputs = document.querySelectorAll('input[type="file"][capture]');
+            cameraInputs.forEach(input => {
+                // 기존 onchange 외에 추가 리스너 등록
+                input.addEventListener('change', function(e) {
+                    handleFlutterCameraCapture(e, input);
+                }, { capture: true });
+                
+                // blur 이벤트로 캡처 완료 감지 (일부 WebView에서 필요)
+                input.addEventListener('blur', function(e) {
+                    setTimeout(() => {
+                        if (input.files && input.files.length > 0) {
+                            handleFlutterCameraCapture({ target: input }, input);
+                        }
+                    }, 300);
+                });
+            });
+            
+            // 모든 갤러리 input에도 동일 처리
+            const galleryInputs = document.querySelectorAll('input[type="file"]:not([capture])');
+            galleryInputs.forEach(input => {
+                if (input.accept && input.accept.includes('image')) {
+                    input.addEventListener('change', function(e) {
+                        handleFlutterGallerySelect(e, input);
+                    }, { capture: true });
+                }
+            });
+        }
+
+        // Flutter WebView에서 카메라 캡처 처리
+        function handleFlutterCameraCapture(event, input) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            
+            // formType 추출
+            const inputId = input.id;
+            let formType = 'memo';
+            
+            if (inputId.includes('people')) formType = 'people';
+            else if (inputId.includes('culture')) formType = 'culture';
+            else if (inputId.includes('travel')) formType = 'travel';
+            else if (inputId.includes('restaurant')) formType = 'restaurant';
+            else if (inputId.includes('hospital')) formType = 'hospital';
+            else if (inputId.includes('memo')) formType = 'memo';
+            
+            console.log('Flutter 카메라 캡처 처리:', formType, file.name);
+            
+            // 파일을 base64로 변환하여 처리
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                
+                // 이미지 리사이징 후 적용
+                resizeImage(imageData, 800, 800, function(resizedImage) {
+                    applyImageToForm(formType, resizedImage, 'camera');
+                });
+            };
+            reader.onerror = function(e) {
+                console.error('파일 읽기 오류:', e);
+                showToast('이미지를 처리하는 중 오류가 발생했습니다.');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Flutter WebView에서 갤러리 선택 처리
+        function handleFlutterGallerySelect(event, input) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            
+            // formType 추출
+            const inputId = input.id;
+            let formType = 'memo';
+            
+            if (inputId.includes('people')) formType = 'people';
+            else if (inputId.includes('culture')) formType = 'culture';
+            else if (inputId.includes('travel')) formType = 'travel';
+            else if (inputId.includes('restaurant')) formType = 'restaurant';
+            else if (inputId.includes('hospital')) formType = 'hospital';
+            else if (inputId.includes('memo')) formType = 'memo';
+            
+            console.log('Flutter 갤러리 선택 처리:', formType, file.name);
+        }
+
+        // 폼에 이미지 적용
+        function applyImageToForm(formType, imageData, source) {
+            if (formType === 'memo') {
+                currentMemoImage = imageData;
+                const previewEl = document.getElementById('memoImagePreview');
+                const containerEl = document.getElementById('memoImagePreviewContainer');
+                if (previewEl) previewEl.src = imageData;
+                if (containerEl) containerEl.classList.add('active');
+            } else {
+                if (typeof currentFormImages !== 'undefined') {
+                    currentFormImages[formType] = imageData;
+                }
+                const previewEl = document.getElementById(formType + 'ImagePreview');
+                const containerEl = document.getElementById(formType + 'ImagePreviewContainer');
+                if (previewEl) previewEl.src = imageData;
+                if (containerEl) containerEl.classList.add('active');
+            }
+            
+            if (source === 'camera') {
+                showToast('📸 사진이 추가되었습니다');
+            } else {
+                showToast('🖼️ 이미지가 추가되었습니다');
+            }
+        }
+
+        // Flutter에서 직접 이미지 데이터를 설정하는 함수 (Flutter 앱에서 호출 가능)
+        window.setFormImageFromFlutter = function(formType, base64ImageData, source) {
+            try {
+                let imageData = base64ImageData;
+                if (!imageData.startsWith('data:image')) {
+                    imageData = 'data:image/jpeg;base64,' + imageData;
+                }
+                
+                resizeImage(imageData, 800, 800, function(resizedImage) {
+                    applyImageToForm(formType, resizedImage, source || 'camera');
+                });
+                
+                return { success: true };
+            } catch (e) {
+                console.error('Flutter 이미지 설정 오류:', e);
+                return { success: false, error: e.message };
+            }
+        };
 
         // 커스텀 카테고리 렌더링 후 가시성 재적용
         const originalRenderCustomCategories = renderCustomCategories;
