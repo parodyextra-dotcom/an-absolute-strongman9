@@ -1094,6 +1094,26 @@
             color: #ff5f6d;
         }
 
+        /* 복사/공유 버튼 공통 스타일 */
+        .left-actions button[title="복사"],
+        .right-actions button[title="복사"] {
+            color: #4a90d9;
+        }
+        .left-actions button[title="복사"]:hover,
+        .right-actions button[title="복사"]:hover {
+            background: rgba(74, 144, 217, 0.1) !important;
+            color: #3a7fc9 !important;
+        }
+        .left-actions button[title="공유"],
+        .right-actions button[title="공유"] {
+            color: #28a745;
+        }
+        .left-actions button[title="공유"]:hover,
+        .right-actions button[title="공유"]:hover {
+            background: rgba(40, 167, 69, 0.1) !important;
+            color: #1e8a3a !important;
+        }
+
         .travel-detail-content {
             flex: 1;
             overflow-y: auto;
@@ -7387,6 +7407,12 @@
                 </button>
             </div>
             <div class="right-actions">
+                <button onclick="copyDetailContent('people')" title="복사">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button onclick="shareDetailContent('people')" title="공유">
+                    <i class="fas fa-share-alt"></i>
+                </button>
                 <button onclick="editCurrentPeople()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -7504,6 +7530,12 @@
                 </button>
             </div>
             <div class="right-actions">
+                <button onclick="copyDetailContent('culture')" title="복사">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button onclick="shareDetailContent('culture')" title="공유">
+                    <i class="fas fa-share-alt"></i>
+                </button>
                 <button onclick="editCurrentCulture()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -7911,6 +7943,12 @@
                 </button>
             </div>
             <div class="right-actions">
+                <button onclick="copyDetailContent('travel')" title="복사">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button onclick="shareDetailContent('travel')" title="공유">
+                    <i class="fas fa-share-alt"></i>
+                </button>
                 <button onclick="editCurrentTravel()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8013,6 +8051,12 @@
                 </button>
             </div>
             <div class="right-actions">
+                <button onclick="copyDetailContent('bankaccount')" title="복사">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button onclick="shareDetailContent('bankaccount')" title="공유">
+                    <i class="fas fa-share-alt"></i>
+                </button>
                 <button onclick="editCurrentBankaccount()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8111,6 +8155,12 @@
                 </button>
             </div>
             <div class="right-actions">
+                <button onclick="copyDetailContent('restaurant')" title="복사">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button onclick="shareDetailContent('restaurant')" title="공유">
+                    <i class="fas fa-share-alt"></i>
+                </button>
                 <button onclick="editCurrentRestaurant()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8226,6 +8276,12 @@
                 </button>
             </div>
             <div class="right-actions">
+                <button onclick="copyDetailContent('hospital')" title="복사">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button onclick="shareDetailContent('hospital')" title="공유">
+                    <i class="fas fa-share-alt"></i>
+                </button>
                 <button onclick="editCurrentHospital()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8336,6 +8392,12 @@
                 </button>
             </div>
             <div class="right-actions">
+                <button onclick="copyDetailContent('sitemanage')" title="복사">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button onclick="shareDetailContent('sitemanage')" title="공유">
+                    <i class="fas fa-share-alt"></i>
+                </button>
                 <button onclick="editCurrentSitemanage()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8410,6 +8472,12 @@
                 </button>
             </div>
             <div class="right-actions">
+                <button onclick="copyDetailContent('memo')" title="복사">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button onclick="shareDetailContent('memo')" title="공유">
+                    <i class="fas fa-share-alt"></i>
+                </button>
                 <button onclick="editCurrentMemo()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -11772,6 +11840,263 @@
             renderList('restaurant');
             document.getElementById('restaurantForm').reset();
             showToast('맛집이 추가되었습니다!');
+        }
+
+        // =============================================
+        // 상세페이지 복사/공유 기능
+        // =============================================
+        
+        // 상세 내용을 텍스트로 가져오기
+        function getDetailTextContent(type) {
+            let text = '';
+            let imageUrl = null;
+            
+            switch(type) {
+                case 'travel':
+                    if (currentTravelId) {
+                        const travel = data.travels.find(t => t.id === currentTravelId);
+                        if (travel) {
+                            text = `🛫 여행 정보\n\n`;
+                            text += `📍 여행지: ${travel.destination}\n`;
+                            text += `📊 상태: ${travel.status}\n`;
+                            if (travel.period) text += `📅 기간: ${travel.period}\n`;
+                            if (travel.budget) text += `💰 예산: ${travel.budget}\n`;
+                            text += `📆 등록일: ${travel.createdAt}\n`;
+                            if (travel.memo) text += `📝 메모: ${travel.memo}\n`;
+                            imageUrl = travel.image;
+                        }
+                    }
+                    break;
+                    
+                case 'restaurant':
+                    if (currentRestaurantId) {
+                        const restaurant = data.restaurants.find(r => r.id === currentRestaurantId);
+                        if (restaurant) {
+                            text = `🍽️ 맛집 정보\n\n`;
+                            text += `🏪 이름: ${restaurant.name}\n`;
+                            if (restaurant.location) text += `📍 위치: ${restaurant.location}\n`;
+                            if (restaurant.category) text += `🍴 카테고리: ${restaurant.category}\n`;
+                            if (restaurant.rating) text += `⭐ 평점: ${'★'.repeat(restaurant.rating)}${'☆'.repeat(5-restaurant.rating)}\n`;
+                            if (restaurant.menu) text += `🥘 추천메뉴: ${restaurant.menu}\n`;
+                            text += `📆 등록일: ${restaurant.createdAt}\n`;
+                            if (restaurant.memo) text += `📝 메모: ${restaurant.memo}\n`;
+                            imageUrl = restaurant.image;
+                        }
+                    }
+                    break;
+                    
+                case 'people':
+                    if (currentPeopleId) {
+                        const person = data.people.find(p => p.id === currentPeopleId);
+                        if (person) {
+                            text = `👤 인물 정보\n\n`;
+                            text += `📛 이름: ${person.name}\n`;
+                            text += `🔗 관계: ${person.relation}\n`;
+                            if (person.phone) text += `📞 전화: ${person.phone}\n`;
+                            if (person.email) text += `📧 이메일: ${person.email}\n`;
+                            text += `⭐ 중요도: ${person.importance}\n`;
+                            text += `📆 등록일: ${person.createdAt}\n`;
+                            if (person.note) text += `📝 메모: ${person.note}\n`;
+                            imageUrl = person.image;
+                        }
+                    }
+                    break;
+                    
+                case 'culture':
+                    if (currentCultureId) {
+                        const culture = data.cultures.find(c => c.id === currentCultureId);
+                        if (culture) {
+                            text = `🎭 문화 기록\n\n`;
+                            text += `🎬 장르: ${culture.genre}\n`;
+                            text += `📖 제목/대상: ${culture.target}\n`;
+                            text += `📆 등록일: ${culture.createdAt}\n`;
+                            if (culture.content) text += `📝 내용: ${culture.content}\n`;
+                            imageUrl = culture.image;
+                        }
+                    }
+                    break;
+                    
+                case 'bankaccount':
+                    if (currentBankaccountId) {
+                        const account = data.bankaccounts.find(a => a.id === currentBankaccountId);
+                        if (account) {
+                            text = `🏦 계좌 정보\n\n`;
+                            text += `🏛️ 은행: ${account.bank}\n`;
+                            text += `💳 계좌번호: ${account.accountNumber}\n`;
+                            if (account.accountName) text += `📝 계좌명: ${account.accountName}\n`;
+                            if (account.holder) text += `👤 예금주: ${account.holder}\n`;
+                            text += `📆 등록일: ${account.createdAt}\n`;
+                            if (account.memo) text += `📝 메모: ${account.memo}\n`;
+                        }
+                    }
+                    break;
+                    
+                case 'hospital':
+                    if (currentHospitalId) {
+                        const hospital = data.hospitals.find(h => h.id === currentHospitalId);
+                        if (hospital) {
+                            text = `🏥 병원 정보\n\n`;
+                            text += `🏥 병원명: ${hospital.name}\n`;
+                            if (hospital.department) text += `🩺 진료과: ${hospital.department}\n`;
+                            if (hospital.doctor) text += `👨‍⚕️ 담당의: ${hospital.doctor}\n`;
+                            if (hospital.phone) text += `📞 전화: ${hospital.phone}\n`;
+                            if (hospital.address) text += `📍 주소: ${hospital.address}\n`;
+                            text += `📆 등록일: ${hospital.createdAt}\n`;
+                            if (hospital.memo) text += `📝 메모: ${hospital.memo}\n`;
+                            imageUrl = hospital.image;
+                        }
+                    }
+                    break;
+                    
+                case 'sitemanage':
+                    if (currentSitemanageId) {
+                        const site = data.sitemanages.find(s => s.id === currentSitemanageId);
+                        if (site) {
+                            text = `🌐 사이트 정보\n\n`;
+                            text += `📌 사이트명: ${site.name}\n`;
+                            if (site.url) text += `🔗 URL: ${site.url}\n`;
+                            if (site.userId) text += `👤 ID: ${site.userId}\n`;
+                            text += `📆 등록일: ${site.createdAt}\n`;
+                            if (site.memo) text += `📝 메모: ${site.memo}\n`;
+                        }
+                    }
+                    break;
+                    
+                case 'memo':
+                    if (currentMemoId) {
+                        let memo;
+                        if (currentCustomCategoryId !== null) {
+                            memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === currentMemoId);
+                        } else {
+                            memo = data.memos.find(m => m.id === currentMemoId);
+                        }
+                        if (memo) {
+                            text = `📝 메모\n\n`;
+                            text += `📌 제목: ${memo.title}\n`;
+                            text += `📆 작성일: ${memo.createdAt}${memo.createdTime ? ' ' + memo.createdTime : ''}\n`;
+                            if (memo.updatedAt) text += `✏️ 수정일: ${memo.updatedAt}\n`;
+                            if (memo.content) text += `\n${memo.content}\n`;
+                            imageUrl = memo.image;
+                        }
+                    }
+                    break;
+            }
+            
+            return { text, imageUrl };
+        }
+        
+        // 텍스트 복사 기능
+        async function copyDetailContent(type) {
+            const { text } = getDetailTextContent(type);
+            
+            if (!text) {
+                showToast('복사할 내용이 없습니다.');
+                return;
+            }
+            
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast('내용이 클립보드에 복사되었습니다! 📋');
+            } catch (err) {
+                // fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('내용이 클립보드에 복사되었습니다! 📋');
+                } catch (e) {
+                    showToast('복사 실패. 직접 복사해주세요.');
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+        
+        // 공유 기능 (이미지 + 텍스트)
+        async function shareDetailContent(type) {
+            const { text, imageUrl } = getDetailTextContent(type);
+            
+            if (!text) {
+                showToast('공유할 내용이 없습니다.');
+                return;
+            }
+            
+            // Web Share API 지원 여부 확인
+            if (navigator.share) {
+                try {
+                    const shareData = {
+                        title: '절대강자 메모장',
+                        text: text
+                    };
+                    
+                    // 이미지가 있으면 파일로 공유 시도
+                    if (imageUrl && navigator.canShare) {
+                        try {
+                            // base64 이미지인 경우
+                            if (imageUrl.startsWith('data:')) {
+                                const response = await fetch(imageUrl);
+                                const blob = await response.blob();
+                                const file = new File([blob], 'shared-image.jpg', { type: blob.type || 'image/jpeg' });
+                                
+                                if (navigator.canShare({ files: [file] })) {
+                                    shareData.files = [file];
+                                }
+                            } else {
+                                // URL 이미지인 경우 - 이미지 다운로드 시도
+                                try {
+                                    const response = await fetch(imageUrl);
+                                    const blob = await response.blob();
+                                    const file = new File([blob], 'shared-image.jpg', { type: blob.type || 'image/jpeg' });
+                                    
+                                    if (navigator.canShare({ files: [file] })) {
+                                        shareData.files = [file];
+                                    }
+                                } catch (imgErr) {
+                                    console.log('이미지 로드 실패, 텍스트만 공유합니다.');
+                                }
+                            }
+                        } catch (fileErr) {
+                            console.log('파일 공유 불가, 텍스트만 공유합니다.');
+                        }
+                    }
+                    
+                    await navigator.share(shareData);
+                    showToast('공유되었습니다! 🚀');
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        // 사용자가 취소한 것이 아닌 경우
+                        fallbackShare(text, imageUrl);
+                    }
+                }
+            } else {
+                // Web Share API 미지원 브라우저
+                fallbackShare(text, imageUrl);
+            }
+        }
+        
+        // 대체 공유 방법 (클립보드 복사)
+        function fallbackShare(text, imageUrl) {
+            // 텍스트 복사로 대체
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('공유 기능이 지원되지 않아 텍스트를 복사했습니다. 📋');
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('공유 기능이 지원되지 않아 텍스트를 복사했습니다. 📋');
+                } catch (e) {
+                    showToast('공유 실패. 직접 복사해주세요.');
+                }
+                document.body.removeChild(textArea);
+            });
         }
 
         // 메모 추가 (이전 호환성 유지 - 사용하지 않음)
