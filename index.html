@@ -8172,12 +8172,6 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyCurrentMemo()" title="복사">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button onclick="shareCurrentMemo()" title="공유">
-                    <i class="fas fa-share-alt"></i>
-                </button>
                 <button onclick="editCurrentMemo()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8209,13 +8203,8 @@
             <input type="text" class="form-input" id="memoFormTitleInput" placeholder="제목을 입력하세요">
             <textarea class="form-textarea" id="memoFormContentInput" placeholder="내용을 입력하세요..."></textarea>
             <div class="memo-image-upload-section">
-                <input type="file" id="memoImageInput" accept="image/*" style="display: none;" onchange="handleMemoImageSelect(event, 'gallery')">
                 <input type="file" id="memoCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleMemoImageSelect(event, 'camera')">
                 <div class="memo-image-buttons">
-                    <button type="button" class="memo-image-upload-label gallery-btn" onclick="handleGalleryClick()">
-                        <i class="fas fa-images"></i>
-                        <span>갤러리</span>
-                    </button>
                     <button type="button" class="memo-image-upload-label camera-btn" onclick="handleCameraClick()">
                         <i class="fas fa-camera"></i>
                         <span>카메라</span>
@@ -8568,7 +8557,8 @@
                 customCategoryMemos: data.customCategoryMemos,
                 todos: data.todos,
                 todoHistory: data.todoHistory,
-                lastTodoDate: data.lastTodoDate
+                lastTodoDate: data.lastTodoDate,
+                schedules: data.schedules || []
             };
 
             await saveToIndexedDB('allData', allData);
@@ -8855,7 +8845,7 @@
             if (!idbData) return localData;
             
             const merged = {};
-            const keys = ['travels', 'restaurants', 'hospitals', 'sitemanages', 'bankaccounts', 'cultures', 'people', 'memos', 'customCategories', 'todos'];
+            const keys = ['travels', 'restaurants', 'hospitals', 'sitemanages', 'bankaccounts', 'cultures', 'people', 'memos', 'customCategories', 'todos', 'schedules'];
             
             keys.forEach(key => {
                 const localArr = localData[key] || [];
@@ -11442,6 +11432,7 @@
                 localStorage.setItem('todos', JSON.stringify(data.todos));
                 localStorage.setItem('todoHistory', JSON.stringify(data.todoHistory));
                 localStorage.setItem('lastTodoDate', data.lastTodoDate);
+                localStorage.setItem('schedules', JSON.stringify(data.schedules || []));
                 console.log('localStorage에 모든 데이터 저장 완료');
             } catch (e) {
                 console.error('localStorage 저장 오류:', e);
