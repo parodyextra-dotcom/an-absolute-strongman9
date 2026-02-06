@@ -8203,6 +8203,7 @@
             <input type="text" class="form-input" id="memoFormTitleInput" placeholder="제목을 입력하세요">
             <textarea class="form-textarea" id="memoFormContentInput" placeholder="내용을 입력하세요..."></textarea>
             <div class="memo-image-upload-section">
+                <input type="file" id="memoImageInput" accept="image/*" style="display: none;" onchange="handleMemoImageSelect(event, 'gallery')">
                 <input type="file" id="memoCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleMemoImageSelect(event, 'camera')">
                 <div class="memo-image-buttons">
                     <button type="button" class="memo-image-upload-label camera-btn" onclick="handleCameraClick()">
