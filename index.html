@@ -1094,26 +1094,6 @@
             color: #ff5f6d;
         }
 
-        /* 복사/공유 버튼 공통 스타일 */
-        .left-actions button[title="복사"],
-        .right-actions button[title="복사"] {
-            color: #4a90d9;
-        }
-        .left-actions button[title="복사"]:hover,
-        .right-actions button[title="복사"]:hover {
-            background: rgba(74, 144, 217, 0.1) !important;
-            color: #3a7fc9 !important;
-        }
-        .left-actions button[title="공유"],
-        .right-actions button[title="공유"] {
-            color: #28a745;
-        }
-        .left-actions button[title="공유"]:hover,
-        .right-actions button[title="공유"]:hover {
-            background: rgba(40, 167, 69, 0.1) !important;
-            color: #1e8a3a !important;
-        }
-
         .travel-detail-content {
             flex: 1;
             overflow-y: auto;
@@ -6433,6 +6413,80 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
+        /* 커스텀 폼 이미지 섹션 스타일 */
+        .custom-form-image-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .custom-form-image-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .custom-form-image-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .custom-form-image-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--theme-color, rgba(102, 126, 234, 0.6));
+        }
+
+        .custom-form-image-btn i {
+            font-size: 18px;
+        }
+
+        .custom-form-image-preview-container {
+            position: relative;
+            display: none;
+            max-width: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .custom-form-image-preview {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .custom-form-image-remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .custom-form-image-remove-btn:hover {
+            background: rgba(255, 107, 107, 0.8);
+            transform: scale(1.1);
+        }
+
         /* 테마 색상 클래스 - 각 색상별 밝은 배경과 어두운 배경 변형 포함 */
         .theme-color-1 { 
             --theme-color: #667eea; --theme-color2: #764ba2;
@@ -7407,12 +7461,6 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyDetailContent('people')" title="복사">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button onclick="shareDetailContent('people')" title="공유">
-                    <i class="fas fa-share-alt"></i>
-                </button>
                 <button onclick="editCurrentPeople()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -7483,13 +7531,9 @@
                         <input type="file" id="peopleImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'people', 'gallery')">
                         <input type="file" id="peopleCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'people', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="peopleImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('people')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
-                            </label>
-                            <label class="form-image-upload-label camera-btn" for="peopleCameraInput">
-                                <i class="fas fa-camera"></i>
-                                <span>카메라</span>
                             </label>
                         </div>
                         <div class="form-image-preview-container" id="peopleImagePreviewContainer">
@@ -7530,12 +7574,6 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyDetailContent('culture')" title="복사">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button onclick="shareDetailContent('culture')" title="공유">
-                    <i class="fas fa-share-alt"></i>
-                </button>
                 <button onclick="editCurrentCulture()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -7586,13 +7624,9 @@
                         <input type="file" id="cultureImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'culture', 'gallery')">
                         <input type="file" id="cultureCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'culture', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="cultureImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('culture')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
-                            </label>
-                            <label class="form-image-upload-label camera-btn" for="cultureCameraInput">
-                                <i class="fas fa-camera"></i>
-                                <span>카메라</span>
                             </label>
                         </div>
                         <div class="form-image-preview-container" id="cultureImagePreviewContainer">
@@ -7618,12 +7652,12 @@
                 </button>
             </div>
             <div class="backup-modal-body">
-                <div class="backup-option" onclick="exportBackup()">
+                <div class="backup-option" onclick="exportBackupShare()">
                     <div class="backup-option-icon download">
-                        <i class="fas fa-download"></i>
+                        <i class="fas fa-share-alt"></i>
                     </div>
                     <h3>데이터 백업하기</h3>
-                    <p>모든 메모와 카테고리를 파일로 저장합니다.</p>
+                    <p>모든 메모와 카테고리를 공유 시트로 저장/전송합니다.</p>
                 </div>
                 
                 <div class="backup-option" onclick="document.getElementById('backupFileInput').click()">
@@ -7807,6 +7841,34 @@
                                 <input type="text" id="field5Name" class="field-name-input" placeholder="항목 이름 (예: 메모, 비고)" value="특이사항" maxlength="20">
                             </div>
                         </div>
+
+                        <!-- 항목6: 이름 또는 제목 (추가2) -->
+                        <div class="field-setting-item">
+                            <div class="field-setting-header">
+                                <div class="field-checkbox-wrapper">
+                                    <input type="checkbox" id="field6Enabled" onchange="toggleFieldSetting(6)">
+                                    <span class="field-optional-badge">선택</span>
+                                </div>
+                                <span class="field-type-label">이름 또는 제목 (추가2)</span>
+                            </div>
+                            <div class="field-detail-settings" id="field6Details" style="display: none;">
+                                <input type="text" id="field6Name" class="field-name-input" placeholder="항목 이름 (예: 제목2, 보조제목)" value="추가제목" maxlength="20">
+                            </div>
+                        </div>
+
+                        <!-- 항목7: 갤러리 사용 -->
+                        <div class="field-setting-item">
+                            <div class="field-setting-header">
+                                <div class="field-checkbox-wrapper">
+                                    <input type="checkbox" id="field7Enabled" onchange="toggleFieldSetting(7)">
+                                    <span class="field-optional-badge">선택</span>
+                                </div>
+                                <span class="field-type-label">갤러리 사용 (이미지)</span>
+                            </div>
+                            <div class="field-detail-settings" id="field7Details" style="display: none;">
+                                <input type="text" id="field7Name" class="field-name-input" placeholder="항목 이름 (예: 사진, 이미지)" value="사진" maxlength="20">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -7943,12 +8005,6 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyDetailContent('travel')" title="복사">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button onclick="shareDetailContent('travel')" title="공유">
-                    <i class="fas fa-share-alt"></i>
-                </button>
                 <button onclick="editCurrentTravel()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8004,11 +8060,11 @@
                         <input type="file" id="travelImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'travel', 'gallery')">
                         <input type="file" id="travelCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'travel', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="travelImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('travel')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="travelCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('travel')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -8051,12 +8107,6 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyDetailContent('bankaccount')" title="복사">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button onclick="shareDetailContent('bankaccount')" title="공유">
-                    <i class="fas fa-share-alt"></i>
-                </button>
                 <button onclick="editCurrentBankaccount()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8155,12 +8205,6 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyDetailContent('restaurant')" title="복사">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button onclick="shareDetailContent('restaurant')" title="공유">
-                    <i class="fas fa-share-alt"></i>
-                </button>
                 <button onclick="editCurrentRestaurant()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8229,11 +8273,11 @@
                         <input type="file" id="restaurantImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'restaurant', 'gallery')">
                         <input type="file" id="restaurantCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'restaurant', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="restaurantImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('restaurant')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="restaurantCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('restaurant')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -8276,12 +8320,6 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyDetailContent('hospital')" title="복사">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button onclick="shareDetailContent('hospital')" title="공유">
-                    <i class="fas fa-share-alt"></i>
-                </button>
                 <button onclick="editCurrentHospital()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8345,11 +8383,11 @@
                         <input type="file" id="hospitalImageInput" accept="image/*" style="display: none;" onchange="handleFormImageSelect(event, 'hospital', 'gallery')">
                         <input type="file" id="hospitalCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFormImageSelect(event, 'hospital', 'camera')">
                         <div class="form-image-buttons">
-                            <label class="form-image-upload-label gallery-btn" for="hospitalImageInput">
+                            <label class="form-image-upload-label gallery-btn" onclick="handleFormGalleryClick('hospital')">
                                 <i class="fas fa-image"></i>
                                 <span>갤러리</span>
                             </label>
-                            <label class="form-image-upload-label camera-btn" for="hospitalCameraInput">
+                            <label class="form-image-upload-label camera-btn" onclick="handleFormCameraClick('hospital')">
                                 <i class="fas fa-camera"></i>
                                 <span>카메라</span>
                             </label>
@@ -8392,12 +8430,6 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyDetailContent('sitemanage')" title="복사">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button onclick="shareDetailContent('sitemanage')" title="공유">
-                    <i class="fas fa-share-alt"></i>
-                </button>
                 <button onclick="editCurrentSitemanage()">
                     <i class="fas fa-edit"></i>
                 </button>
@@ -8472,10 +8504,10 @@
                 </button>
             </div>
             <div class="right-actions">
-                <button onclick="copyDetailContent('memo')" title="복사">
+                <button onclick="copyMemoDetail()" title="복사">
                     <i class="fas fa-copy"></i>
                 </button>
-                <button onclick="shareDetailContent('memo')" title="공유">
+                <button onclick="shareMemoDetail()" title="공유">
                     <i class="fas fa-share-alt"></i>
                 </button>
                 <button onclick="editCurrentMemo()">
@@ -8512,13 +8544,9 @@
                 <input type="file" id="memoImageInput" accept="image/*" style="display: none;" onchange="handleMemoImageSelect(event, 'gallery')">
                 <input type="file" id="memoCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleMemoImageSelect(event, 'camera')">
                 <div class="memo-image-buttons">
-                    <label class="memo-image-upload-label gallery-btn" for="memoImageInput">
+                    <label class="memo-image-upload-label gallery-btn" onclick="handleGalleryClick()">
                         <i class="fas fa-image"></i>
                         <span>갤러리</span>
-                    </label>
-                    <label class="memo-image-upload-label camera-btn" for="memoCameraInput">
-                        <i class="fas fa-camera"></i>
-                        <span>카메라</span>
                     </label>
                 </div>
                 <div class="memo-image-preview-container" id="memoImagePreviewContainer">
@@ -9079,8 +9107,84 @@
             return false;
         }
 
-        // Flutter에서 카메라/갤러리 이미지 수신 (콜백 함수)
-        window.flutterReceiveImage = function(base64ImageData, source) {
+        // 현재 활성화된 폼 타입 추적 (Flutter에서 이미지 수신 시 사용)
+        window.currentFormType = null;
+        window.currentImageTarget = 'memo'; // 'memo' 또는 다른 폼 타입
+
+        // Flutter에서 폼별 카메라 요청
+        function requestFlutterCameraForForm(formType) {
+            try {
+                window.currentFormType = formType;
+                window.currentImageTarget = formType;
+                
+                const requestData = { 
+                    type: 'camera',
+                    formType: formType,
+                    maxSize: 800,
+                    quality: 80
+                };
+                
+                if (window.flutter_inappwebview) {
+                    window.flutter_inappwebview.callHandler('openCamera', JSON.stringify(requestData));
+                    return true;
+                }
+                if (window.FlutterCameraChannel) {
+                    window.FlutterCameraChannel.postMessage(JSON.stringify(requestData));
+                    return true;
+                }
+                if (window.FlutterChannel) {
+                    window.FlutterChannel.postMessage(JSON.stringify({ 
+                        action: 'openCamera',
+                        formType: formType,
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+            } catch (e) {
+                console.log('Flutter 폼 카메라 요청 실패:', e);
+            }
+            return false;
+        }
+
+        // Flutter에서 폼별 갤러리 요청
+        function requestFlutterGalleryForForm(formType) {
+            try {
+                window.currentFormType = formType;
+                window.currentImageTarget = formType;
+                
+                const requestData = { 
+                    type: 'gallery',
+                    formType: formType,
+                    maxSize: 800,
+                    quality: 80
+                };
+                
+                if (window.flutter_inappwebview) {
+                    window.flutter_inappwebview.callHandler('openGallery', JSON.stringify(requestData));
+                    return true;
+                }
+                if (window.FlutterGalleryChannel) {
+                    window.FlutterGalleryChannel.postMessage(JSON.stringify(requestData));
+                    return true;
+                }
+                if (window.FlutterChannel) {
+                    window.FlutterChannel.postMessage(JSON.stringify({ 
+                        action: 'openGallery',
+                        formType: formType,
+                        maxSize: 800,
+                        quality: 80
+                    }));
+                    return true;
+                }
+            } catch (e) {
+                console.log('Flutter 폼 갤러리 요청 실패:', e);
+            }
+            return false;
+        }
+
+        // Flutter에서 카메라/갤러리 이미지 수신 (콜백 함수) - 확장된 버전
+        window.flutterReceiveImage = function(base64ImageData, source, formType) {
             try {
                 // data:image 형식인지 확인, 아니면 추가
                 let imageData = base64ImageData;
@@ -9088,11 +9192,26 @@
                     imageData = 'data:image/jpeg;base64,' + imageData;
                 }
                 
+                // formType이 전달되지 않으면 currentFormType 또는 currentImageTarget 사용
+                const targetFormType = formType || window.currentFormType || window.currentImageTarget || 'memo';
+                
                 // 이미지 리사이징 후 저장
                 resizeImage(imageData, 800, 800, function(resizedImage) {
-                    currentMemoImage = resizedImage;
-                    document.getElementById('memoImagePreview').src = resizedImage;
-                    document.getElementById('memoImagePreviewContainer').classList.add('active');
+                    // 메모 폼인 경우
+                    if (targetFormType === 'memo' || !targetFormType) {
+                        currentMemoImage = resizedImage;
+                        document.getElementById('memoImagePreview').src = resizedImage;
+                        document.getElementById('memoImagePreviewContainer').classList.add('active');
+                    } else {
+                        // 다른 폼 타입 (people, culture, travel, restaurant, hospital 등)
+                        if (typeof currentFormImages !== 'undefined') {
+                            currentFormImages[targetFormType] = resizedImage;
+                        }
+                        const previewEl = document.getElementById(targetFormType + 'ImagePreview');
+                        const containerEl = document.getElementById(targetFormType + 'ImagePreviewContainer');
+                        if (previewEl) previewEl.src = resizedImage;
+                        if (containerEl) containerEl.classList.add('active');
+                    }
                     
                     // 카메라로 찍은 사진이면 앨범에 저장 안내
                     if (source === 'camera') {
@@ -9100,6 +9219,9 @@
                     } else {
                         showToast('🖼️ 이미지가 추가되었습니다');
                     }
+                    
+                    // 폼 타입 초기화
+                    window.currentFormType = null;
                 });
                 
                 return JSON.stringify({ success: true });
@@ -9108,6 +9230,11 @@
                 showToast('이미지 처리 중 오류가 발생했습니다');
                 return JSON.stringify({ success: false, error: e.message });
             }
+        };
+
+        // Flutter WebView에서 폼 이미지 수신을 위한 추가 콜백 (formType 명시)
+        window.flutterReceiveFormImage = function(base64ImageData, source, formType) {
+            return window.flutterReceiveImage(base64ImageData, source, formType);
         };
 
         // Flutter에서 공유 완료 콜백
@@ -11002,10 +11129,13 @@
             titleInput.focus();
         }
 
-        // 갤러리 버튼 클릭 핸들러
+        // 갤러리 버튼 클릭 핸들러 (메모 폼용)
         function handleGalleryClick() {
             // Flutter WebView 환경인지 확인
             if (isFlutterWebView()) {
+                // 메모 폼임을 표시
+                window.currentFormType = 'memo';
+                window.currentImageTarget = 'memo';
                 // Flutter 갤러리 요청 시도
                 if (requestFlutterGallery()) {
                     return; // Flutter에서 처리
@@ -11015,10 +11145,13 @@
             document.getElementById('memoImageInput').click();
         }
 
-        // 카메라 버튼 클릭 핸들러
+        // 카메라 버튼 클릭 핸들러 (메모 폼용)
         function handleCameraClick() {
             // Flutter WebView 환경인지 확인
             if (isFlutterWebView()) {
+                // 메모 폼임을 표시
+                window.currentFormType = 'memo';
+                window.currentImageTarget = 'memo';
                 // Flutter 카메라 요청 시도
                 if (requestFlutterCamera()) {
                     return; // Flutter에서 처리
@@ -11383,6 +11516,97 @@
             // 커스텀 테마 제거
             detailModal.className = detailModal.className.replace(/theme-color-\d+/g, '').replace('custom-themed', '').trim();
             currentMemoId = null;
+        }
+
+        // 메모 상세 내용 복사
+        function copyMemoDetail() {
+            if (!currentMemoId) return;
+            let memo;
+            if (currentCustomCategoryId !== null) {
+                memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === currentMemoId);
+            } else {
+                memo = data.memos.find(m => m.id === currentMemoId);
+            }
+            if (!memo) return;
+            
+            let copyText = '';
+            if (memo.title) copyText += `제목: ${memo.title}\n`;
+            if (memo.content) copyText += `내용: ${memo.content}\n`;
+            if (memo.date) copyText += `날짜: ${formatDate(memo.date)}`;
+            
+            // 커스텀 카테고리 항목일 경우 추가 정보
+            if (currentCustomCategoryId !== null && memo.fields) {
+                const category = data.customCategories.find(c => c.id === currentCustomCategoryId);
+                if (category) {
+                    copyText = `[${category.name}]\n`;
+                    Object.keys(memo.fields).forEach(key => {
+                        if (memo.fields[key]) {
+                            copyText += `${key}: ${memo.fields[key]}\n`;
+                        }
+                    });
+                    if (memo.date) copyText += `날짜: ${formatDate(memo.date)}`;
+                }
+            }
+            
+            navigator.clipboard.writeText(copyText.trim()).then(() => {
+                showToast('내용이 복사되었습니다!');
+            }).catch(() => {
+                showToast('복사에 실패했습니다.');
+            });
+        }
+
+        // 메모 상세 내용 공유 (Share API)
+        async function shareMemoDetail() {
+            if (!currentMemoId) return;
+            let memo;
+            if (currentCustomCategoryId !== null) {
+                memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === currentMemoId);
+            } else {
+                memo = data.memos.find(m => m.id === currentMemoId);
+            }
+            if (!memo) return;
+            
+            let shareTitle = memo.title || '메모';
+            let shareText = '';
+            
+            if (memo.title) shareText += `제목: ${memo.title}\n`;
+            if (memo.content) shareText += `내용: ${memo.content}\n`;
+            if (memo.date) shareText += `날짜: ${formatDate(memo.date)}`;
+            
+            // 커스텀 카테고리 항목일 경우 추가 정보
+            if (currentCustomCategoryId !== null && memo.fields) {
+                const category = data.customCategories.find(c => c.id === currentCustomCategoryId);
+                if (category) {
+                    shareTitle = category.name;
+                    shareText = `[${category.name}]\n`;
+                    Object.keys(memo.fields).forEach(key => {
+                        if (memo.fields[key]) {
+                            shareText += `${key}: ${memo.fields[key]}\n`;
+                        }
+                    });
+                    if (memo.date) shareText += `날짜: ${formatDate(memo.date)}`;
+                }
+            }
+            
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: shareTitle,
+                        text: shareText.trim()
+                    });
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        showToast('공유에 실패했습니다.');
+                    }
+                }
+            } else {
+                // Share API를 지원하지 않는 경우 클립보드에 복사
+                navigator.clipboard.writeText(shareText.trim()).then(() => {
+                    showToast('내용이 클립보드에 복사되었습니다!');
+                }).catch(() => {
+                    showToast('공유 기능을 지원하지 않습니다.');
+                });
+            }
         }
 
         // 현재 메모 수정
@@ -11842,263 +12066,6 @@
             showToast('맛집이 추가되었습니다!');
         }
 
-        // =============================================
-        // 상세페이지 복사/공유 기능
-        // =============================================
-        
-        // 상세 내용을 텍스트로 가져오기
-        function getDetailTextContent(type) {
-            let text = '';
-            let imageUrl = null;
-            
-            switch(type) {
-                case 'travel':
-                    if (currentTravelId) {
-                        const travel = data.travels.find(t => t.id === currentTravelId);
-                        if (travel) {
-                            text = `🛫 여행 정보\n\n`;
-                            text += `📍 여행지: ${travel.destination}\n`;
-                            text += `📊 상태: ${travel.status}\n`;
-                            if (travel.period) text += `📅 기간: ${travel.period}\n`;
-                            if (travel.budget) text += `💰 예산: ${travel.budget}\n`;
-                            text += `📆 등록일: ${travel.createdAt}\n`;
-                            if (travel.memo) text += `📝 메모: ${travel.memo}\n`;
-                            imageUrl = travel.image;
-                        }
-                    }
-                    break;
-                    
-                case 'restaurant':
-                    if (currentRestaurantId) {
-                        const restaurant = data.restaurants.find(r => r.id === currentRestaurantId);
-                        if (restaurant) {
-                            text = `🍽️ 맛집 정보\n\n`;
-                            text += `🏪 이름: ${restaurant.name}\n`;
-                            if (restaurant.location) text += `📍 위치: ${restaurant.location}\n`;
-                            if (restaurant.category) text += `🍴 카테고리: ${restaurant.category}\n`;
-                            if (restaurant.rating) text += `⭐ 평점: ${'★'.repeat(restaurant.rating)}${'☆'.repeat(5-restaurant.rating)}\n`;
-                            if (restaurant.menu) text += `🥘 추천메뉴: ${restaurant.menu}\n`;
-                            text += `📆 등록일: ${restaurant.createdAt}\n`;
-                            if (restaurant.memo) text += `📝 메모: ${restaurant.memo}\n`;
-                            imageUrl = restaurant.image;
-                        }
-                    }
-                    break;
-                    
-                case 'people':
-                    if (currentPeopleId) {
-                        const person = data.people.find(p => p.id === currentPeopleId);
-                        if (person) {
-                            text = `👤 인물 정보\n\n`;
-                            text += `📛 이름: ${person.name}\n`;
-                            text += `🔗 관계: ${person.relation}\n`;
-                            if (person.phone) text += `📞 전화: ${person.phone}\n`;
-                            if (person.email) text += `📧 이메일: ${person.email}\n`;
-                            text += `⭐ 중요도: ${person.importance}\n`;
-                            text += `📆 등록일: ${person.createdAt}\n`;
-                            if (person.note) text += `📝 메모: ${person.note}\n`;
-                            imageUrl = person.image;
-                        }
-                    }
-                    break;
-                    
-                case 'culture':
-                    if (currentCultureId) {
-                        const culture = data.cultures.find(c => c.id === currentCultureId);
-                        if (culture) {
-                            text = `🎭 문화 기록\n\n`;
-                            text += `🎬 장르: ${culture.genre}\n`;
-                            text += `📖 제목/대상: ${culture.target}\n`;
-                            text += `📆 등록일: ${culture.createdAt}\n`;
-                            if (culture.content) text += `📝 내용: ${culture.content}\n`;
-                            imageUrl = culture.image;
-                        }
-                    }
-                    break;
-                    
-                case 'bankaccount':
-                    if (currentBankaccountId) {
-                        const account = data.bankaccounts.find(a => a.id === currentBankaccountId);
-                        if (account) {
-                            text = `🏦 계좌 정보\n\n`;
-                            text += `🏛️ 은행: ${account.bank}\n`;
-                            text += `💳 계좌번호: ${account.accountNumber}\n`;
-                            if (account.accountName) text += `📝 계좌명: ${account.accountName}\n`;
-                            if (account.holder) text += `👤 예금주: ${account.holder}\n`;
-                            text += `📆 등록일: ${account.createdAt}\n`;
-                            if (account.memo) text += `📝 메모: ${account.memo}\n`;
-                        }
-                    }
-                    break;
-                    
-                case 'hospital':
-                    if (currentHospitalId) {
-                        const hospital = data.hospitals.find(h => h.id === currentHospitalId);
-                        if (hospital) {
-                            text = `🏥 병원 정보\n\n`;
-                            text += `🏥 병원명: ${hospital.name}\n`;
-                            if (hospital.department) text += `🩺 진료과: ${hospital.department}\n`;
-                            if (hospital.doctor) text += `👨‍⚕️ 담당의: ${hospital.doctor}\n`;
-                            if (hospital.phone) text += `📞 전화: ${hospital.phone}\n`;
-                            if (hospital.address) text += `📍 주소: ${hospital.address}\n`;
-                            text += `📆 등록일: ${hospital.createdAt}\n`;
-                            if (hospital.memo) text += `📝 메모: ${hospital.memo}\n`;
-                            imageUrl = hospital.image;
-                        }
-                    }
-                    break;
-                    
-                case 'sitemanage':
-                    if (currentSitemanageId) {
-                        const site = data.sitemanages.find(s => s.id === currentSitemanageId);
-                        if (site) {
-                            text = `🌐 사이트 정보\n\n`;
-                            text += `📌 사이트명: ${site.name}\n`;
-                            if (site.url) text += `🔗 URL: ${site.url}\n`;
-                            if (site.userId) text += `👤 ID: ${site.userId}\n`;
-                            text += `📆 등록일: ${site.createdAt}\n`;
-                            if (site.memo) text += `📝 메모: ${site.memo}\n`;
-                        }
-                    }
-                    break;
-                    
-                case 'memo':
-                    if (currentMemoId) {
-                        let memo;
-                        if (currentCustomCategoryId !== null) {
-                            memo = (data.customCategoryMemos[currentCustomCategoryId] || []).find(m => m.id === currentMemoId);
-                        } else {
-                            memo = data.memos.find(m => m.id === currentMemoId);
-                        }
-                        if (memo) {
-                            text = `📝 메모\n\n`;
-                            text += `📌 제목: ${memo.title}\n`;
-                            text += `📆 작성일: ${memo.createdAt}${memo.createdTime ? ' ' + memo.createdTime : ''}\n`;
-                            if (memo.updatedAt) text += `✏️ 수정일: ${memo.updatedAt}\n`;
-                            if (memo.content) text += `\n${memo.content}\n`;
-                            imageUrl = memo.image;
-                        }
-                    }
-                    break;
-            }
-            
-            return { text, imageUrl };
-        }
-        
-        // 텍스트 복사 기능
-        async function copyDetailContent(type) {
-            const { text } = getDetailTextContent(type);
-            
-            if (!text) {
-                showToast('복사할 내용이 없습니다.');
-                return;
-            }
-            
-            try {
-                await navigator.clipboard.writeText(text);
-                showToast('내용이 클립보드에 복사되었습니다! 📋');
-            } catch (err) {
-                // fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                textArea.style.position = 'fixed';
-                textArea.style.left = '-999999px';
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showToast('내용이 클립보드에 복사되었습니다! 📋');
-                } catch (e) {
-                    showToast('복사 실패. 직접 복사해주세요.');
-                }
-                document.body.removeChild(textArea);
-            }
-        }
-        
-        // 공유 기능 (이미지 + 텍스트)
-        async function shareDetailContent(type) {
-            const { text, imageUrl } = getDetailTextContent(type);
-            
-            if (!text) {
-                showToast('공유할 내용이 없습니다.');
-                return;
-            }
-            
-            // Web Share API 지원 여부 확인
-            if (navigator.share) {
-                try {
-                    const shareData = {
-                        title: '절대강자 메모장',
-                        text: text
-                    };
-                    
-                    // 이미지가 있으면 파일로 공유 시도
-                    if (imageUrl && navigator.canShare) {
-                        try {
-                            // base64 이미지인 경우
-                            if (imageUrl.startsWith('data:')) {
-                                const response = await fetch(imageUrl);
-                                const blob = await response.blob();
-                                const file = new File([blob], 'shared-image.jpg', { type: blob.type || 'image/jpeg' });
-                                
-                                if (navigator.canShare({ files: [file] })) {
-                                    shareData.files = [file];
-                                }
-                            } else {
-                                // URL 이미지인 경우 - 이미지 다운로드 시도
-                                try {
-                                    const response = await fetch(imageUrl);
-                                    const blob = await response.blob();
-                                    const file = new File([blob], 'shared-image.jpg', { type: blob.type || 'image/jpeg' });
-                                    
-                                    if (navigator.canShare({ files: [file] })) {
-                                        shareData.files = [file];
-                                    }
-                                } catch (imgErr) {
-                                    console.log('이미지 로드 실패, 텍스트만 공유합니다.');
-                                }
-                            }
-                        } catch (fileErr) {
-                            console.log('파일 공유 불가, 텍스트만 공유합니다.');
-                        }
-                    }
-                    
-                    await navigator.share(shareData);
-                    showToast('공유되었습니다! 🚀');
-                } catch (err) {
-                    if (err.name !== 'AbortError') {
-                        // 사용자가 취소한 것이 아닌 경우
-                        fallbackShare(text, imageUrl);
-                    }
-                }
-            } else {
-                // Web Share API 미지원 브라우저
-                fallbackShare(text, imageUrl);
-            }
-        }
-        
-        // 대체 공유 방법 (클립보드 복사)
-        function fallbackShare(text, imageUrl) {
-            // 텍스트 복사로 대체
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('공유 기능이 지원되지 않아 텍스트를 복사했습니다. 📋');
-            }).catch(() => {
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                textArea.style.position = 'fixed';
-                textArea.style.left = '-999999px';
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showToast('공유 기능이 지원되지 않아 텍스트를 복사했습니다. 📋');
-                } catch (e) {
-                    showToast('공유 실패. 직접 복사해주세요.');
-                }
-                document.body.removeChild(textArea);
-            });
-        }
-
         // 메모 추가 (이전 호환성 유지 - 사용하지 않음)
         function addMemo(e) {
             e.preventDefault();
@@ -12421,6 +12388,26 @@
                 });
             }
             
+            // 항목6: 이름/제목 (추가2)
+            if (document.getElementById('field6Enabled').checked) {
+                fields.push({
+                    id: 6,
+                    enabled: true,
+                    type: 'text',
+                    name: document.getElementById('field6Name').value.trim() || '추가제목'
+                });
+            }
+            
+            // 항목7: 갤러리 사용 (이미지)
+            if (document.getElementById('field7Enabled').checked) {
+                fields.push({
+                    id: 7,
+                    enabled: true,
+                    type: 'image',
+                    name: document.getElementById('field7Name').value.trim() || '사진'
+                });
+            }
+            
             return fields;
         }
 
@@ -12432,6 +12419,8 @@
             document.getElementById('field3Enabled').checked = false;
             document.getElementById('field4Enabled').checked = false;
             document.getElementById('field5Enabled').checked = false;
+            document.getElementById('field6Enabled').checked = false;
+            document.getElementById('field7Enabled').checked = false;
             
             // 이름 초기화
             document.getElementById('field1Name').value = '이름/제목';
@@ -12440,9 +12429,11 @@
             document.getElementById('field3Name').value = '날짜';
             document.getElementById('field4Name').value = '부제목';
             document.getElementById('field5Name').value = '특이사항';
+            document.getElementById('field6Name').value = '추가제목';
+            document.getElementById('field7Name').value = '사진';
             
             // 상세설정 숨기기
-            for (let i = 2; i <= 5; i++) {
+            for (let i = 2; i <= 7; i++) {
                 const details = document.getElementById(`field${i}Details`);
                 if (details) details.style.display = 'none';
             }
@@ -12685,6 +12676,21 @@
                     case 'textarea':
                         formHtml += `<textarea id="customField${field.id}" class="custom-form-textarea" placeholder="${escapeHtml(field.name)}을(를) 입력하세요" ${requiredAttr}>${escapeHtml(value)}</textarea>`;
                         break;
+                    case 'image':
+                        formHtml += `<div class="custom-form-image-section">`;
+                        formHtml += `<input type="file" id="customField${field.id}Input" accept="image/*" style="display: none;" onchange="handleCustomImageSelect(event, ${field.id})">`;
+                        formHtml += `<input type="hidden" id="customField${field.id}" value="${escapeHtml(value)}">`;
+                        formHtml += `<div class="custom-form-image-buttons">`;
+                        formHtml += `<label class="custom-form-image-btn" onclick="document.getElementById('customField${field.id}Input').click()">`;
+                        formHtml += `<i class="fas fa-image"></i><span>갤러리</span>`;
+                        formHtml += `</label>`;
+                        formHtml += `</div>`;
+                        formHtml += `<div class="custom-form-image-preview-container" id="customImagePreviewContainer${field.id}" style="${value ? 'display: block;' : 'display: none;'}">`;
+                        formHtml += `<img src="${value || ''}" alt="미리보기" class="custom-form-image-preview" id="customImagePreview${field.id}">`;
+                        formHtml += `<button type="button" class="custom-form-image-remove-btn" onclick="removeCustomImage(${field.id})"><i class="fas fa-times"></i></button>`;
+                        formHtml += `</div>`;
+                        formHtml += `</div>`;
+                        break;
                     default: // text
                         formHtml += `<input type="text" id="customField${field.id}" class="custom-form-input" placeholder="${escapeHtml(field.name)}을(를) 입력하세요" value="${escapeHtml(value)}" ${requiredAttr}>`;
                 }
@@ -12708,6 +12714,34 @@
         function closeCustomMemoForm() {
             document.getElementById('customMemoFormModal').classList.remove('active');
             customMemoEditId = null;
+        }
+
+        // 커스텀 이미지 선택 처리
+        function handleCustomImageSelect(event, fieldId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (file.size > 10 * 1024 * 1024) {
+                showToast('이미지 크기는 10MB 이하여야 합니다.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                document.getElementById(`customField${fieldId}`).value = imageData;
+                document.getElementById(`customImagePreview${fieldId}`).src = imageData;
+                document.getElementById(`customImagePreviewContainer${fieldId}`).style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 커스텀 이미지 제거
+        function removeCustomImage(fieldId) {
+            document.getElementById(`customField${fieldId}`).value = '';
+            document.getElementById(`customImagePreview${fieldId}`).src = '';
+            document.getElementById(`customImagePreviewContainer${fieldId}`).style.display = 'none';
+            document.getElementById(`customField${fieldId}Input`).value = '';
         }
 
         // 커스텀 메모 저장
@@ -12837,7 +12871,7 @@
         });
         
         // 데이터 백업하기 (내보내기)
-        function exportBackup() {
+        async function exportBackupShare() {
             const backupData = {
                 version: '1.0',
                 exportDate: new Date().toISOString(),
@@ -12864,24 +12898,55 @@
             };
             
             const jsonString = JSON.stringify(backupData, null, 2);
-            const blob = new Blob([jsonString], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            
             const now = new Date();
             const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
             const timeStr = now.toTimeString().slice(0, 5).replace(':', '');
             const filename = `메모장_백업_${dateStr}_${timeStr}.json`;
             
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = filename;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            closeBackupModal();
-            showToast('백업 파일이 다운로드되었습니다!');
+            if (navigator.share && navigator.canShare) {
+                try {
+                    const blob = new Blob([jsonString], { type: 'application/json' });
+                    const file = new File([blob], filename, { type: 'application/json' });
+                    
+                    if (navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            title: '절대강자 메모장 백업',
+                            text: `백업 날짜: ${now.toLocaleString()}`,
+                            files: [file]
+                        });
+                        closeBackupModal();
+                        showToast('백업 파일이 공유되었습니다!');
+                    } else {
+                        // 파일 공유가 안되면 텍스트로 공유
+                        await navigator.share({
+                            title: '절대강자 메모장 백업',
+                            text: jsonString
+                        });
+                        closeBackupModal();
+                        showToast('백업 데이터가 공유되었습니다!');
+                    }
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        // Share API 실패 시 클립보드에 복사
+                        try {
+                            await navigator.clipboard.writeText(jsonString);
+                            closeBackupModal();
+                            showToast('백업 데이터가 클립보드에 복사되었습니다!');
+                        } catch (clipErr) {
+                            showToast('공유에 실패했습니다.');
+                        }
+                    }
+                }
+            } else {
+                // Share API를 지원하지 않는 경우 클립보드에 복사
+                try {
+                    await navigator.clipboard.writeText(jsonString);
+                    closeBackupModal();
+                    showToast('백업 데이터가 클립보드에 복사되었습니다!');
+                } catch (err) {
+                    showToast('공유 기능을 지원하지 않습니다.');
+                }
+            }
         }
         
         // 데이터 가져오기 (복원)
@@ -14189,7 +14254,143 @@
         document.addEventListener('DOMContentLoaded', function() {
             // 약간의 지연 후 적용 (커스텀 카테고리가 렌더링된 후)
             setTimeout(applyMenuVisibility, 100);
+            
+            // Flutter WebView 카메라 캡처 호환성 개선
+            setupFlutterWebViewCameraCompat();
         });
+
+        // Flutter WebView 카메라 캡처 호환성 설정
+        function setupFlutterWebViewCameraCompat() {
+            if (!isFlutterWebView()) return;
+            
+            console.log('Flutter WebView 카메라 호환성 설정 적용');
+            
+            // 모든 카메라 input에 대해 이벤트 핸들러 강화
+            const cameraInputs = document.querySelectorAll('input[type="file"][capture]');
+            cameraInputs.forEach(input => {
+                // 기존 onchange 외에 추가 리스너 등록
+                input.addEventListener('change', function(e) {
+                    handleFlutterCameraCapture(e, input);
+                }, { capture: true });
+                
+                // blur 이벤트로 캡처 완료 감지 (일부 WebView에서 필요)
+                input.addEventListener('blur', function(e) {
+                    setTimeout(() => {
+                        if (input.files && input.files.length > 0) {
+                            handleFlutterCameraCapture({ target: input }, input);
+                        }
+                    }, 300);
+                });
+            });
+            
+            // 모든 갤러리 input에도 동일 처리
+            const galleryInputs = document.querySelectorAll('input[type="file"]:not([capture])');
+            galleryInputs.forEach(input => {
+                if (input.accept && input.accept.includes('image')) {
+                    input.addEventListener('change', function(e) {
+                        handleFlutterGallerySelect(e, input);
+                    }, { capture: true });
+                }
+            });
+        }
+
+        // Flutter WebView에서 카메라 캡처 처리
+        function handleFlutterCameraCapture(event, input) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            
+            // formType 추출
+            const inputId = input.id;
+            let formType = 'memo';
+            
+            if (inputId.includes('people')) formType = 'people';
+            else if (inputId.includes('culture')) formType = 'culture';
+            else if (inputId.includes('travel')) formType = 'travel';
+            else if (inputId.includes('restaurant')) formType = 'restaurant';
+            else if (inputId.includes('hospital')) formType = 'hospital';
+            else if (inputId.includes('memo')) formType = 'memo';
+            
+            console.log('Flutter 카메라 캡처 처리:', formType, file.name);
+            
+            // 파일을 base64로 변환하여 처리
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                
+                // 이미지 리사이징 후 적용
+                resizeImage(imageData, 800, 800, function(resizedImage) {
+                    applyImageToForm(formType, resizedImage, 'camera');
+                });
+            };
+            reader.onerror = function(e) {
+                console.error('파일 읽기 오류:', e);
+                showToast('이미지를 처리하는 중 오류가 발생했습니다.');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Flutter WebView에서 갤러리 선택 처리
+        function handleFlutterGallerySelect(event, input) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            
+            // formType 추출
+            const inputId = input.id;
+            let formType = 'memo';
+            
+            if (inputId.includes('people')) formType = 'people';
+            else if (inputId.includes('culture')) formType = 'culture';
+            else if (inputId.includes('travel')) formType = 'travel';
+            else if (inputId.includes('restaurant')) formType = 'restaurant';
+            else if (inputId.includes('hospital')) formType = 'hospital';
+            else if (inputId.includes('memo')) formType = 'memo';
+            
+            console.log('Flutter 갤러리 선택 처리:', formType, file.name);
+        }
+
+        // 폼에 이미지 적용
+        function applyImageToForm(formType, imageData, source) {
+            if (formType === 'memo') {
+                currentMemoImage = imageData;
+                const previewEl = document.getElementById('memoImagePreview');
+                const containerEl = document.getElementById('memoImagePreviewContainer');
+                if (previewEl) previewEl.src = imageData;
+                if (containerEl) containerEl.classList.add('active');
+            } else {
+                if (typeof currentFormImages !== 'undefined') {
+                    currentFormImages[formType] = imageData;
+                }
+                const previewEl = document.getElementById(formType + 'ImagePreview');
+                const containerEl = document.getElementById(formType + 'ImagePreviewContainer');
+                if (previewEl) previewEl.src = imageData;
+                if (containerEl) containerEl.classList.add('active');
+            }
+            
+            if (source === 'camera') {
+                showToast('📸 사진이 추가되었습니다');
+            } else {
+                showToast('🖼️ 이미지가 추가되었습니다');
+            }
+        }
+
+        // Flutter에서 직접 이미지 데이터를 설정하는 함수 (Flutter 앱에서 호출 가능)
+        window.setFormImageFromFlutter = function(formType, base64ImageData, source) {
+            try {
+                let imageData = base64ImageData;
+                if (!imageData.startsWith('data:image')) {
+                    imageData = 'data:image/jpeg;base64,' + imageData;
+                }
+                
+                resizeImage(imageData, 800, 800, function(resizedImage) {
+                    applyImageToForm(formType, resizedImage, source || 'camera');
+                });
+                
+                return { success: true };
+            } catch (e) {
+                console.error('Flutter 이미지 설정 오류:', e);
+                return { success: false, error: e.message };
+            }
+        };
 
         // 커스텀 카테고리 렌더링 후 가시성 재적용
         const originalRenderCustomCategories = renderCustomCategories;
